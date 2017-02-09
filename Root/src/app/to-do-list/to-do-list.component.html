@@ -1,0 +1,19 @@
+<h3>{{title}}</h3>
+<table class="tableStandard">
+    <thead>
+        <tr>
+            <th>Ämne</th>
+            <th>Beskrivning</th>
+            <th>Prioritets score</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor='let toDo of toDos'>
+            <td class="columnMedium">{{toDo.Amne}}</td>
+            <td class="columnLarge">{{toDo.Beskrivning}}</td>
+            <td class="columnMedium">{{toDo.Prioritet}}</td>
+            <td class="columnMedium">{{toDo.Status}}</td>
+        </tr>
+    </tbody>
+</table>

@@ -1,1 +1,74 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    margin: 0;
+    height: 100%;
+    padding-top: 60px;
+    text-decoration: none;
+    font: 12px/1.4em 'Ubuntu', arial, sans-serif;
+    line-height: 1.428571429;
+    color: #333;
+    background-color: #fff;
+}
+
+.container {
+    float:left;
+    width: 100%;
+}
+
+#header ul {
+    margin-left: 30px;
+}
+
+#header li > a {
+    font-size: 14px;
+    color: #555;
+}
+
+#header li > a:hover {
+    color: #a3a3a3;
+}
+
+.navbar-inverse {
+    background: #f6f6f6;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.navbar-brand {
+    color: #9d9d9d;
+}
+
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
+    color: #000;
+    background-color: transparent;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+    color: #000;
+    background-color: transparent;
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    padding-left: 15px;
+    margin: 0 auto -50px;
+}
+
+#footer {
+	background:#f6f6f6;
+    border-top: 1px solid #e6e6e6;
+	height:50px;
+    width: 100%;
+    margin-top: 80px;
+    float: left;
+}
+
+.score {
+    background: url(http://www.allakartor.se/graphics/star_16.gif) repeat-x;
+    height: 16px;
+}
+
+.footerText {
+    padding-top: 15px;
+    padding-left: 10px;
+}
