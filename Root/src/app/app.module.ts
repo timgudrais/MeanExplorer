@@ -5,11 +5,13 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { ToDoListComponent } from './to-do-list/to-do-list.component';
+import { TableStockListFirstNorthComponent } from './table-stock-list-first-north/table-stock-list-first-north.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ToDoListComponent
+    ToDoListComponent,
+    TableStockListFirstNorthComponent
   ],
   imports: [
     BrowserModule,
