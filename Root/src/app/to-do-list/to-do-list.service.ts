@@ -23,6 +23,18 @@ export class ToDoListService {
                 "Status": "Done"
             },
             {
+                "Amne":"Anuglar CLI",
+                "Beskrivning":"Bygg om hela sidan med Angular CLI genererade komponenter/services",
+                "Prioritet":9,
+                "Status": "Done"
+            },
+            {
+                "Amne":"Navbar komponent + Routing",
+                "Beskrivning":"Skapa navbar komponent och bygg in AngularRouting",
+                "Prioritet":9,
+                "Status": "Done"
+            },
+            {
                 "Amne":"Kommentars funktionalitet",
                 "Beskrivning":"Lägg till forms module, fixa kommentarsfunktionalitet. https://angular.io/docs/ts/latest/tutorial/toh-pt1.html",
                 "Prioritet":9,
