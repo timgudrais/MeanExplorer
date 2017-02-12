@@ -41,6 +41,18 @@ export class ToDoListService {
                 "Status": "Ej påbörjad"
             },
             {
+                "Amne":"Ng generate classes",
+                "Beskrivning":"Skapa .model filer för alla classes med Angular CLI",
+                "Prioritet":9,
+                "Status": "Ej påbörjad"
+            },
+            {
+                "Amne":"Ng generate routing module",
+                "Beskrivning":"Skapa routing module separat (istället för inline i AppModule som idag)",
+                "Prioritet":9,
+                "Status": "Ej påbörjad"
+            },
+            {
                 "Amne":"First north lista",
                 "Beskrivning":"Automatisk parsing av alla bolag på First North",
                 "Prioritet":9,

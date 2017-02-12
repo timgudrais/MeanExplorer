@@ -13,6 +13,7 @@
             <th>Betyg (Tim)</th>
             <th>Betyg (Sebbe)</th>
             <th>Kommentar</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -27,7 +28,14 @@
             <td class="columnSmall"><img src="http://www.nasdaqomxnordic.com/static/img/pdf.gif"></td>
             <td class="columnMedium"><div class="score" style="width: 80px"></div></td>
             <td class="columnMedium"><div class="score" style="width: 57px"></div></td>
-            <td class="columnBox">Lorem ipsum dolor sit amet</td>
+            <td class="columnBox">
+                <p>{{stock.Kommentar}}</p>
+                <input [(ngModel)]="stock.Kommentar" placeholder="Kommentar" />
+            </td>
+            <td class="columnSmall">
+                <p><button (click)="edit()">Edit</button></p>
+                <p><button (click)="save()">Save</button></p>
+            </td>
         </tr>
     </tbody>
 </table>

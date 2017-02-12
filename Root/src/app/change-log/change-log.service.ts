@@ -11,7 +11,7 @@ export class ChangeLogService {
             },
             {
                 "Typ":"Change",
-                "Andring":"Navbar flyttad till egen komponent",
+                "Andring":"Navbar --> egen komponent",
                 "Namn":"Tim",
             },
             {
@@ -21,12 +21,17 @@ export class ChangeLogService {
             },
             {
                 "Typ":"New",
-                "Andring":"Routing",
+                "Andring":"Fixat AngularRouting (testa!)",
                 "Namn":"Tim",
             },
             {
                 "Typ":"New",
                 "Andring":"Change log",
+                "Namn":"Tim",
+            },
+            {
+                "Typ":"New",
+                "Andring":"FormsModule + börjat på kommentarsfunktionalitet",
                 "Namn":"Tim",
             },
         ]

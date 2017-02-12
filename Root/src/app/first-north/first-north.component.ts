@@ -15,6 +15,10 @@ export class FirstNorthComponent implements OnInit {
     this.stocks = firstNorthService.getStocks();
   }
 
+  save(): void {
+    this.stocks.update(this.stocks)
+  }
+
   ngOnInit() {
   }
 
