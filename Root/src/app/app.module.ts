@@ -14,6 +14,7 @@ import { MakroIndikatorerComponent } from './makro-indikatorer/makro-indikatorer
 import { TekniskAnalysComponent } from './teknisk-analys/teknisk-analys.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ChangeLogComponent } from './change-log/change-log.component';
+import { InlineEditComponent } from './shared/inline-edit/inline-edit.component';
 
 
 
@@ -28,7 +29,8 @@ import { ChangeLogComponent } from './change-log/change-log.component';
     MakroIndikatorerComponent,
     TekniskAnalysComponent,
     NavbarComponent,
-    ChangeLogComponent
+    ChangeLogComponent,
+    InlineEditComponent
   ],
   imports: [
     BrowserModule,

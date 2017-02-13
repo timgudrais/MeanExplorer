@@ -29,12 +29,16 @@
             <td class="columnMedium"><div class="score" style="width: 80px"></div></td>
             <td class="columnMedium"><div class="score" style="width: 57px"></div></td>
             <td class="columnBox">
-                <p>{{stock.Kommentar}}</p>
-                <input [(ngModel)]="stock.Kommentar" placeholder="Kommentar" />
+                <span [hidden]="!isDisplay">
+                    {{stock.Kommentar}}
+                </span>
+                <span [hidden]="isDisplay">
+                    <input #editText [(ngModel)]="stock.Kommentar" placeholder="Kommentar" style="width: 200px" />
+                </span>
             </td>
             <td class="columnSmall">
-                <p><button (click)="edit()">Edit</button></p>
-                <p><button (click)="save()">Save</button></p>
+                <button [hidden]="!isDisplay" title="Edit" (click)="beginEdit()">Edit</button>
+                <button [hidden]="isDisplay" title="Save" (click)="editDone()">Save</button>
             </td>
         </tr>
     </tbody>
