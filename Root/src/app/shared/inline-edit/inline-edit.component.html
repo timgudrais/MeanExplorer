@@ -1,8 +1,13 @@
-<span [hidden]="!isDisplay">
-    {{ text }}
-    <button title="Edit" (click)="beginEdit(editText)">Edit</button>
-</span>
-<span [hidden]="isDisplay">
-    <input #editText type="text" [value]="text" (keyup.enter)="editDone(editText.value)">
-    <button title="Save" (click)="editDone(editText.value)">Save</button>
-</span>
+<div class="inline-edit">
+    <span [hidden]="!isDisplay">
+        {{ text }}
+        <button title="Edit"
+            (click)="beginEdit(editText)">Edit</button>
+    </span>
+    <span [hidden]="isDisplay">
+        <input #editText type="text"
+            [value]="text" (keyup.enter)="editDone(editText.value)">
+        <button title="Save"
+            (click)="editDone(editText.value)">Save</button>
+    </span>
+</div>

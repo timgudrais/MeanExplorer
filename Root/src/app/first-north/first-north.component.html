@@ -17,7 +17,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor='let stock of stocks'>
+        <tr *ngFor='let stock of stocks; let i = index'>
             <td class="columnMedium">{{stock.Lista}}</td>
             <td class="columnLarge">{{stock.Namn}}</td>
             <td class="columnMedium">{{stock.Symbol}}</td>
@@ -29,12 +29,7 @@
             <td class="columnMedium"><div class="score" style="width: 80px"></div></td>
             <td class="columnMedium"><div class="score" style="width: 57px"></div></td>
             <td class="columnBox">
-                <span [hidden]="!isDisplay">
-                    {{stock.Kommentar}}
-                </span>
-                <span [hidden]="isDisplay">
-                    <input #editText [(ngModel)]="stock.Kommentar" placeholder="Kommentar" style="width: 200px" />
-                </span>
+                <inline-edit [text]="stock.Kommentar"></inline-edit>
             </td>
             <td class="columnSmall">
                 <button [hidden]="!isDisplay" title="Edit" (click)="beginEdit()">Edit</button>

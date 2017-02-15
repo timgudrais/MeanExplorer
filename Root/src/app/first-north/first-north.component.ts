@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FirstNorthService } from './first-north.service';
+import { InlineEditComponent } from '../shared/inline-edit/inline-edit.component';
 
 @Component({
   selector: 'app-first-north',
@@ -14,21 +15,6 @@ export class FirstNorthComponent implements OnInit {
   stocks;
   constructor(firstNorthService: FirstNorthService) { 
     this.stocks = firstNorthService.getStocks();
-  }
-
-  // Edit "Kommentar"
-  private isDisplay = true;
-
-  beginEdit(el: HTMLElement): void {
-      this.isDisplay = false;
-
-      setTimeout(() => {
-          el.focus();
-      }, 100);
-  }
-
-  editDone(newComment: string): void {
-      this.isDisplay = true;
   }
 
   ngOnInit() {
