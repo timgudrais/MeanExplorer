@@ -13,7 +13,6 @@
             <th>Betyg (Tim)</th>
             <th>Betyg (Sebbe)</th>
             <th>Kommentar</th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -28,12 +27,8 @@
             <td class="columnSmall"><img src="http://www.nasdaqomxnordic.com/static/img/pdf.gif"></td>
             <td class="columnMedium"><div class="score" style="width: 80px"></div></td>
             <td class="columnMedium"><div class="score" style="width: 57px"></div></td>
-            <td class="columnBox">
+            <td class="columnComment">
                 <inline-edit [text]="stock.Kommentar"></inline-edit>
-            </td>
-            <td class="columnSmall">
-                <button [hidden]="!isDisplay" title="Edit" (click)="beginEdit()">Edit</button>
-                <button [hidden]="isDisplay" title="Save" (click)="editDone()">Save</button>
             </td>
         </tr>
     </tbody>

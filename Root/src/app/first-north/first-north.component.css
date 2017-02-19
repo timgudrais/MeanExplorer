@@ -49,3 +49,7 @@
 .tableStandard .columnBox {
     width: 400px;
 }
+
+.tableStandard .columnComment {
+    width: 470px;
+}
