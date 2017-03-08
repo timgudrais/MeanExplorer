@@ -2,6 +2,13 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class FirstNorthService {
+//   parseStocks() {
+//       stocks;
+      
+      
+//       return stocks;
+//   }
+  
   getStocks() {
         return [
             {
