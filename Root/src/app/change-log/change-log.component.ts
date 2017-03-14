@@ -15,6 +15,12 @@ export class ChangeLogComponent implements OnInit {
       this.changeList = changeListService.getChangeLog();
   }
 
+  showLog = false;
+  toggleShowLog() {
+    this.showLog = !this.showLog;
+    //this.showLog = !this.showLog;
+  }
+
   ngOnInit() {
   }
 

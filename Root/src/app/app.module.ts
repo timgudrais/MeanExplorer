@@ -18,8 +18,7 @@ import { TekniskAnalysComponent } from './teknisk-analys/teknisk-analys.componen
 import { NavbarComponent } from './navbar/navbar.component';
 import { ChangeLogComponent } from './change-log/change-log.component';
 import { InlineEditComponent } from './shared/inline-edit/inline-edit.component';
-
-
+import { StockWikiComponent } from './stock-wiki/stock-wiki.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +32,8 @@ import { InlineEditComponent } from './shared/inline-edit/inline-edit.component'
     TekniskAnalysComponent,
     NavbarComponent,
     ChangeLogComponent,
-    InlineEditComponent
+    InlineEditComponent,
+    StockWikiComponent
   ],
   imports: [
     BrowserModule,
@@ -73,6 +73,10 @@ import { InlineEditComponent } from './shared/inline-edit/inline-edit.component'
       {
         path: 'to-do',
         component: ToDoListComponent
+      },
+      {
+        path: 'stock-wiki',
+        component: StockWikiComponent
       }
 ])
   ],

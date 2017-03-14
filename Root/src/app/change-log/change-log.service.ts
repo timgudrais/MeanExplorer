@@ -46,6 +46,24 @@ export class ChangeLogService {
                 "Namn":"Tim",
                 "Datum":"6 Mar 2017"
             },
+            {
+                "Typ":"New",
+                "Andring":"Lade till checklista till Stocks Wiki",
+                "Namn":"Sebbe",
+                "Datum":"10 Mar 2017"
+            },
+            {
+                "Typ":"New",
+                "Andring":"Möjlighet att gömma/visa change log",
+                "Namn":"Sebbe",
+                "Datum":"12 Mar 2017"
+            },
+            {
+                "Typ":"New",
+                "Andring":"Massa smått och gott under länken Fundamental Analysis",
+                "Namn":"Sebbe",
+                "Datum":"14 Mar 2017"
+            },
         ]
     }
 
