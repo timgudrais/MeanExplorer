@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class FirstNorthService {
-//   parseStocks() {
-//       stocks;
+  parseStocks() {
+      var url = 'https://en.wikipedia.org/wiki/List_of_countries_by_credit_rating';
       
       
-//       return stocks;
-//   }
+      return url;
+  }
   
   getStocks() {
         return [
