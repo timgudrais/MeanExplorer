@@ -19,17 +19,19 @@ export class SmallCapComponent implements OnInit {
   headersArray = [];
   headers = "";
   rowArray = [];
+
+  nameArray = [];
+
   dataLoaded = false;
   showErrorMessage = false;
   displayTable = false;
 
-  loadData() {
-    // this.userService.getData().subscribe(data => this.dataDump = data);
-    this.userService.getData().subscribe(data => this.dataDump = data.query.results.table);
+  loadData() {    
+    this.userService.getSmallCapData().subscribe(data => this.dataDump = data.query.results.table);
     this.dataLoaded = true;
   }
 
-  loadMidCap() {    
+  loadSmallCap() {    
     if(this.dataDump === undefined){
       this.showErrorMessage = true;      
       return;
@@ -39,17 +41,18 @@ export class SmallCapComponent implements OnInit {
       this.showErrorMessage = false;    
                     
       for (var i = 0; i < this.dataDump.thead.tr.th.length; i++) { 
-        var tempString = this.dataDump.thead.tr.th[i].content;
-        // this.headers = tempString.replace(/['"]+/g, '');  
+        var tempString = this.dataDump.thead.tr.th[i].content;         
         this.headersArray.push(tempString);       
       }
+      this.headersArray.splice(0,1);
 
       for (var i = 0; i < this.dataDump.tbody.tr.length; i++) { 
         var row = [];
         for (var x = 0; x < this.dataDump.tbody.tr[i].td.length; x++) {
           var tempstring;
           if(this.dataDump.tbody.tr[i].td[x].a !== undefined && this.dataDump.tbody.tr[i].td[x].a.content !== undefined) {                        
-            tempString = this.dataDump.tbody.tr[i].td[x].a.content;            
+            tempString = this.dataDump.tbody.tr[i].td[x].a.content;
+            // this.nameArray.push(this.dataDump.tbody.tr[i].td[x].a.content);            
           }
           else if(this.dataDump.tbody.tr[i].td[x].a !== undefined && this.dataDump.tbody.tr[i].td[x].a.href !== undefined) {
             tempString = this.dataDump.tbody.tr[i].td[x].a.href; 
@@ -63,8 +66,6 @@ export class SmallCapComponent implements OnInit {
       }
       
       this.displayTable = true;
-    }
-    
-    // this.headers = this.dataDump.query.results.table.thead.tr.th;
+    }    
   }
 }
