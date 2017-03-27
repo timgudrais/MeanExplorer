@@ -23,7 +23,7 @@ export class SmallCapComponent implements OnInit {
   }
 
   loadHeaders() {
-    this.userService.getData().subscribe(data => this.profile = data.query.results.table.thead);
-    this.headers = this.profile;
+    this.userService.getData().subscribe(data => this.profile = data.query.results.table.thead.tr.th);
+    this.headers = this.profile[2];
   }
 }

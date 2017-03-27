@@ -1,8 +1,11 @@
 <h3>{{title}}</h3>
 <div>
-    <button (click)="loadUser()">Load profile</button>
-    <!--{{ profile | json }}-->
-
+    <!--<button (click)="loadUser()">Load profile</button>-->
     <button (click)="loadHeaders()">Load headers</button>
+    <div ng-show="false"></div>    
     {{ headers | json }}
+
+    <!--<div *ngFor="let header in headers">
+        
+    </div>-->
 </div>
