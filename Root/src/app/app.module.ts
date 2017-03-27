@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule } from '@angular/http';
 import { RouterModule }   from '@angular/router';
 import { MaterialModule } from '@angular/material';
 
 import 'hammerjs';
+import * as parse5 from 'parse5';
 
 import { AppComponent } from './app.component';
 import { ToDoListComponent } from './to-do-list/to-do-list.component';
@@ -39,6 +40,7 @@ import { StockWikiComponent } from './stock-wiki/stock-wiki.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+    JsonpModule,
     MaterialModule,
     RouterModule.forRoot([
       {
