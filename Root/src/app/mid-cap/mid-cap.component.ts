@@ -28,7 +28,7 @@ export class MidCapComponent implements OnInit {
   }
 
   loadMidCap() {    
-    if(this.dataDump === undefined){
+     if(this.dataDump === undefined){
       this.showErrorMessage = true;      
       return;
     }
@@ -45,24 +45,13 @@ export class MidCapComponent implements OnInit {
       for (var i = 0; i < this.dataDump.tbody.tr.length; i++) { 
         var row = [];
         for (var x = 0; x < this.dataDump.tbody.tr[i].td.length; x++) {
-          var tempstring;
-          if(this.dataDump.tbody.tr[i].td[x].a !== undefined && this.dataDump.tbody.tr[i].td[x].a.content !== undefined) {                        
-            tempString = this.dataDump.tbody.tr[i].td[x].a.content;            
-          }
-          else if(this.dataDump.tbody.tr[i].td[x].a !== undefined && this.dataDump.tbody.tr[i].td[x].a.href !== undefined) {
-            tempString = this.dataDump.tbody.tr[i].td[x].a.href; 
-          }
-          else{
-            tempString = this.dataDump.tbody.tr[i].td[x].content;
-          }
-          row.push(tempString);      
+          var temp = this.dataDump.tbody.tr[i].td[x];
+          // temp[0].a.nhref = "http://www.nasdaqomxnordic.com" + temp[0].a.href;
+          row.push(temp);      
         }
         this.rowArray.push(row);  
-      }
-      
+      }      
       this.displayTable = true;
-    }
-    
-    // this.headers = this.dataDump.query.results.table.thead.tr.th;
+    }    
   }
 }
