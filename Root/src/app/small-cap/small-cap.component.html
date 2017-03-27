@@ -1,1 +1,8 @@
 <h3>{{title}}</h3>
+<div>
+    <button (click)="loadUser()">Load profile</button>
+    <!--{{ profile | json }}-->
+
+    <button (click)="loadHeaders()">Load headers</button>
+    {{ headers | json }}
+</div>
