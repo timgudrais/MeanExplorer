@@ -1,1 +1,19 @@
 <h3>{{title}}</h3>
+<div>
+
+    <button (click)="loadData()">Load data</button>
+    <p *ngIf="showErrorMessage" style="color:red">Wait for data to load! Approximately 3 seconds..</p>
+    <div *ngIf="dataLoaded">
+        <button (click)="loadMidCap()">Load Mid Cap</button>         
+    </div> 
+    
+    <table class="tableStandard" *ngIf="displayTable">
+        <thead>
+            <th *ngFor="let header of headersArray">{{header}}</th>
+        </thead>
+        <tr *ngFor="let row of rowArray">
+            <td *ngFor="let column of row">{{column}}</td>
+        </tr>
+    </table>
+
+</div>

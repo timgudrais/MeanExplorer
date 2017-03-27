@@ -1,36 +1,57 @@
 <h3>{{title}}</h3>
-<table class="tableStandard">
-    <thead>
-        <tr>
-            <th mdTooltip="Börslista" mdTooltipShowDelay="300">Lista</th>
-            <th mdTooltip="Namn" mdTooltipShowDelay="300">Namn</th>
-            <th mdTooltip="MSEK" mdTooltipShowDelay="300">Börsvärde</th>
-            <th mdTooltip="Price to Earnings" mdTooltipShowDelay="300">P/E</th>            
-            <th mdTooltip="Justerat Eget Kapital per Aktie" mdTooltipShowDelay="300">JEK/Aktier</th>
-            <th mdTooltip="Direktavkastning (%)" mdTooltipShowDelay="300">Dir.avk (%)</th>
-            <th mdTooltip="Price to Earnings - Ranking" mdTooltipShowDelay="300">P/E-Rank</th>
-            <th mdTooltip="Justerat Eget Kapital per Aktie - Ranking" mdTooltipShowDelay="300">JEK-Rank</th>
-            <th mdTooltip="Relativt Bra och Billiga företag - Ranking" mdTooltipShowDelay="300">RBB-Rank</th>            
-            <th mdTooltip="Direktavkastning (%) - Ranking" mdTooltipShowDelay="300">DA-Rank</th>
-            <th>=></th>
-            <th mdTooltip="Relativt Bra och Billiga företag med Hög Säkerhet - Ranking" mdTooltipShowDelay="300">RBBHS-Rank</th>
-        </tr>
-    </thead>
+
+<div *ngIf="false">
+    <table class="tableStandard">
+        <thead>
+            <tr>
+                <th mdTooltip="Börslista" mdTooltipShowDelay="300">Lista</th>
+                <th mdTooltip="Namn" mdTooltipShowDelay="300">Namn</th>
+                <th mdTooltip="MSEK" mdTooltipShowDelay="300">Börsvärde</th>
+                <th mdTooltip="Price to Earnings" mdTooltipShowDelay="300">P/E</th>            
+                <th mdTooltip="Justerat Eget Kapital per Aktie" mdTooltipShowDelay="300">JEK/Aktier</th>
+                <th mdTooltip="Direktavkastning (%)" mdTooltipShowDelay="300">Dir.avk (%)</th>
+                <th mdTooltip="Price to Earnings - Ranking" mdTooltipShowDelay="300">P/E-Rank</th>
+                <th mdTooltip="Justerat Eget Kapital per Aktie - Ranking" mdTooltipShowDelay="300">JEK-Rank</th>
+                <th mdTooltip="Relativt Bra och Billiga företag - Ranking" mdTooltipShowDelay="300">RBB-Rank</th>            
+                <th mdTooltip="Direktavkastning (%) - Ranking" mdTooltipShowDelay="300">DA-Rank</th>
+                <th>=></th>
+                <th mdTooltip="Relativt Bra och Billiga företag med Hög Säkerhet - Ranking" mdTooltipShowDelay="300">RBBHS-Rank</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr *ngFor='let stock of rbbhsRankStocks; let i = index'>
+                <td class="columnMedium">{{stock.Lista}}</td>
+                <td class="columnLarge">{{stock.Namn}}</td>
+                <td class="columnMedium">{{stock.Borsvarde}}</td>
+                <td class="columnSmall">{{stock.Pe}}</td>
+                <td class="columnMedium">{{stock.JekAktie}}</td>
+                <td class="columnMedium">{{stock.DirektAvkastning}}</td>
+                <td class="columnSmall">{{stock.PeRanking}}</td>
+                <td class="columnMedium">{{stock.JekRanking}}</td>
+                <td class="columnMedium">{{stock.RbbRanking}}</td>            
+                <td class="columnSmall">{{stock.DaRanking}}</td>
+                <td></td>
+                <td class="columnMedium">{{stock.RbbhsRanking}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <button (click)="loadData()">Load data</button>
+    <p *ngIf="showErrorMessage" style="color:red">Wait for data to load! Approximately 3 seconds..</p>
+    <div *ngIf="dataLoaded">
+        <button (click)="loadMidCap()">Load Mid Cap</button>         
+    </div> 
     
-    <tbody>
-        <tr *ngFor='let stock of rbbhsRankStocks; let i = index'>
-            <td class="columnMedium">{{stock.Lista}}</td>
-            <td class="columnLarge">{{stock.Namn}}</td>
-            <td class="columnMedium">{{stock.Borsvarde}}</td>
-            <td class="columnSmall">{{stock.Pe}}</td>
-            <td class="columnMedium">{{stock.JekAktie}}</td>
-            <td class="columnMedium">{{stock.DirektAvkastning}}</td>
-            <td class="columnSmall">{{stock.PeRanking}}</td>
-            <td class="columnMedium">{{stock.JekRanking}}</td>
-            <td class="columnMedium">{{stock.RbbRanking}}</td>            
-            <td class="columnSmall">{{stock.DaRanking}}</td>
-            <td></td>
-            <td class="columnMedium">{{stock.RbbhsRanking}}</td>
+    <table class="tableStandard" *ngIf="displayTable">
+        <thead>
+            <th *ngFor="let header of headersArray">{{header}}</th>
+        </thead>
+        <tr *ngFor="let row of rowArray">
+            <td *ngFor="let column of row">{{column}}</td>
         </tr>
-    </tbody>
-</table>
+    </table>
+    
+</div>
