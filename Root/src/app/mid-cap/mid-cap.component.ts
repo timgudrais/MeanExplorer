@@ -24,6 +24,8 @@ export class MidCapComponent implements OnInit {
   console.log(document.childNodes[0].childNodes[1].childNodes[0].value); //> 'html'
   }
 
+  
+
   ngOnInit() {
   }
 
