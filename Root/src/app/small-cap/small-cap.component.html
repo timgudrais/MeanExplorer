@@ -6,7 +6,7 @@
         <button (click)="loadSmallCap()">Load Small Cap</button>         
     </div> 
     
-    <table *ngIf="displayTable">
+    <table class="tableStandard" *ngIf="displayTable">
         <thead>
             <th>Name</th>
             <th *ngFor="let header of headersArray">{{header}}</th>
