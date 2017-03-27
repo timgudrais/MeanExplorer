@@ -1,9 +1,9 @@
 <h3>{{title}}</h3>
 <div>
-    <button (click)="loadData()">Load profile</button>
+    <button (click)="loadData()">Load data</button>
     <p *ngIf="showErrorMessage" style="color:red">Wait for data to load! Approximately 3 seconds..</p>
     <div *ngIf="dataLoaded">
-        <button (click)="loadHeaders()">Load headers</button>         
+        <button (click)="loadMidCap()">Load Mid Cap</button>         
     </div> 
     
     <table *ngIf="displayTable">

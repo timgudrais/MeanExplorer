@@ -29,7 +29,7 @@ export class SmallCapComponent implements OnInit {
     this.dataLoaded = true;
   }
 
-  loadHeaders() {    
+  loadMidCap() {    
     if(this.dataDump === undefined){
       this.showErrorMessage = true;      
       return;
