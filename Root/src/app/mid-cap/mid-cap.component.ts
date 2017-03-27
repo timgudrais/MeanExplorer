@@ -23,7 +23,7 @@ export class MidCapComponent implements OnInit {
 
   loadData() {
     // this.userService.getData().subscribe(data => this.dataDump = data);
-    this.userService.getData().subscribe(data => this.dataDump = data.query.results.table);
+    this.userService.getMidCapData().subscribe(data => this.dataDump = data.query.results.table);
     this.dataLoaded = true;
   }
 

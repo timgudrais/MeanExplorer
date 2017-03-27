@@ -24,7 +24,7 @@ export class LargeCapComponent implements OnInit {
 
   loadData() {
     // this.userService.getData().subscribe(data => this.dataDump = data);
-    this.userService.getData().subscribe(data => this.dataDump = data.query.results.table);
+    this.userService.getLargeCapData().subscribe(data => this.dataDump = data.query.results.table);
     this.dataLoaded = true;
   }
 
