@@ -28,7 +28,7 @@ export class LargeCapComponent implements OnInit {
     this.dataLoaded = true;
   }
 
-  loadMidCap() {    
+  loadLargeCap() {    
     if(this.dataDump === undefined){
       this.showErrorMessage = true;      
       return;
