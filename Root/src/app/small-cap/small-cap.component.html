@@ -1,11 +1,18 @@
 <h3>{{title}}</h3>
 <div>
-    <!--<button (click)="loadUser()">Load profile</button>-->
-    <button (click)="loadHeaders()">Load headers</button>
-    <div ng-show="false"></div>    
-    {{ headers | json }}
-
-    <!--<div *ngFor="let header in headers">
-        
-    </div>-->
+    <button (click)="loadData()">Load profile</button>
+    <p *ngIf="showErrorMessage" style="color:red">Wait for data to load! Approximately 3 seconds..</p>
+    <div *ngIf="dataLoaded">
+        <button (click)="loadHeaders()">Load headers</button>         
+    </div> 
+    
+    <table *ngIf="displayTable">
+        <thead>
+            <th *ngFor="let header of headersArray">{{header}}</th>
+        </thead>
+        <tr *ngFor="let row of rowArray">
+            <td *ngFor="let column of row">{{column}}</td>
+        </tr>
+    </table>
+    
 </div>
