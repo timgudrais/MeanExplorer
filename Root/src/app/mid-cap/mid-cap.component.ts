@@ -10,6 +10,8 @@ export class MidCapComponent implements OnInit {
 
   constructor() { }
 
+  
+
   ngOnInit() {
   }
 

@@ -19,6 +19,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ChangeLogComponent } from './change-log/change-log.component';
 import { InlineEditComponent } from './shared/inline-edit/inline-edit.component';
 import { StockWikiComponent } from './stock-wiki/stock-wiki.component';
+import { RbbhsComponent } from './stock-wiki/rbbhs/rbbhs.component';
+import { ParserComponent } from './parser/parser.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { StockWikiComponent } from './stock-wiki/stock-wiki.component';
     NavbarComponent,
     ChangeLogComponent,
     InlineEditComponent,
-    StockWikiComponent
+    StockWikiComponent,
+    RbbhsComponent,
+    ParserComponent
   ],
   imports: [
     BrowserModule,
