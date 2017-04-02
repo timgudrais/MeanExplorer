@@ -10,20 +10,30 @@
         <thead>
             <th>Namn</th>
             <th>Symbol</th>
-            <th>Valuta</th>
             <th>Sektor</th>
-            <th>Fakta</th>
+            <th>Valuta</th>
+            <th>Börsvärde</th>
+            <th>Beskrivning</th>
+            <th>Fact sheet</th>
+            <th>Betyg (Tim)</th>
+            <th>Betyg (Sebbe)</th>
+            <th>Kommentar</th>
         </thead>
         <tr *ngFor="let row of rowArray">
-            <td>
+            <td column="columnLarge">
                 <a target="_blank" href="{{row[0].a.href}}">{{row[0].a.content}}</a>
             </td>
-            <td>{{row[1].content}}</td>
-            <td>{{row[2].content}}</td>
-            <td>{{row[4].content}}</td>
-            <td>
-                <a target="_blank" href="{{row[6].a.href}}">Fakta</a>
+            <td class="columnMedium">{{row[1].content}}</td>
+            <td class="columnLarge">{{row[4].content}}</td>
+            <td class="columnSmall">{{row[2].content}}</td>
+            <td class="columnLarge"></td>
+            <td class="columnBox"></td>           
+            <td class="columnSmall">
+                <a target="_blank" href="{{row[6].a.href}}"><img src="http://www.nasdaqomxnordic.com/static/img/pdf.gif"></a>
             </td>
+            <td class="columnMedium"><div class="score" style="width: 80px"></div></td>
+            <td class="columnMedium"><div class="score" style="width: 57px"></div></td>
+            <td class="columnComment"></td>
         </tr>
     </table>    
 </div>
