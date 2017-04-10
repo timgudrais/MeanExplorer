@@ -21,6 +21,7 @@ import { InlineEditComponent } from './shared/inline-edit/inline-edit.component'
 import { StockWikiComponent } from './stock-wiki/stock-wiki.component';
 import { RbbhsComponent } from './stock-wiki/rbbhs/rbbhs.component';
 import { ParserComponent } from './parser/parser.component';
+import { KommandeNoteringarComponent } from './kommande-noteringar/kommande-noteringar.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ParserComponent } from './parser/parser.component';
     InlineEditComponent,
     StockWikiComponent,
     RbbhsComponent,
-    ParserComponent
+    ParserComponent,
+    KommandeNoteringarComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +83,10 @@ import { ParserComponent } from './parser/parser.component';
       {
         path: 'stock-wiki',
         component: StockWikiComponent
+      },
+      {
+        path: 'kommande-noteringar',
+        component: KommandeNoteringarComponent
       }
 ])
   ],
