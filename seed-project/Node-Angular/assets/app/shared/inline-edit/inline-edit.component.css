@@ -1,0 +1,15 @@
+span.inline-text {
+    width: 400px;
+    float: left;
+}
+
+textarea.inline-inputComment {
+    width: 380px;
+    height: 100px;
+    max-width: 380px;
+    display: block;
+}
+
+button.inline-saveComment {
+    margin-top: 39px;
+}

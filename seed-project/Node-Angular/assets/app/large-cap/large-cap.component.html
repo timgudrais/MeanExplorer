@@ -1,0 +1,68 @@
+<h3>{{title}}</h3>
+
+<div *ngIf="false">
+    <table class="tableStandard">
+        <thead>
+            <tr>
+                <th>Lista</th>
+                <th>Namn</th>
+                <th>Börsvärde</th>
+                <th>P/E</th>            
+                <th>JEK/Aktier</th>
+                <th>Dir.avk (%)</th>
+                <th>P/E-Rank</th>
+                <th>JEK-Rank</th>
+                <th>RBB-Rank</th>            
+                <th>DA-Rank</th>
+                <th>=></th>
+                <th>RBBHS-Rank</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr *ngFor='let stock of rbbhsRankStocks; let i = index'>
+                <td class="columnMedium">{{stock.Lista}}</td>
+                <td class="columnLarge">{{stock.Namn}}</td>
+                <td class="columnMedium">{{stock.Borsvarde}}</td>
+                <td class="columnSmall">{{stock.Pe}}</td>
+                <td class="columnMedium">{{stock.JekAktie}}</td>
+                <td class="columnMedium">{{stock.DirektAvkastning}}</td>
+                <td class="columnSmall">{{stock.PeRanking}}</td>
+                <td class="columnMedium">{{stock.JekRanking}}</td>
+                <td class="columnMedium">{{stock.RbbRanking}}</td>            
+                <td class="columnSmall">{{stock.DaRanking}}</td>
+                <td></td>
+                <td class="columnMedium">{{stock.RbbhsRanking}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <button (click)="loadData()">Load data</button>
+    <p *ngIf="showErrorMessage" style="color:red">Wait for data to load! Approximately 3 seconds..</p>
+    <div *ngIf="dataLoaded">
+        <button (click)="loadLargeCap()">Load Large Cap</button>         
+    </div> 
+    
+    <table class="tableStandard" *ngIf="displayTable">
+        <thead>
+            <th>Namn</th>
+            <th>Symbol</th>
+            <th>Valuta</th>
+            <th>Sektor</th>
+            <th>Fakta</th>
+        </thead>
+        <tr *ngFor="let row of rowArray">
+            <td>
+                <a target="_blank" href="{{row[0].a.href}}">{{row[0].a.content}}</a>
+            </td>
+            <td>{{row[1].content}}</td>
+            <td>{{row[2].content}}</td>
+            <td>{{row[4].content}}</td>
+            <td>
+                <a target="_blank" href="{{row[6].a.href}}">Fakta</a>
+            </td>
+        </tr>
+    </table>    
+</div>

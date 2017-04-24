@@ -1,0 +1,463 @@
+<div>
+  <button (click)="changeTab(0)">REA-Metoden</button>
+  <button (click)="changeTab(1)">REA-Stegen</button>
+  <button (click)="changeTab(2)">Steg 1</button>
+  <button (click)="changeTab(3)">Steg 2</button>
+  <button (click)="changeTab(4)">Steg 3</button>
+  <button (click)="changeTab(5)">Steg 4</button>
+  <button (click)="changeTab(6)">Steg 5</button>
+  <button (click)="changeTab(7)">Steg 6</button>
+  <button (click)="changeTab(8)">Steg 7</button>
+  <button (click)="changeTab(9)">Steg 8</button>
+  <button (click)="changeTab(10)">Steg 9</button>
+  <button (click)="changeTab(11)">Steg 10</button>
+  <button (click)="changeTab(12)">Nyckeltal</button>
+  <button (click)="changeTab(13)">Checklista</button>
+  <button (click)="changeTab(14)">Slå börsproffsen (41-punkter)</button>
+  <button (click)="changeTab(15)">Tio förebilder</button>
+  <button (click)="changeTab(16)">Tio boktips</button>
+  <button (click)="changeTab(17)">Tio länkar</button>
+  <button (click)="changeTab(18)">Tio dåliga investeringsmönster</button>
+  <button (click)="changeTab(19)">Tio bra investeringsmönster</button>
+</div>
+
+<div *ngIf="tab === 0">
+  <h3>REA-Metoden</h3>
+  <ul>
+    <li>Möjlighet att hitta de aktier som för tillfället säljs för reapris.</li>
+    <li>Innebär ej de billigaste eller bästa bolagen, utan bolag som är relativt bra och samtidigt relativt billiga. Detta ger stor säkerhetsmarginal.</li>
+    <li>Billigt är inte samma som lågt pris.</li>
+    <li>Jämför bolagets årsvinst med aktuell aktiekurs, dvs. pris per aktie.</li>
+    <li>Reametoden kan fungera dåligt på kort sikt men fungerar mycket bra på lång sikt.</li>    
+  </ul>
+
+
+  <h3><a (click)="toggleShowBilligaBolagHogEp()">Billiga bolag</a> + <a (click)="toggleShowBraBolagHogtJEK()">Bra bolag</a> + <a (click)="toggleShowHogSakerhetHogDirAvk()">Hög säkerhet</a> <br /> 
+  = Lönsam investering</h3>
+  
+  <h4><a (click)="toggleShowBilligaBolagHogEp()">Billiga bolag - Hög E/P</a></h4>
+  <ul *ngIf="showBilligaBolagHogEp">
+    <li><a (click)="toggleShowNyckeltal()">Nyckeltal E/P</a></li>
+    <ul>
+      <li><i>Vinsten / Priset = E/P</i></li>
+      <li>Ett inverterat P/E-tal utreder om bolaget är någorlunda billigt att köpa.</li>
+      <li>Ett högt E/P-tal betyder att aktien är relativt prisvärd.</li>
+    </ul>
+    <li><a (click)="toggleShowNyckeltal()">Nyckeltal P/E</a></li>
+    <ul>
+      <li><i>Aktiepris / Vinsten = P/E</i></li>
+      <li>Ett lågt P/E-tal är ett tecken på att aktien är relativt billig i förhållande till bolagets vinst.</li>
+    </ul>
+  </ul>
+  
+  <h4><a (click)="toggleShowBraBolagHogtJEK()">Bra bolag - Högt JEK/Aktie</a></h4>
+  <ul *ngIf="showBraBolagHogtJEK">
+    <li><a (click)="toggleShowNyckeltal()">Nyckeltal JEK/Aktie</a></li>
+    <ul>
+      <li><i>(Eget kapital + 72% av obeskattade reserver) / Antalet aktier</i></li>
+      <li>Gör det lätt att jämföra olika bolags ekonomiska kvalitet.</li>
+      <li>Bolag som går bra har också relativt höga aktieutdelningar.</li>    
+    </ul>
+  </ul>
+  
+  <h4><a (click)="toggleShowHogSakerhetHogDirAvk()">Hög säkerhet - Hög Dir. Avk</a></h4>
+  <ul *ngIf="showHogSakerhetHogDirAvk">
+    <li><a (click)="toggleShowNyckeltal()">Nyckeltal Direktavkastning</a></li>
+    <ul>
+      <li><i>((Utdelning / Antalet aktier) / Aktiepris * 100) = Direktavkastning%</i></li>
+      <li>Denna procentsats motsvarar det du skulle kunna betrakta som "din ränta".</li>
+      <li>Hög direktavkastning innebär att bolaget delar ut en del av sin vinst till aktieägarna i form av aktieutdelning vilken är relativt hög i förhålande till aktiekursen.</li>
+      <li>Bra bolag har relativt hög direktavkastning, kan även öka direkavkastningen från år till år.</li>
+      <li>Hög direktavkastning = bra säkerhet eftersom du får utdelning av bolaget oavsett hur det går för aktiekursen.</li>
+      <li>Investeringar i stora bolag med hög direktavkastning = Stor säkerhetsmarginal (Långsiktigt).</li>
+      <li>Leta efter de stora och mest omsatta bolagen på Nasdag OMXS, också känt som Large Cap.</li>
+    </ul>
+  </ul>
+</div>
+
+<div  *ngIf="tab === 1">
+  <h3>REA-Stegen</h3>
+  <ol>
+    <li><a (click)="toggleShowGrundutbud()">Grundutbud</a></li>
+    <ul *ngIf="showGrundUtbud">
+      <li>Välj ut ca 22 aktier som du vill utvärdera</li>
+      <li>Om det finns både A- och B-aktier bör du ta de som har större omsättning, vanligtvis B-aktier</li>
+      <li>Välj ut bolag som är:</li>
+      <ul>
+        <li>Välkända</li>
+        <li>Relativt mogna</li>
+        <li>Stora och stabila, med hög säkerhetsmarginal</li>
+        <li>T.ex. företag från listan Large Cap med börsvärde > 1 miljard euro</li>
+      </ul>
+    </ul>
+    <li><a (click)="toggleShowDaligaBolag()">Filtrera bort dåliga bolag</a></li>
+    <ul *ngIf="showDaligaBolag">
+      <li>Sortera bort alla bolag med</li>
+      <ul>
+        <li>Negativ vinst</li>
+        <li>Noll i direktavkastning</li>
+      </ul>
+      <li><b>OBS!</b> Var försiktig vid investering i bolag som är</li>
+      <ul>
+        <li>Banker</li>
+        <ul>
+          <li>Svårlästa, påverkas av världsekonomin</li>
+        </ul>
+        <li>Investmentbolag/Fastighetsbolag</li>
+        <ul>
+          <li>E/P tal är missvisande</li>
+        </ul>
+        <li>Biotech</li>
+        <ul>
+          <li>Hög osäkerhet!</li>
+          <li>Svårt att förstå sig på produkten</li>
+          <li>Kan gå många år utan vinst, sedan gå i konkurs eller göra stor vinst</li>
+        </ul>
+      </ul>
+    </ul>
+    <li><a (click)="toggleShowBilligaBolag()">Få fram Billiga Bolag - Hög E/P</a></li>
+    <ul *ngIf="showBilligaBolag">
+      <li>Ta fram aktuella aktiekurser samt vinst per aktie och beräkna E/P</li>
+      <li>Sortera listan baserat på E/P-tal från hög till låg</li>
+      <li>Notera rangordning i kolumn "A"</li>
+      <ul>
+        <li>Högsta värde från rangordning 1 osv</li>
+      </ul>
+    </ul>
+    <li><a (click)="toggleShowBraBolag()">Få fram Bra Bolag - Högt JEK/Aktie</a></li>
+    <ul *ngIf="showBraBolag">
+      <li>Ta fram JEK/Aktie</li>
+      <li>Sortera listan baserat på JEK/Aktie från hög till låg</li>
+      <li>Notera rangordning i kolumn "B"</li>
+      <ul>
+        <li>Högsta värde från rangordning 1 osv.</li>
+      </ul>
+    </ul>
+    <li><a (click)="toggleShowSummeraBilligaBraBolag()">Summera Billiga Bolag + Bra Bolag</a></li>
+    <ul *ngIf="showSummeraBilligaBraBolag">
+      <li>Summera A + B i kolumn "A+B"</li>
+      <li>Rangordna kolumn "A+B" från låg till hög</li>
+      <li>De mest intressanta bolagen har låga "A+B"-nummer och ligger nu alltså högst upp i listan</li>
+    </ul>
+    <li><a (click)="toggleShowRelativtBilligaBraBolag()">Relativt Bra och Billiga Bolag</a></li>
+    <ul *ngIf="showRelativtBilligaBraBolag">
+      <li>Sälj bolag som hamnar på plats nummer 21 och högre</li>
+    </ul>
+    <li><a (click)="toggleShowHogSakerhet()">Få fram Hög Säkerhet</a></li>
+    <ul *ngIf="showHogSakerhet">
+      <li>Ta fram Direktavkastning (%)</li>
+      <li>Sortera listan baserat på dir. avk från hög till låg</li>
+      <li>Notera rangordning i kolumn "C"</li>
+      <ul>
+        <li>Högsta värde får rangordning 1 osv.</li>
+      </ul>
+    </ul>
+    <li><a (click)="toggleShowRelativtBraBilligaBolagMedHogSakerhet()">Relativt Bra och Billiga Bolag med Hög Säkerhet</a></li>
+    <ul *ngIf="showRelativtBraBilligaBolagMedHogSakerhet">
+      <li>Köp bolag 1-10 om du inte äger dessa redan</li>
+      <li>Förvalta bolag 1-20 som du redan äger</li>
+      <li>Köp inte alla bolag vid samma tidpunkt, kolla börsåret för bra tidpunkter att köpa/sälja</li>
+    </ul>
+  </ol>
+</div>
+
+<div *ngIf="tab === 2">
+  <h3>Steg 1 - Varför investera i aktier?</h3>
+  <h4>Summering</h4>
+  <ul>
+    <li>Tänk på att de indikationer du får från bloggar, tidningar och vänliga människor kan vara helt fel för dig. Lita inte på någon annan än dig själv.</li>
+    <li>Vill du verkligen tjäna pengar ska du inte investera i fonder som tar betalt för sin förvaltning, utan att kunna slå index särskilt mycket.</li>
+    <li>Investera istället i nåogt som du själv har kontroll över och som du kan hantera på ett sätt som ger så stor och säker avkastning som möjligt.</li>
+    <li>Den möjligheten får du om du investerar i aktier, och med rätt kunskaper kan du köpa aktierna när det är fördelaktigt och med större säkerhetsmarginal.</li>
+    <li>Dessa saker bör du komma ihåg när du läser fortsättningen.</li>
+  </ul>
+</div>
+
+<div *ngIf="tab === 3">
+  <h3>Steg 2 - Strategi för aktieinvesteringar</h3>
+  <h4>Summering</h4>
+  <ul>
+    <li>Det som kännetecknar de mest lyckade investerarna är att medvetet valt att satsa på bolag med relativt låg risk. Dessutom har deras mål varit att på längre sikt erhålla hög avkastning på det investerade kapitalet.</li>
+    <li>Vad du behöver för att uppnå samma sak är ett logiskt system för att investera i bolag med relativt hög säkerhetsmarginal.</li>
+    <li>Du behöver dessutom hålla ditt eget psyke i schack.</li>
+    <li>Dessa hörnstenar bör du ta med dig till din egen strategi.</li>
+  </ul>
+</div>
+
+<div *ngIf="tab === 4">
+  <h3>Steg 3 - Hur påverkas du av grupppsykologin?</h3>
+  <h4>Summering</h4>
+  <ul>
+    <li>Blir du känslomässigt engagerad kan du fatta beslut som senare visa sig vara mindre kloka.</li>
+    <li>När marknaden får panik är det bra att ha likvida medel för att kunna göra de riktigt bra investeringarna.</li>
+    <li>Vänta ut stormen och när börsen börjar kännas mer stabil är det dags att gå på aktierea. Se därför till att du inte är fullinvesterad, utan försök att ha en del likvida medel för att inte missa något tillfälle.</li>
+    <li>Kom ihåg att det mesta har hänt förut fast på ett lite annat sätt. Det är mycket sällan som det är annorlunda just denna gång.</li>
+    <li>Håll känslorna utanför. Med hjälp av ett bra och logiskt system för att köpa och sälja behärskar du de psykologiska faktorerna. Lita på systemet och följ de signaler du får.</li>
+    <li>Låt inte dina tankar styras av det snabba typ 1, utan låt typ 2-analyserna styra så att du tänker efter före.</li>
+    <li>Du behöver alltså en strategi som gör att du slipper att inblandning av känslor, styrda av din egen eller marknadens psykologi.</li>
+    <li>Strategin ska hjälpa dig att hitta relativt bra och relativt billiga aktier. Dessutom ska den hjälpa dig bestämma när du ska köpa och när du ska sälja dina aktier.</li>
+  </ul>
+</div>
+
+<div *ngIf="tab === 5">
+  <h3>Steg 4 - Vad är värdeinvestering?</h3>
+  <h4>Summering</h4>
+  <ul>
+    <li>Marknaden ska tjäna dig, inte guida eller instruera dig.</li>
+    <li>Marknaden reagerar ofta irrationellt och ologiskt på kort sikt. Men på lång sikt förändras priset så att det bättre stämmer med det inneboende värdet på bolaget.</li>
+    <li>Det är bra att köpa aktier i bra bolag som har högt eget kapital och hög direktavkastning. Men sådana företag är ofta populära köpobjekt och priset ligger troligen inte i korrelation med bolagets inneboende verkliga värde.</li>
+    <li>Köp därför inte bara bra bolag med högt eget kapial och hög direktavkastning. De måste också ha ett lågt pris i förhållande till vinsten per aktie, (P/E-talet)</li>
+    <li>Behåll aktierna så länge det som avgjorde att du gjorde investeringen kvarstår. Sälj sedan, och återinvestera med samma inriktning.</li>
+    <li>Det kan vara så att priserna inte stiger, utan ligger kvar eller sjunker under flera år</li>
+    <li>Det kan det antingen bero på att bolaget redan är rätt prissatt, eller att marknaden har svårt att se det verkliga värdet i bolaget.</li>
+    <li>Då är det bättre att sälja och satsa på andra bolag som stiger i pris så att din avkastning blir bättre.</li>
+  </ul>
+</div>
+
+<div *ngIf="tab === 6">
+  <h3>Steg 5 - Vad är Aktie-REA?</h3>
+  <h4>Summering</h4>
+  <ul>
+    <li>Det finns olika rea-tillfällen på aktiemarknaden.</li>
+    <li>För att lyckas är det viktigt att köpa lågt prissatta bolag och sälja dem när de inte längre är billiga.</li>
+    <li>Du ska leta efter relativt bra företag med relativt god ekonomi som säljs till reapris. Då har du lyckats med aktie-REA.</li>
+    <li>Aktier som det är rea på ger dig högre avkastning på dina investerade pengar med tiden.</li>
+    <li>Ser du att många gör samma sak på marknaden, ska du se det som en varning.</li>
+    <li>Diversifiera med förstånd och ha fler än fem bolag. Men ha samtidigt inte för många bolag i portföljen, då det kan bli sämre resultat eftersom du får svårare att slå index.</li>
+    <li>Köp av dem som har panik och sälj till dem som blivit giriga eller har en övertro på möjligheterna till kursuppgång.</li>
+    <li>Kom ihåg att värdeinvesteringar nästan alltid fungerar. Över längre tid fungerar det utmärkt bra.</li>
+  </ul>
+</div>
+
+<div *ngIf="tab === 7">
+  <h3>Steg 6 - Jämviktspendling och Volatilitet</h3>
+  <h4>Summering</h4>
+  <ul>
+    <li>Börsåret rekommenderar att köpa mellan slutet på April och början av Juli. alternativt början på Augusti till mitten på Oktober.</li>
+    <li>Det rekommenderar att du säljer mellan slutet på Mars och början på Maj.</li>
+    <li>Till slut rekommenderar det att förvalta från slutet på Juni till början på Augusti.</li>
+    <li>Årsskifteseffekten kan ge effekt när många inte använder ISK för sina aktieinnehav, då kan man köpa i början på November oxh sälja i Februari.</li>
+    <li>Du kan göra upp emot 20 % vinst på årsskifteseffekten.</li>
+    <li>Det kan vara aktierea under hela året - men det är vilka aktier som det är rea på som varierar.</li>
+    <li>Konjunkturen varierar men det varierar även vilka tider på året som är bästa tid att köpa och sälja.</li>
+    <li>Utnyttja statistiken för hur börsen brukar gå upp och ner, ta hjälp av diagrammet Börsåret.</li>
+  </ul>
+</div>
+
+<div *ngIf="tab === 8">
+  <h3>Steg 7 - Aktieportföljen</h3>
+  <h4>Summering</h4>
+  <ul>
+    <li>Din portfölj bör innehålla en blandning av bolag från olika branscher, så kallad differentiering. Välj ett rimligt antal bolag baserat på hur mycket pengar du kan investera.</li>
+    <li>Tänk mellan 5-20 bolag</li>
+    <li>Bolagen bör vara bra bolag och från olika branscher, för att skydda dig mot stora förluster.</li>
+    <li>Din portfölj bör inte innehålla för många bolag, eftersom det gör det svårare att ha kontroll över alla bolag. Ju fler bolag, desto svårare får du att slå index.</li>
+    <li>Aktier kan stiga mångdubbelt i värde, men kan också falla kraftigt och förorsaka allvarlig skada på din ekonomi.</li>
+    <li>Avstå från investeringar om situationen för tillfället inte är gynnsam, det går alltid fler tåg.</li>
+    <li>Skulle du misströsta över en missad investering kan du vara lika säker på att det dyker upp nya chanser till bra investeringar.</li>
+    <li>Genom att göra kloka val kan du får värdet på din portfölj att växa utan att du behöver anstränga dig.</li>
+  </ul>
+</div>
+
+<div *ngIf="tab === 9">
+  <h3>Steg 8</h3>
+  <h4>Summering</h4>
+</div>
+
+<div *ngIf="tab === 10">
+  <h3>Steg 9</h3>
+  <h4>Summering</h4>
+</div>
+
+<div *ngIf="tab === 11">
+  <h3>Steg 10</h3>
+  <h4>Summering</h4>
+</div>
+
+<div *ngIf="tab === 12 || showNyckeltal">
+  <table class="tableStandard">
+    <thead>
+        <tr>
+            <th>Key Figure</th>
+            <th>Formula</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor='let formula of formulas; let i = index'>
+            <td class="columnMedium">{{formula.ShortKey}}</td>
+            <td class="columnLarge">{{formula.KeyFigureSvenska}}</td>
+            <td class="columnBox">{{formula.FormulaSvenska}}</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+<div *ngIf="tab === 13">
+  <h3>Investment Checklist</h3>
+  <p>In this document, which is part of the Value Investing Boot camp video course on Udemy, you find a
+  checklist which can help you to consistently apply a value investment strategy. In a best case
+  scenario, you will answer yes to every item on the list. This is extremely rare though.</p>
+  <h4>Initial Screening</h4>
+  <ol>
+    <li>1. Is the return on equity higher than 15%?</li>
+    <li>2. Is the current ratio higher than 2?</li>
+    <li>3. Is the debt-to-equity ratio lower than 0.5?</li>
+  </ol>
+  <h4>Fundamental Analysis</h4>
+  <ol>
+    <li>4. Are earnings per share stable or growing over time?</li>
+    <li>5. Are free cash flows approximately equal to- or higher than net income?</li>
+    <li>6. Are free cash flows stable or increasing over time?</li>
+    <li>7. Is free cash flow primarily generated from earnings rather than debt?</li>
+    <li>8. Is the company investing a part of its free cash flows in future growth?</li>
+    <li>9. Are cash & cash equivalents stable or increasing over time?</li>
+    <li>10. Is book value per share steadily growing over time?</li>
+    <li>11. Is the net margin stable or growing over time?</li>
+    <li>12. Has the return on equity been consistently high?</li>
+    <li>13. Has debt-to-equity been consistently low or decreasing?</li>
+    <li>14. Is the Altman Z-score 1.80 or higher?</li>
+    <li>15. Is the Beneish M-score lower than -2.22?</li>
+    <li>16. Are enterprising profits higher than 18%?</li>
+  </ol>
+  <h4>Qualitative Analysis</h4>
+  <ol>
+    <li>17. Is this company easy to understand for you? ("circle of competence")</li>
+    <li>18. Does the company possess a sustainable competitive advantage?</li>
+    <li>19. Are the possible risks this company faces manageable?</li>
+    <li>20. Is management compensation within reasonable bounds?</li>
+    <li>21. Do the key executives have a solid track record free of scandals?</li>
+    <li>22. Is management allocating the company's capital wisely?</li>
+  </ol>
+  <h4>Valuation</h4>
+  <ol>
+    <li>23. Is it possible to make a reasonable estimate of the intrinsic value of this company?</li>
+    <li>24. Did you make a conservative estimate using several valuation models?</li>
+    <li>25. Does the stock currently trade at a significant discount to intrinsic value? ("margin of safety")</li>
+  </ol>
+</div>
+
+<div *ngIf="tab === 14">
+  <h3>Slå Börsproffsen (41-punkter)</h3>
+  <ol>
+    <li>Många bra investeringsstrategier har det gemensamt att de söker efter placeringar med en skillnad mellan värdet och priset på bolaget.</li>
+    <li>Det är ingen annan som tar ansvar för dig och dina investeringar.</li>
+    <li>Du är ensam i dina beslut. Basera dina beslut om investeringar på dina egna utvärderingar.</li>
+    <li>Investera i bolag som är både bra och billiga. Bra bolag + Lågt pris = Lönsam investering. Leta efter bra bolag med hjälp av REA-metoden</li>
+    <li>Ta bort bolag med negativa resultat eller de som ännu inte visat någon vinst.</li>
+    <li>Köp bra företag som säljs till reapris.</li>
+    <li>Köp aktier i bra företag med högt eget kapital och hög direktavkastning.</li>
+    <li>Det är låga risker att investera i företag med hög säkerhetsmarginal. Stor rabatt = hög säkerhet.</li>
+    <li>Det är viktigt att bolaget som du investerar i har bra likvidited med egna friska pengar. Alltså bra egen ekonomi och pengar i kassan.</li>
+    <li>Bolag med stark vinsttillväxt under längre tid är bra.</li>
+    <li>Låga priser i förhållande till vinsten per aktie är bra.</li>
+    <li>Priset på en aktie är vad du betalat, värdet är vad du får.</li>
+    <li>Följ inte flocken eller den stora massan, hitta istället bortglömda aktier.</li>
+    <li>Diversifiera - köp olika aktier i bolag från olika branscher.</li>
+    <li>Försök förstå hur psykologin i marknaden påverkar.</li>
+    <li>När många gör samma sak är det en varningsklocka. När alla tänker likadant, är det ingen som tänker särskilt mycket.</li>
+    <li>Prognoser är värdelösa som prognoser när det man skriver om i tidningar med mera redan har hänt, och det går bara att gissa vad som ska hända.</li>
+    <li>Köp aldrig på grund av stora rubriker.</li>
+    <li>Att investera i större företag som har etablerat sig på marknaden betyder oftare en stabilare utveckling, med högre säkerhet.</li>
+    <li>Bolag som har återkommande höga aktieutdelningar som kanske också ökar från år till år är bra att investera i.</li>
+    <li>Herr Marknad styrs av vilket humör han är bra på. Inte baserat på fundamental analys.</li>
+    <li>Ha tålamod, det kan ta tid innan andra ser det som du sett och var långsiktig i dina investeringar.</li>
+    <li>Försök att inte ta hem vinsterna för tidigt.</li>
+    <li>Tiden är din vän och impulsen är din fiende.</li>
+    <li>En aktie kan fortsätta att stiga när den har blivit populär. Ha is i magen och gör en ny analys.</li>
+    <li>Köp och sälj inte ofta. Det medför bara extra avgifter som säker din vinst.</li>
+    <li>Så länge det som gjorde aktien attraktiv finns kvar ska man behålla aktien. Vänta tills aktierean är slut.</li>
+    <li>Aktiemarknaden är fylld av individer som vet priset på allt, men inte dess värde. Nu är du inte en av dem.</li>
+    <li>PÅ lång sikt finns ett hundraprocentigt samband mellan vad som händer i ett bolag och vad som händer med bolagets aktie.</li>
+    <li>Aktiemarknaden finns till för att tjäna dig, inte för att tala om för dig hur du ska handla.</li>
+    <li>Försök att inte förlora pengar. När du förlorar mycket pengar, är det mycket svårt att komma tillbaka.</li>
+    <li>Försök att inte bara leta efter bevis som bekräftar din uppfattning utan var öppen för andra synsätt.</li>
+    <li>Du har råd att invänta ett bättre läge om du inte hittar den bästa affären direkt.</li>
+    <li>Var medveten om alla risker som finns för dig som investerare.</li>
+    <li>En aktie är en ägarandel i ett bolag. Enkelt förklarat kan man säga att när du köper en aktie i ett bolag så blir du delägare. Oftast har den med flest aktier makten i bolaget.</li>
+    <li>En hög aktieutdelning ger dig inkomster år efter år utan att behöva sälja aktierna. Får du nästa år ytterligare utdelningar som du återinvesterar så blir den procentuella tillväxten i din aktieportfölj per år mycket större.</li>
+    <li>När du ska välja bolag att investera långsiktigt i är även bolagens aktieutdelningar intressanta att räkna med.</li>
+    <li>Då du fått fram REA-aktierna för tillfället bör du undersöka vilka av dessa bolag som har hög direktavkastning.</li>
+    <li>Aktieåret är ett diagram över en ettårscykel. Rätt använd kan den hjälpa dig att använda formeln i REA-metoden på ett konstruktivt sätt.</li>
+    <li>Aktier kan fördubblas, trefaldigas eller göra ännu bättre ifrån sig, men de kan också falla kraftigt och allvarligt skada din ekonomi. Spekulera inte med pengar du kan behöva till annat.</li>
+    <li>Förlora aldrig stora summor pengar.</li>
+  </ol>
+</div>
+
+<div *ngIf="tab === 15">
+  <h3>Tio förebilder</h3>
+  <ul>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Walter_Lippmann">Walter Lippman, född 1889</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Benjamin_Graham">Benjamin Graham, född 1894</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Irving_Kahn">Irving Kahn, född 1905</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Philip_Arthur_Fisher">Philip Arthur Fisher, född 1907</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Walter_Schloss">Walter J. Scholl, född 1916</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/John_C._Bogle">Jack Bogle, född 1929</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Warren_Buffett">Warren Buffet, född 1930</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Peter_Lynch">Peter Lynch, född 1944</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Anthony_Bolton">Anthony Bolton, född 1950</a></li>
+    <li><a target="_blank" href="https://en.wikipedia.org/wiki/Joel_Greenblatt">Joel Greenblat, född 1957</a></li>
+  </ul>
+</div>
+
+<div *ngIf="tab === 16">
+  <h3>Tio boktips</h3>
+  <ul>
+    <li><i>Tradingguiden</i>, av Jonas Bernhardsson</li>
+    <li><i>The Intelligent Investor</i>, av Benjamin Graham</li>
+    <li><i>Benjamin Graham, The father of financial analysis</i>, av Irving Kahn och Robert D Milne</li>
+    <li><i>Common stocks and uncommon profits</i>, av Philip Arthur Fisher</li>
+    <li><i>Security Analysis</i>, av Benjamin Graham och David LeFevre Dodd</li>
+    <li><i>En liten bok som slår aktiemarknaden (bevisligen!)</i>, av Joel Greenblatt</li>
+    <li><i>Bli börsproffs på ett par timmar</i>, av Peter Nilsson och Johnny Torsell</li>
+    <li><i>Investera som mästarna, Från Aktiestinsen till Soros</i>, av Jonas Bernhardsson</li>
+    <li><i>Warren Buffet, Värdens rikaste person</i>, av Per H. Börjesson</li>
+    <li><i>Vinnande aktieplaceringar</i>, av Tobbe Rosén</li>
+  </ul>
+</div>
+
+<div *ngIf="tab === 17">
+  <h3>Tio länkar</h3>
+  <ul>
+    <li><a target="_blank" href="http://finance.google.com">Google Finance</a></li>
+    <li><a target="_blank" href="http://uk.finance.yahoo.com/m2">Yahoo Finance</a></li>
+    <li><a target="_blank" href="http://www.borsdata.se">Börsdata</a></li>
+    <li><a target="_blank" href="http://www.aktierea.se">Aktierea</a></li>
+    <li><a target="_blank" href="http://40procent20ar.blogspot.no/">40 procent, 20 år</a></li>
+    <li><a target="_blank" href="http://www.ekonomikoll.blogspot.se">Ekonomikoll</a></li>
+    <li><a target="_blank" href="http://www.finansportalen.se">Finansportalen</a></li>
+    <li><a target="_blank" href="http://www.affarsvarlden.se">Affärsvärlden</a></li>
+    <li><a target="_blank" href="http://www.tradevenue.se">Trade Venue</a></li>
+  </ul>
+</div>
+
+<div *ngIf="tab === 18">
+  <h3>Tio dåliga investeringsmönster, du...</h3>
+  <ol>
+    <li>Köper de aktier som är extra populära just nu.</li>
+    <li>Säljer aktier bara för att de inte är populära längre.</li>
+    <li>Tar beslut om investeringar baserat till stor del på tips från medierna - tidningar eller internet.</li>
+    <li>Tar beslut baserat till stor del på tips från omgivningen.</li>
+    <li>Köper och säljer ofta och betalar därmed stora courtage-avgifter.</li>
+    <li>Köper bara aktier i ett par bolag som du tror mycket på.</li>
+    <li>Lånar pengar för att köpa aktier.</li>
+    <li>Söker information som bekräftar vad du redan tycker om ett bolag eller marknaden.</li>
+    <li>Köper bara aktier i bolag som har ett lågt pris per aktie, men som ännu inte börjat tjäna pengar, så kallade förhoppningsbolag.</li>
+    <li>Tror att den här gången är annorlunda och att marknaden nu fungerar på ett annat sätt än förut.</li>
+  </ol>
+</div>
+
+<div *ngIf="tab === 19">
+  <h3>Tio bra investeringsmönster, du...</h3>
+  <ol>
+    <li>Försöker inte förutse hur börsen kommer att gå.</li>
+    <li>Baserar dina beslut på egna utvärderingar.</li>
+    <li>Följer inte flocken och försöker istället hitta aktier som har glömts bort av den stora massan.</li>
+    <li>Har tålamod och tänker långsiktigt. Det kan ta lång tid innan andra upptäcker det som du sett.</li>
+    <li>Säljer inte för tidigt. En aktie kan fortsätta stiga för att den blir populär. Du har is i magen och gör en ny analys.</li>
+    <li>Köper och säljer inte för ofta, eftersom det bara medför extra avgifter som sänker vinsten.</li>
+    <li>Sparar regelbundet för att ha pengar att kunna investera när tillfälle ges.</li>
+    <li>Låter inte ditt ego styra och inser när du kan ha tagit fel beslut.</li>
+    <li>Diversifierar lagom mycket för att sprida riskerna utan att tappa din "edge" mot marknaden.</li>
+    <li>Drabbas inte av panik när marknaden kraschar eller eufori när marknaden går upp, eftersom det leder till dåliga beslut.</li>
+  </ol>
+</div>

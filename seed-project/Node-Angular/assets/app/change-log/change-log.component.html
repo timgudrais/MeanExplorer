@@ -1,0 +1,20 @@
+<button (click)="toggleShowLog()" *ngIf="showLog">Hide Change Log</button>
+<button (click)="toggleShowLog()" *ngIf="!showLog">Show Change Log</button>
+<table class="tableStandard" *ngIf="showLog">
+    <thead>
+        <tr>
+            <th>Typ</th>
+            <th>Ändring</th>
+            <th>Namn</th>
+            <th>Datum</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor='let changeItem of changeList'>
+            <td class="columnSmall">{{changeItem.Typ}}</td>
+            <td class="columnBox">{{changeItem.Andring}}</td>
+            <td class="columnMedium">{{changeItem.Namn}}</td>
+            <td class="columnMedium">{{changeItem.Datum}}</td>
+        </tr>
+    </tbody>
+</table>

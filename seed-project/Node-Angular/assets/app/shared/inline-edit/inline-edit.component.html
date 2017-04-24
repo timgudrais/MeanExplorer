@@ -1,0 +1,14 @@
+<div class="inline-edit">
+    <span [hidden]="!isDisplay">
+        <span class="inline-text">
+            {{ text }}
+        </span>
+        <button title="Edit" (click)="beginEdit(editText)">Edit</button>
+    </span>
+    <span [hidden]="isDisplay">
+        <span class="inline-text">
+            <textarea #editText class="inline-inputComment" type="text" [value]="text"></textarea>
+        </span>
+        <button class="inline-saveComment" title="Save" (click)="editDone(editText.value)">Save</button>
+    </span>
+</div>
