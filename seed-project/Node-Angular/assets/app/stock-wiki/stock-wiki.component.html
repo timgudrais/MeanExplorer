@@ -1,4 +1,11 @@
-<hr />
-<app-rbbhs></app-rbbhs>
+<button class="btn btn-default" (click)="changeTab(0)">Default</button>
+<button class="btn btn-default" (click)="changeTab(1)">Rbbhs</button>
+<br />
+<div *ngIf="tab === 0">
+    <h1>Default</h1>
+</div>
+<div *ngIf="tab === 1">
+    <app-rbbhs></app-rbbhs>
+</div>
 <hr />
 <app-parser></app-parser>

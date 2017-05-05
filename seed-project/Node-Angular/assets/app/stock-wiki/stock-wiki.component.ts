@@ -9,9 +9,17 @@ import { StockWikiService } from './stock-wiki.service';
     StockWikiService
   ]
 })
-export class StockWikiComponent implements OnInit {  
-  constructor() { 
+export class StockWikiComponent implements OnInit {    
+  
+  constructor() {   
   }  
+
+  // Begin Tabs
+  tab = 0;    
+  changeTab(number) {
+    this.tab = number;
+  }
+  // End Tabs
 
   ngOnInit() {
   }

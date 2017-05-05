@@ -62,7 +62,46 @@ import { ParserComponent } from './parser/parser.component';
         FormsModule,
         routing,
         ReactiveFormsModule,
-        HttpModule
+        HttpModule,
+        RouterModule.forRoot([
+        {
+            path: '',
+            redirectTo: '/first-north',
+            pathMatch: 'full'
+        },
+        {
+            path: 'first-north',
+            component: FirstNorthComponent
+        },
+        {
+            path: 'small-cap',
+            component: SmallCapComponent
+        },
+        {
+            path: 'mid-cap',
+            component: MidCapComponent
+        },
+        {
+            path: 'large-cap',
+            component: LargeCapComponent
+        },
+        {
+            path: 'makro-indikatorer',
+            component: MakroIndikatorerComponent
+        },
+        {
+            path: 'teknisk-analys',
+            component: TekniskAnalysComponent
+        },
+        {
+            path: 'to-do',
+            component: ToDoListComponent
+        },
+        {
+            path: 'stock-wiki',
+            component: StockWikiComponent
+        }        
+    ])
     ],
     providers: [AuthService],
     bootstrap: [AppComponent]
