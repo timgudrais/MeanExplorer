@@ -13,4 +13,10 @@ export class ToolsComponent implements OnInit {
   ngOnInit() {
   }
 
+  // Begin Tabs
+  tab = 0;    
+  changeTab(number) {
+    this.tab = number;
+  }
+  // End Tabs
 }

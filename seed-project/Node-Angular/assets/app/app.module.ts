@@ -33,6 +33,7 @@ import { RdpdComponent } from './stock-wiki/rdpd/rdpd.component';
 import { ParserComponent } from './parser/parser.component';
 import { ToolsComponent } from './tools/tools.component';
 import { RoiComponent } from './tools/roi/roi.component';
+import { CsvJSONComponent } from './tools/csvJSON/csvJSON.component';
 
 @NgModule({
     declarations: [
@@ -61,7 +62,8 @@ import { RoiComponent } from './tools/roi/roi.component';
         RdpdComponent,
 		ParserComponent,
         ToolsComponent,
-        RoiComponent
+        RoiComponent,
+        CsvJSONComponent
 	],
     imports: [
         BrowserModule,
