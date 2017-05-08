@@ -1,0 +1,253 @@
+<div>
+  <button class="btn btn-default" (click)="changeTab(0)">Rdpd</button>
+  <button class="btn btn-default" (click)="changeTab(1)">10 philosophies</button>
+  <button class="btn btn-default" (click)="changeTab(2)">12 actions</button>
+  <button class="btn btn-default" (click)="changeTab(3)">Rdpd-Q</button>
+</div>
+
+<div *ngIf="tab === 0">
+  <h3>Rich Dad - Poor Dad</h3>
+  <ol>
+    <li>Don't work for money, let money work for you</li>
+    <li>Buy assets, not liabilites</li>
+    <li>Financial aptitude is a synergy of:
+      <ul>
+        <li>Accounting</li>
+        <li>Investment</li>
+        <li>Marketing</li>
+        <li>Law</li>
+      </ul>
+    </li>
+    <li>Real estate can provide regular income with a nice increase of value</li>
+    <li>Small cap companies about to go public can provide great value realization at a higher risk, by having a margin of safety they can be a good investment</li>
+    <li>Type 1 investors buy off the shelf products</li>
+    <li>Type 2 investors create products from components</li>
+    <li>Mind your business, not your profession</li>
+    <li>Ask yourself, who am I making money for</li>
+    <li>Use the money produced by your assets to buy new assets</li>
+    <li>Buy when Mr. Market is depressed</li>
+    <li>Sell when Mr. Market is excited</li>
+    <li>Schools create good employees, not employers</li>
+    <li>By being ready to take risks there are great opportunities to be had</li>
+    <li>Playing it safe will result in mediocre</li>
+    <li>Most people blame someone other than themselves when things don't go their way, but it's much harder to change someone else than it is to change yourself</li>
+    <li>Life is like goint to the gym, the hardest part is making the decision</li>
+    <li>People focus too much on specializing instead of how to sell their product/service</li>
+    <li>If you hate risk and worry, start early</li>
+    <li>People are so afraid to lose, that they lose</li>
+    <li>Don't bury your failure, wear it proudly</li>
+    <li>Cynics criticize, winners analyze</li>
+    <li>Criticism blinds, analysis open eyes</li>
+    <li>Busy people are lazy, avoiding something</li>
+    <li>"I can't afford it" is a lie, "How can I afford it?" is more true</li>
+    <li>Create a dynamic spirit</li>
+    <li>How can I afford to never work again?</li>
+    <li>Pay your bills last, pay yourself first</li>
+    <li>There is gold everywhere, most people are too blind to see it</li>  
+  </ol>
+</div>
+
+<div  *ngIf="tab === 1">
+  <h3>10 philosophies</h3>
+  <p>How do I start amassing wealth?</p>
+  <ol>
+    <li>The power of spirit - Find a reason greater than reality
+      <ul>
+        <li>I don't want to work all my life</li>
+        <li>I don't want to be an employee</li>
+        <li>I want to be free to travel the world</li>
+        <li>I want to have guarantee a certain quality of lifestyle</li>
+        <li>I want control over my time and my life</li>
+      </ul>
+    </li>
+    <li>The power of choice - Make daily choices
+      <ul>
+        <li>Poor people have poor spending habits</li>
+        <li>Choose to be rich</li>
+        <li>Aquire assets, real assets</li>
+        <li>Invest first in financial education</li>
+        <li>IN and out of stocks, long on education</li>
+      </ul>
+    </li>
+    <li>The power of friends - Choose friends carefully
+      <ul>
+        <li>Learn from all of them</li>
+        <li>Friends in dire financial situations don't talk about money</li>
+        <li>Friends well off talk about it, out of interest</li>
+        <li>Don't listen to scared people</li>
+        <li>There is always another wave</li>
+        <li>Smart investors get themselves in position for the next wave</li>
+        <li>Buy when it's not popular</li>
+        <li>Don't time the market, reverse it</li>
+        <li>Rich friends keep track of the market</li>        
+      </ul>
+    </li>
+    <li>The power of learning quickly - Master a formula, then learn a new one
+      <ul>
+        <li>You become what you study</li>
+        <li>Basic is work for money</li>
+        <li>Buy real-esstate foreclosure</li>
+        <li>Finding faster formulas is key</li>
+      </ul>
+    </li>
+    <li>The power of self-discipline - Pay yourself first
+      <ul>
+        <li>The number one delineator between rich and poor</li>
+        <li>Management of cash flow</li>
+        <li>Management of people</li>
+        <li>Management of personal time</li>        
+      </ul>
+    </li>
+    <li>The power of good advice - Pay your brokers well
+      <ul>
+        <li>Pay professionals well and let them make you money</li>
+        <li>How much stocks do they own, hwo much tax do they pay</li>
+        <li>Reward people who are smarter than you</li>        
+      </ul>
+    </li>
+    <li>The power of getting something from nothing - Be an indian giver
+      <ul>
+        <li>How fast do I get my money back?</li>
+        <li>What do I get for free?</li>
+        <li>ROI is very important</li>
+        <li>Putting money into a stock about to move</li>
+        <li>Pulling out the initial investment after about a month</li>
+        <li>Only play with money I can afford to lose</li>
+        <li>Limied risk/low risk-idea</li>
+        <li>What assets do I get for free once I get my money back</li>
+        <li>Ex. Stock, house, office building, condominium, mini-storage, piece of land</li>        
+      </ul>
+    </li>
+    <li>The power of focus - Use assets to buy luxuries
+      <ul>
+        <li>The easy road becomes hard, the hard road becomes easy</li>        
+      </ul>
+    </li>
+    <li>The power of myth - Find your heroes
+      <ul>
+        <li>Copy or emulate your heroes</li>
+        <li>Learn from mentors that know much more than you do</li>
+      </ul>
+    </li>
+    <li>The power of giving - Teach and you shall recieve
+      <ul>
+        <li>Be generous with what you have and it will come back to you</li>        
+      </ul>
+    </li>
+  </ol>
+</div>
+
+<div  *ngIf="tab === 2">
+  <h3>12 actions</h3>
+  <ol>
+    <li>Stop doing what you're doing
+      <ul>
+        <li>Assess what is working and what is not</li>
+      </ul>
+    </li>
+    <li>Look for new ideas
+      <ul>
+        <li>Formulas, how to invest in X</li>
+        <li>16% solution</li>
+      </ul>
+    </li>
+    <li>Find someone who has done what you want to do
+      <ul>
+        <li>Ask them how</li>
+      </ul>
+    </li>
+    <li>Take classes, read and attend seminars
+      <ul>
+        <li>Invest in knowledge</li>
+      </ul>
+    </li>
+    <li>Make lots of offers
+      <ul>
+        <li>Offer low, try to deal</li>
+        <li>Someone might say yes</li>
+      </ul>
+    </li>
+    <li>Make offers with escape clauses
+      <ul>
+        <li>Approval of business partner</li>
+      </ul>
+    </li>
+    <li>Go to the market
+      <ul>
+        <li>Search</li>
+        <li>Offer</li>
+        <li>Reject</li>
+        <li>Negotiate</li>
+        <li>Accept</li>
+      </ul>
+    </li>
+    <li>Walk/Jog/Drive a neighborhood 10 minutes every month
+      <ul>
+        <li>For a year</li>
+        <li>Look for change</li>
+        <li>Postal carriers</li>
+        <li>New retailers</li>
+        <li>Moving trucks</li>      
+      </ul>
+    </li>
+    <li>Shop for bargains in all markets
+      <ul>
+        <li>Foreclosure auction</li>
+        <li>Find class on foreclosure</li>
+      </ul>
+    </li>
+    <li>Look for people who want to buy, then look for someone who sells
+      <ul>
+        <li>Buy the pie and cut it in pieces</li>
+      </ul>
+    </li>
+    <li>Think big
+      <ul>
+        <li>Negotiating a deal is easier in bulk</li>
+        <li>Use friends/Allies to engage bigger deals</li>
+      </ul>
+    </li>
+    <li>Learn from history
+      <ul>
+        <li>Action always beats inaction</li>
+      </ul>
+    </li>
+  </ol>
+</div>
+
+<div *ngIf="tab === 3">
+  <h3>Rich Dad - Poor Dad - Quadrants</h3>
+  <ul>
+    <li>
+      Left Side
+      <ul>        
+        <li>Employee</li>
+        <li>Self-Employed</li>
+      </ul>
+    </li>
+    <li>
+      Right Side
+      <ul>        
+        <li>Business Owner</li>
+        <li>Investor</li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>Success is a poor teacher</li>
+    <li>Failure teaches valuable lessons</li>    
+    <ul>
+      <li>Building the system</li>
+      <li>Building a franchise</li>
+      <li>Great for expansion</li>
+      <li>A wave of the future</li>
+    </ul>           
+    <li>Find a mentor</li>
+    <ul>
+      <li>Anders</li>
+      <li>Eric</li>      
+      <li>Hasse</li>
+    </ul>        
+  </ul>      
+</div>  

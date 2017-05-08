@@ -1,0 +1,204 @@
+<h3>{{title}}</h3>
+
+<div class="form-group">
+    <label for="ek">Insättning Eget Kapital (SEK):</label>
+    <br />
+    <input type="number" class="input" placeholder="Eget Kapital" id="ek" [(ngModel)]="capital" />
+    <br />
+    <br />
+
+    <label for="growth">Tillväxt (%):</label>
+    <br />
+    <input type="number" class="input" placeholder="Tillväxt" id="growth" [(ngModel)]="growth" />
+    <br />
+    <br />
+
+    <label for="moneySaved">Insättning per månad (SEK):</label>
+    <br />
+    <input type="number" class="input" placeholder="Insättning per månad" id="moneySaved" [(ngModel)]="moneySaved" />
+    
+</div>
+
+<p>Ursprungsinvestering på {{ capital | number:'1.0-2' }} kr<span *ngIf="growth"> med en tillväxt på {{ growth }}% per år</span>.</p>
+<p *ngIf="moneySaved">Ytterligare insättningar på {{ moneySaved | number:'1.0-2' }} SEK görs varje månad.</p>
+
+
+<h4>Year by year increase</h4>
+
+<table class="table">
+    <thead>
+        <th>Year</th>
+        <th>Increase since origin</th>
+        <th>Capital</th>
+    </thead>
+    <!--År 1-->
+    <tr>
+        <td>1</td>
+        <td>{{ (((growth / 100) + 1)        
+            - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ (capital + (moneySaved * 12)*1) * ((growth / 100) + 1
+            ) | number:'1.0-0' }} kr</td>
+    </tr>
+    <!--År 2-->
+    <tr>
+        <td>2</td>
+        <td>{{ (((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ (capital + (moneySaved * 12)*2) * (((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            ) | number:'1.0-0' }} kr</td>
+    </tr>
+    <!--År 3-->
+    <tr>
+        <td>3</td>
+        <td>{{ (((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ (capital + (moneySaved * 12)*3) * (((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            ) | number:'1.0-0' }} kr</td>
+    </tr>
+    <!--År 4-->
+    <tr>
+        <td>4</td>
+        <td>{{ (((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ (capital + (moneySaved * 12)*4) * (((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            ) | number:'1.0-0' }} kr</td>
+    </tr>
+    <!--År 5-->
+    <tr>
+        <td>5</td>
+        <td>{{ (((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ (capital + (moneySaved * 12)*5) * (((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            ) | number:'1.0-0' }} kr</td>
+    </tr>
+    <!--År 6-->
+    <tr>
+        <td>6</td>
+        <td>{{ (((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ (capital + (moneySaved * 12)*6) * (((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            ) | number:'1.0-0' }} kr</td>
+    </tr>
+    <!--År 7-->
+    <tr>
+        <td>8</td>
+        <td>{{ (((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ (capital + (moneySaved * 12)*7) * (((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            ) | number:'1.0-0' }} kr</td>
+    </tr>
+    <!--År 8-->
+    <tr>
+        <td>8</td>
+        <td>{{ (((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ (capital + (moneySaved * 12)*8) * (((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            ) | number:'1.0-0' }} kr</td>
+    </tr>
+    <!--År 9-->
+    <tr>
+        <td>9</td>
+        <td>{{ (((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)            
+            - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ (capital + (moneySaved * 12)*9) * (((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            ) | number:'1.0-0' }} kr</td>
+    </tr>
+    <!--År 10-->
+    <tr> 
+        <td>10</td>
+        <td>{{ (((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ (capital + (moneySaved * 12)*10) * (((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            * ((growth / 100) + 1)
+            ) | number:'1.0-0' }} kr</td>
+    </tr>
+</table>

@@ -10,12 +10,12 @@ import { MessageListComponent } from "./messages/message-list.component";
 import { MessageInputComponent } from "./messages/message-input.component";
 import { MessagesComponent } from "./messages/messages.component";
 import { AuthenticationComponent } from "./auth/authentication.component";
-import { HeaderComponent } from "./header.component";
 import { routing } from "./app.routing";
 import { LogoutComponent } from "./auth/logout.component";
 import { SignupComponent } from "./auth/signup.component";
 import { SigninComponent } from "./auth/signin.component";
 import { AuthService } from "./auth/auth.service";
+import { HeaderComponent } from "./header.component";
 
 import { ToDoListComponent } from './to-do-list/to-do-list.component';
 import { FirstNorthComponent } from './first-north/first-north.component';
@@ -29,7 +29,10 @@ import { ChangeLogComponent } from './change-log/change-log.component';
 import { InlineEditComponent } from './shared/inline-edit/inline-edit.component';
 import { StockWikiComponent } from './stock-wiki/stock-wiki.component';
 import { RbbhsComponent } from './stock-wiki/rbbhs/rbbhs.component';
+import { RdpdComponent } from './stock-wiki/rdpd/rdpd.component';
 import { ParserComponent } from './parser/parser.component';
+import { ToolsComponent } from './tools/tools.component';
+import { RoiComponent } from './tools/roi/roi.component';
 
 @NgModule({
     declarations: [
@@ -55,7 +58,10 @@ import { ParserComponent } from './parser/parser.component';
 		InlineEditComponent,
 		StockWikiComponent,
 		RbbhsComponent,
-		ParserComponent		
+        RdpdComponent,
+		ParserComponent,
+        ToolsComponent,
+        RoiComponent
 	],
     imports: [
         BrowserModule,
@@ -66,8 +72,12 @@ import { ParserComponent } from './parser/parser.component';
         RouterModule.forRoot([
         {
             path: '',
-            redirectTo: '/first-north',
+            redirectTo: '/users',
             pathMatch: 'full'
+        },
+        {
+            path: 'users',
+            component: HeaderComponent
         },
         {
             path: 'first-north',
@@ -100,7 +110,11 @@ import { ParserComponent } from './parser/parser.component';
         {
             path: 'stock-wiki',
             component: StockWikiComponent
-        }        
+        },        
+        {
+            path: 'tools',
+            component: ToolsComponent
+        }       
     ])
     ],
     providers: [AuthService],

@@ -1,5 +1,6 @@
 <button class="btn btn-default" (click)="changeTab(0)">Default</button>
 <button class="btn btn-default" (click)="changeTab(1)">Rbbhs</button>
+<button class="btn btn-default" (click)="changeTab(2)">Rdpd</button>
 <br />
 <div *ngIf="tab === 0">
     <h1>Default</h1>
@@ -7,5 +8,8 @@
 <div *ngIf="tab === 1">
     <app-rbbhs></app-rbbhs>
 </div>
+<div *ngIf="tab === 2">
+    <app-rdpd></app-rdpd>
+</div>
 <hr />
-<app-parser></app-parser>
+<!-- <app-parser></app-parser> -->
