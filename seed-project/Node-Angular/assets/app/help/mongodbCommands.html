@@ -1,0 +1,22 @@
+<-- MongoImport.exe -->
+
+
+    <-- General commands in Mongo Shell --> 
+
+
+    
+
+    <-- Import CSV -->
+
+        <-- EXAMPLE FOR UPDATING DATABASE "node-angular", COLLECTION "stocks" BY IMPORTING A CSV WITH HEADERS -->
+
+            <-- Step 1: Navigate to MongoDB bin folder in PowerShell -->
+            cd "..\MeanExplorer\seed-project\MongoDb\bin"
+
+            <-- Step 2: Open Mongo Shell and drop stocks database -->
+            mongo.exe
+            use node-angular
+            db.getCollection('stocks').drop()
+
+            <-- Step 3: Import new data from CSV -->
+            .\mongoimport.exe -d node-angular -c stocks --type csv --file C:\Users\Tim\Dropbox\Aktier\MeanExplorer\Borsdata_2017-05-08.csv --headerline
