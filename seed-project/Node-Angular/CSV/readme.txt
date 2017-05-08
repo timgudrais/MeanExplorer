@@ -51,3 +51,6 @@ db.getCollection('messages').find()
 
 .\mongoimport.exe --help
 .\mongoimport.exe /host:localhost /port:27017 /db:node-angular -c stocks --type csv /file:C:\Users\sun\Desktop\DevTest\MeanExplorer\seed-project\Node-Angular\CSV\Borsdata_2017-05-08.csv --headerline
+
+
+.\mongoimport.exe -d node-angular -c stocks --type csv --file C:\Users\sun\Desktop\DevTest\MeanExplorer\seed-project\Node-Angular\CSV\Borsdata_2017-05-08.csv --headerline
