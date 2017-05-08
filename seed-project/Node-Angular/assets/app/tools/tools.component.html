@@ -1,2 +1,10 @@
 <h2>{{title}}</h2>
-<roi></roi>
+<button class="btn btn-default" (click)="changeTab(0)">ROI</button>
+<button class="btn btn-default" (click)="changeTab(1)">CSV To JSON</button>
+
+<div *ngIf="tab === 0">
+    <roi></roi>
+</div>
+<div *ngIf="tab === 1">
+    <csvJSON></csvJSON>
+</div>
