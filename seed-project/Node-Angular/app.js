@@ -11,7 +11,10 @@ var messageRoutes = require('./routes/messages');
 var userRoutes = require('./routes/user');
 
 var app = express();
-mongoose.connect('localhost:27017/node-angular');
+
+mongoose.connect('mongodb://MeanExplorer:f4rs1ght@meanexplorer-shard-00-00-vqvsb.mongodb.net:27017,meanexplorer-shard-00-01-vqvsb.mongodb.net:27017,meanexplorer-shard-00-02-vqvsb.mongodb.net:27017MeanExplorer?ssl=true&replicaSet=MeanExplorer-shard-0&authSource=admin');
+
+// .\mongoimport.exe --host meanexplorer-shard-00-00-vqvsb.mongodb.net:27017 -d MeanExplorer -c stocks --type csv --file C:\Users\Tim\Dropbox\Aktier\MeanExplorer\Borsdata_2017-05-08.csv --headerline --authenticationDatabase admin --ssl --username MeanExplorer --password f4rs1ght
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
