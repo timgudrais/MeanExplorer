@@ -1,3 +1,0 @@
-#Run this in powershell with correct path for your project
-
-C:\Users\sun\Desktop\DevTest\seed-project\MongoDb\bin\mongod.exe --dbpath C:\Users\sun\Desktop\DevTest\seed-project\MongoDb\data
