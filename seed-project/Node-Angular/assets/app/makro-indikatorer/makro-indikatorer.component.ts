@@ -13,4 +13,8 @@ export class MakroIndikatorerComponent implements OnInit {
   ngOnInit() {
   }
 
+  loadStocks() {
+    
+  }
+
 }
