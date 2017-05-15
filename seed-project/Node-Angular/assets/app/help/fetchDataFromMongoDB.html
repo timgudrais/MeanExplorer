@@ -1,0 +1,38 @@
+Example showing how to create "stocks" component to fetch data from MongoDB
+
+<-- Step 1: Create stocks.component.ts -->
+    import { Component, OnInit } from '@angular/core';      <-- Import Component and OnInit -->
+    import { Stock } from "./stock.model";                  <-- Import Stock model -->
+    import { StockService } from "./stock.service";         <-- Import StockService -->
+
+    ...
+
+    export class StocksComponent implements OnInit {
+        title = 'stocks';
+        stocks: Stock[];
+
+        constructor(private stockService: StockService) { }
+
+        ngOnInit() {
+            this.stockService.getStocks()
+                .subscribe(
+                (stocks: Stock[]) => {
+                    this.stocks = stocks;
+                }
+                )
+        }
+    }
+
+* To add *
+
+stocks.service.ts
+stocks.component.html
+stocks.model.ts
+../models/stock.js
+../routes/stocks.js
+
+
+../app.js
+
+    var stockRoutes = require('./routes/stocks');           
+    app.use('/stocks', stockRoutes);                        <-- Order is important, always input longer entires above existing -->
