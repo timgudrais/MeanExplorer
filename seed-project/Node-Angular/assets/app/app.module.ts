@@ -37,6 +37,9 @@ import { RoiComponent } from './tools/roi/roi.component';
 import { FinancialTermsComponent } from './tools/financialTerms/financialTerms.component';
 import { RealEstateComponent } from './tools/realEstate/realEstate.component';
 import { CsvJSONComponent } from './tools/csvJSON/csvJSON.component';
+import { StocksComponent } from './stocks/stocks.component';
+
+import { StockFilterPipe } from './stocks/stocks-filter.pipe';
 
 @NgModule({
     declarations: [
@@ -68,7 +71,9 @@ import { CsvJSONComponent } from './tools/csvJSON/csvJSON.component';
         RoiComponent,
         FinancialTermsComponent,
         RealEstateComponent,
-        CsvJSONComponent
+        CsvJSONComponent,
+        StocksComponent,
+        StockFilterPipe
 	],
     imports: [
         BrowserModule,

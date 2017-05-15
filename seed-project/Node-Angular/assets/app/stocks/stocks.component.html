@@ -1,0 +1,27 @@
+<h3>{{title}}</h3>
+
+<!--<div class="col-md-8 col-md-offset-2">
+    <app-stock
+        [stock]="stock"
+        *ngFor="let stock of stocks">
+    </app-stock>
+</div>-->
+
+<table class="tableStandard">
+    <thead>
+        <tr>
+            <th><input type="text" name="Bolagsnamn" [(ngModel)]="filter.Bolagsnamn" placeholder="Bolagsnamn"></th>
+            <th><input type="text" name="ISIN" [(ngModel)]="filter.ISIN" placeholder="ISIN"></th>
+            <th><input type="text" name="Ticker" [(ngModel)]="filter.Ticker" placeholder="Ticker"></th>
+            <th><input type="number" name="Aktiekurs" [(ngModel)]="filter.Aktiekurs" placeholder="Aktiekurs"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor='let stock of stocks | stockfilter:filter; let i = index'>
+            <td class="columnMedium">{{stock.Bolagsnamn}}</td>
+            <td class="columnLarge">{{stock.ISIN}}</td>
+            <td class="columnMedium">{{stock.Ticker}}</td>
+            <td class="columnLarge">{{stock.Aktiekurs}}</td>
+        </tr>
+    </tbody>
+</table>
