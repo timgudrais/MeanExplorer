@@ -6,11 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./roi.component.css']
 })
 export class RoiComponent implements OnInit {
-  title = 'Return on investment - calculator';
+  title = 'Return on investment - kalkylator';
 
   public capital = 0;
   public compoundedCapital = 0;
-  public growth = 0;
+  public growthPercentage = 0;
   public moneySaved = 0;
   public dividends = 0;
 

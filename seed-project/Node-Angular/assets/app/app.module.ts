@@ -34,6 +34,8 @@ import { RdpdComponent } from './stock-wiki/rdpd/rdpd.component';
 import { ParserComponent } from './parser/parser.component';
 import { ToolsComponent } from './tools/tools.component';
 import { RoiComponent } from './tools/roi/roi.component';
+import { FinancialTermsComponent } from './tools/financialTerms/financialTerms.component';
+import { RealEstateComponent } from './tools/realEstate/realEstate.component';
 import { CsvJSONComponent } from './tools/csvJSON/csvJSON.component';
 
 @NgModule({
@@ -64,6 +66,8 @@ import { CsvJSONComponent } from './tools/csvJSON/csvJSON.component';
 		ParserComponent,
         ToolsComponent,
         RoiComponent,
+        FinancialTermsComponent,
+        RealEstateComponent,
         CsvJSONComponent
 	],
     imports: [
