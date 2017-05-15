@@ -20,7 +20,7 @@ mongoose.connect(MeanExplorer);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log("Connected to MongoDB Atlas database MeanExplorer successfully")
+  console.log("Connected to MongoDB Atlas database successfully")
 });
 
 // view engine setup
