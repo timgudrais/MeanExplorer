@@ -12,11 +12,16 @@ var userRoutes = require('./routes/user');
 
 var app = express();
 
-mongoose.connect('localhost:27017/node-angular');
+// MongoDB Atlas, connect and receive callback
 
-// mongoose.connect('mongodb://MeanExplorer:f4rs1ght@meanexplorer-shard-00-00-vqvsb.mongodb.net:27017,meanexplorer-shard-00-01-vqvsb.mongodb.net:27017,meanexplorer-shard-00-02-vqvsb.mongodb.net:27017MeanExplorer?ssl=true&replicaSet=MeanExplorer-shard-0&authSource=admin');
+var MeanExplorer = 'mongodb://MeanExplorer:f4rs1ght@meanexplorer-shard-00-00-vqvsb.mongodb.net:27017/MeanExplorer?ssl=true&replicaSet=MeanExplorer-shard-0&authSource=admin';
+mongoose.connect(MeanExplorer);
 
-// .\mongoimport.exe --host meanexplorer-shard-00-00-vqvsb.mongodb.net:27017 -d MeanExplorer -c stocks --type csv --file C:\Users\Tim\Dropbox\Aktier\MeanExplorer\Borsdata_2017-05-08.csv --headerline --authenticationDatabase admin --ssl --username MeanExplorer --password f4rs1ght
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log("Connected to MongoDB Atlas database MeanExplorer successfully")
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
