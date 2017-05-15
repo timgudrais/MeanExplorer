@@ -1,10 +1,18 @@
 <h2>{{title}}</h2>
-<button class="btn btn-default" (click)="changeTab(0)">ROI</button>
-<button class="btn btn-default" (click)="changeTab(1)">CSV To JSON</button>
+<button class="btn btn-default" (click)="changeTab(0)">Finansiella Termer</button>
+<button class="btn btn-default" (click)="changeTab(1)">ROI</button>
+<button class="btn btn-default" (click)="changeTab(2)">Fastighetskalkyl</button>
+<button class="btn btn-default" (click)="changeTab(3)">CSV till JSON</button>
 
 <div *ngIf="tab === 0">
-    <roi></roi>
+    <financialTerms></financialTerms>
 </div>
 <div *ngIf="tab === 1">
+    <roi></roi>
+</div>
+<div *ngIf="tab === 2">
+    <realEstate></realEstate>
+</div>
+<div *ngIf="tab === 3">
     <csvJSON></csvJSON>
 </div>

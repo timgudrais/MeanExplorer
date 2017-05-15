@@ -1,0 +1,71 @@
+<h3>{{title}}</h3>
+
+<div class="form-group">
+    <label for="propertyCost">Total fastighetskostnad (SEK):</label>
+    <br />
+    <input type="number" class="form-control" placeholder="Total fastighetskostnad" id="propertyCost" [(ngModel)]="propertyCost" />
+    <br />
+    <br />
+    <label for="loanAmount">Lån (SEK):</label>
+    <br />
+    <input type="number" class="form-control" placeholder="Lån" id="loanAmount" [(ngModel)]="loanAmount" />
+    <br />
+    <br />
+    <label for="loanInterest">Ränta på lån (%):</label>
+    <br />
+    <input type="number" class="form-control" placeholder="Ränta på lån" id="loanInterest" [(ngModel)]="loanInterest" />
+    <br />
+    <br />
+    <label for="loanAmortization">Amortering på lån (%):</label>
+    <br />
+    <input type="number" class="form-control" placeholder="Amortering på lån" id="loanAmortization" [(ngModel)]="loanAmortization" />
+    <br />
+    <br />
+    <label for="propertyFees">Fasta avgifter (SEK):</label>
+    <br />
+    <input type="number" class="form-control" placeholder="Fasta avgifter" id="propertyFees" [(ngModel)]="propertyFees" />
+    <br />
+    <br />
+    <label for="incomePerMonth">Hyresintäkt per månad (SEK):</label>
+    <br />
+    <input type="number" class="form-control" placeholder="Hyresintäkt per månad" id="incomePerMonth" [(ngModel)]="incomePerMonth" />
+    <br />
+    <br />
+    <div *ngIf="incomePerMonth">
+        <label for="amountOfTenants">Antal hyresgäster:</label>
+        <br />
+        <input type="number" class="form-control" placeholder="Antal hyresgäster" id="amountOfTenants" [(ngModel)]="amountOfTenants" />
+        <br />
+        <br />
+    </div>
+    
+</div>
+
+<hr>
+<p *ngIf="propertyCost">Total fastighetskostnad på <span style="color: deepskyblue">{{ propertyCost | number:'1.0-0' }}</span> SEK<span *ngIf="loanAmount"> med ett lån på <span style="color: deepskyblue">{{ loanAmount | number:'1.0-0' }}</span> SEK och ränta på <span style="color: deepskyblue">{{ (loanInterest / 100) * loanAmount | number:'1.0-0' }}</span> SEK per år.</span>
+<p *ngIf="loanAmortization">Lånet amorteras med <span style="color: deepskyblue">{{ (loanAmortization / 100) * loanAmount | number:'1.0-0' }}</span> SEK varje år.</p>
+<p *ngIf="amountOfTenants">Intäkter från de <span style="color: deepskyblue">{{ amountOfTenants | number:'1.0-2' }}</span> hyresgästerna är <span style="color: deepskyblue">{{ incomePerMonth * amountOfTenants | number:'1.0-0' }}</span> SEK per månad och <span style="color: deepskyblue">{{ incomePerMonth * amountOfTenants * 12 | number:'1.0-0' }}</span> per år.</p>
+<p *ngIf="loanAmortization || incomePerMonth">Total utdelning på ett år är <span style="color: deepskyblue">{{ (incomePerMonth * amountOfTenants * 12) - ((loanAmortization / 100) * loanAmount + (loanInterest / 100) * loanAmount) | number:'1.0-0' }}</span></p>
+<br />
+
+<ul>
+    <li>Yield</li>
+    <ul>
+        <li>Vilken utdelning får du baserat på din investering?</li>
+        <li></li>
+    </ul>
+    <li>Yield = dividend / price</li>
+    <li>viktigTerm</li>
+    <li>viktigTerm</li>
+    <li>viktigTerm</li>
+    <li>viktigTerm</li>
+    <li>viktigTerm</li>
+    <li>viktigTerm</li>
+    <li>viktigTerm</li>
+    <li>viktigTerm</li>
+    <li>viktigTerm</li>
+    <li>viktigTerm</li>
+    <li>viktigTerm</li>
+    <li>viktigTerm</li>
+    <li>viktigTerm</li>
+</ul>

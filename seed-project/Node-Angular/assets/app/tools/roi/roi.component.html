@@ -3,140 +3,152 @@
 <div class="form-group">
     <label for="ek">Insättning Eget Kapital (SEK):</label>
     <br />
-    <input type="number" class="input" placeholder="Eget Kapital" id="ek" [(ngModel)]="capital" />
+    <input type="number" class="form-control" placeholder="Eget Kapital" id="ek" [(ngModel)]="capital" />
     <br />
     <br />
 
-    <label for="growth">Tillväxt (%):</label>
+    <label for="growthPercentage">Tillväxt (%):</label>
     <br />
-    <input type="number" class="input" placeholder="Tillväxt" id="growth" [(ngModel)]="growth" />
+    <input type="number" class="form-control" placeholder="Tillväxt" id="growthPercentage" [(ngModel)]="growthPercentage" />
     <br />
     <br />
 
     <label for="moneySaved">Insättning per månad (SEK):</label>
     <br />
-    <input type="number" class="input" placeholder="Insättning per månad" id="moneySaved" [(ngModel)]="moneySaved" />
+    <input type="number" class="form-control" placeholder="Insättning per månad" id="moneySaved" [(ngModel)]="moneySaved" />
     <br />
     <br />
 
     <label for="dividends">Utdelning per år (%):</label>
     <br />
-    <input type="number" class="input" placeholder="Utdelning per år" id="dividends" [(ngModel)]="dividends" />
+    <input type="number" class="form-control" placeholder="Utdelning per år" id="dividends" [(ngModel)]="dividends" />
 </div>
 
 <hr>
-<p>Ursprungsinvestering på {{ capital | number:'1.0-2' }} SEK<span *ngIf="growth"> med en tillväxt på {{ growth }}% per år</span>.</p>
-<p *ngIf="moneySaved">Ytterligare insättningar på {{ moneySaved | number:'1.0-2' }} SEK görs varje månad.</p>
+<p>Ursprungsinvestering på <span style="color: deepskyblue">{{ capital | number:'1.0-2' }}</span> SEK<span *ngIf="growthPercentage"> med en tillväxt på <span style="color: deepskyblue">{{ growthPercentage }}</span> % per år och <span style="color: deepskyblue">{{ (compoundedReturnPerMonthPercentage(growthPercentage) - 1) * 100 | number:'1.2-2' }}</span> % per månad.</span>.</p>
+<p *ngIf="moneySaved">Ytterligare insättningar på <span style="color: deepskyblue">{{ moneySaved | number:'1.0-2' }}</span> SEK görs varje månad.</p>
+<p *ngIf="dividends">Utdelningen på <span style="color: deepskyblue">{{ dividends | number:'1.0-0' }}</span> % per år spenderas/investeras på annat håll.</p>
 <br />
-<button *ngIf="!reInvest" class="btn btn-default" (click)="reInvestDividends(true)">Återinvestera utdelning</button>
-<button *ngIf="reInvest" class="btn btn-info">Återinvestera utdelning</button>
-<button *ngIf="reInvest" class="btn btn-default" (click)="reInvestDividends(false)">Behåll utdelning</button>
-<button *ngIf="!reInvest" class="btn btn-info">Behåll utdelning</button>
+<div *ngIf="false">
+    <button *ngIf="!reInvest" class="btn btn-default" (click)="reInvestDividends(true)">Återinvestera utdelning</button>
+    <button *ngIf="reInvest" class="btn btn-info">Återinvestera utdelning</button>
+    <button *ngIf="reInvest" class="btn btn-default" (click)="reInvestDividends(false)">Behåll utdelning</button>
+    <button *ngIf="!reInvest" class="btn btn-info">Behåll utdelning</button>
+</div>
 <hr>
 
-<h1>{{ compoundedReturnPerMonthPercentage(growth) }}</h1>
-
-<span>{{ calculateGrowth(capital, moneySaved, growth, 1, dividends) }}</span>
+<span *ngIf="false">{{ calculateGrowth(capital, moneySaved, growthPercentage, 1, dividends) }}</span>
 
 <h4>Årlig tillväxt</h4>
 
 <table class="table">
     <thead>
         <th>År</th>
+        <th>Eget Kapital</th>
+        <th>Total Tillväxt (%)</th>
+        <th>Tillväxt (SEK)</th>    
         <th>Tillväxt (%)</th>
-        <th>Tillväxt (SEK)</th>
-        <th>Eget Kapital</th>        
         <th>Utdelning (År)</th>
         <th>Utdelning (Månad)</th>
     </thead>
     <!--År 1-->
     <tr>
         <td>1</td>
-        <td>{{ calculateGrowthPercentage(capitalOne, capital) | number:'1.0-0' }} %</td>        
-        <td>{{ calculateDifference(capital, capitalOne) | number:'1.0-0' }}</td>
-        <td>{{ compoundedReturnPerYear(capital, growth, moneySaved) | number:'1.0-0' }} SEK</td>
-        <td>{{ calculateDividends(capitalOne, moneySaved, growth, 1, dividends) | number:'1.0-0' }} SEK</td>
-        <td>{{ calculateDividendsMonth(capitalOne, moneySaved, growth, 1, dividends) | number:'1.0-0' }} SEK</td>
+        <td>{{ compoundedReturnPerYear(capital, growthPercentage, moneySaved) | number:'1.0-0' }} SEK</td>
+        <td>{{ (compoundedCapitalOne / capital - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ (compoundedCapitalOne - capital) | number:'1.0-0' }}</td>
+        <td>{{ (compoundedCapitalOne / capital - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ calculateDividends(compoundedCapitalOne, moneySaved, growthPercentage, 1, dividends) | number:'1.0-0' }} SEK</td>
+        <td>{{ calculateDividendsMonth(compoundedCapitalOne, moneySaved, growthPercentage, 1, dividends) | number:'1.0-0' }} SEK</td>
     </tr>
     <!--År 2-->
     <tr>
         <td>2</td>
-        <td>{{ calculateGrowthPercentage(capitalTwo, capital) | number:'1.0-0' }} %</td>
-        <td>{{ calculateDifference(capital, capitalTwo) | number:'1.0-0' }}</td>
         <td>{{ compoundedCapitalTwo | number:'1.0-0' }} SEK</td>
-        <td>{{ calculateDividends(capitalTwo, moneySaved, growth, 2, dividends) | number:'1.0-0' }} SEK</td>
-        <td>{{ calculateDividendsMonth(capitalTwo, moneySaved, growth, 2, dividends) | number:'1.0-0' }} SEK</td>
+        <td>{{ (compoundedCapitalTwo / capital - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ (compoundedCapitalTwo - compoundedCapitalOne) | number:'1.0-0' }}</td>
+        <td>{{ (compoundedCapitalTwo / compoundedCapitalOne - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ calculateDividends(compoundedCapitalTwo, moneySaved, growthPercentage, 2, dividends) | number:'1.0-0' }} SEK</td>
+        <td>{{ calculateDividendsMonth(compoundedCapitalTwo, moneySaved, growthPercentage, 2, dividends) | number:'1.0-0' }} SEK</td>
     </tr>
     <!--År 3-->
     <tr>
         <td>3</td>
-        <td>{{ calculateGrowthPercentage(capitalThree, capital) | number:'1.0-0' }} %</td>
-        <td>{{ calculateDifference(capital, capitalThree) | number:'1.0-0' }}</td>
         <td>{{ compoundedCapitalThree | number:'1.0-0' }} SEK</td>
-        <td>{{ calculateDividends(capitalThree, moneySaved, growth, 3, dividends) | number:'1.0-0' }} SEK</td>
-        <td>{{ calculateDividendsMonth(capitalThree, moneySaved, growth, 3, dividends) | number:'1.0-0' }} SEK</td>
+        <td>{{ (compoundedCapitalThree / capital - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ (compoundedCapitalThree - compoundedCapitalTwo) | number:'1.0-0' }}</td>
+        <td>{{ (compoundedCapitalThree / compoundedCapitalTwo - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ calculateDividends(compoundedCapitalThree, moneySaved, growthPercentage, 3, dividends) | number:'1.0-0' }} SEK</td>
+        <td>{{ calculateDividendsMonth(compoundedCapitalThree, moneySaved, growthPercentage, 3, dividends) | number:'1.0-0' }} SEK</td>
     </tr>
     <!--År 4-->
     <tr>
         <td>4</td>
-        <td>{{ calculateGrowthPercentage(capitalFour, capital) | number:'1.0-0' }} %</td>
-        <td>{{ calculateDifference(capital, capitalFour) | number:'1.0-0' }}</td>
         <td>{{ compoundedCapitalFour | number:'1.0-0' }} SEK</td>
-        <td>{{ calculateDividends(capitalFour, moneySaved, growth, 4, dividends) | number:'1.0-0' }} SEK</td>
-        <td>{{ calculateDividendsMonth(capitalFour, moneySaved, growth, 4, dividends) | number:'1.0-0' }} SEK</td>
+        <td>{{ (compoundedCapitalFour / capital - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ (compoundedCapitalFour - compoundedCapitalThree) | number:'1.0-0' }}</td>
+        <td>{{ (compoundedCapitalFour / compoundedCapitalThree - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ calculateDividends(compoundedCapitalFour, moneySaved, growthPercentage, 4, dividends) | number:'1.0-0' }} SEK</td>
+        <td>{{ calculateDividendsMonth(compoundedCapitalFour, moneySaved, growthPercentage, 4, dividends) | number:'1.0-0' }} SEK</td>
     </tr>
     <!--År 5-->
     <tr>
         <td>5</td>
-        <td>{{ calculateGrowthPercentage(capitalFive, capital) | number:'1.0-0' }} %</td>
-        <td>{{ calculateDifference(capital, capitalFive) | number:'1.0-0' }}</td>
         <td>{{ compoundedCapitalFive | number:'1.0-0' }} SEK</td>
-        <td>{{ calculateDividends(capitalFive, moneySaved, growth, 5, dividends) | number:'1.0-0' }} SEK</td>
-        <td>{{ calculateDividendsMonth(capitalFive, moneySaved, growth, 5, dividends) | number:'1.0-0' }} SEK</td>
+        <td>{{ (compoundedCapitalFive / capital - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ (compoundedCapitalFive - compoundedCapitalFour) | number:'1.0-0' }}</td>
+        <td>{{ (compoundedCapitalFive / compoundedCapitalFour - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ calculateDividends(compoundedCapitalFive, moneySaved, growthPercentage, 5, dividends) | number:'1.0-0' }} SEK</td>
+        <td>{{ calculateDividendsMonth(compoundedCapitalFive, moneySaved, growthPercentage, 5, dividends) | number:'1.0-0' }} SEK</td>
     </tr>
     <!--År 6-->
     <tr>
         <td>6</td>
-        <td>{{ calculateGrowthPercentage(capitalSix, capital) | number:'1.0-0' }} %</td>
-        <td>{{ calculateDifference(capital, capitalSix) | number:'1.0-0' }}</td>
         <td>{{ compoundedCapitalSix | number:'1.0-0' }} SEK</td>
-        <td>{{ calculateDividends(capitalSix, moneySaved, growth, 6, dividends) | number:'1.0-0' }} SEK</td>
-        <td>{{ calculateDividendsMonth(capitalSix, moneySaved, growth, 6, dividends) | number:'1.0-0' }} SEK</td>
+        <td>{{ (compoundedCapitalSix / capital - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ (compoundedCapitalSix - compoundedCapitalFive) | number:'1.0-0' }}</td>
+        <td>{{ (compoundedCapitalSix / compoundedCapitalFive - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ calculateDividends(compoundedCapitalSix, moneySaved, growthPercentage, 6, dividends) | number:'1.0-0' }} SEK</td>
+        <td>{{ calculateDividendsMonth(compoundedCapitalSix, moneySaved, growthPercentage, 6, dividends) | number:'1.0-0' }} SEK</td>
     </tr>
     <!--År 7-->
     <tr>
         <td>8</td>
-        <td>{{ calculateGrowthPercentage(capitalSeven, capital) | number:'1.0-0' }} %</td>
-        <td>{{ calculateDifference(capital, capitalSeven) | number:'1.0-0' }}</td>
         <td>{{ compoundedCapitalSeven | number:'1.0-0' }} SEK</td>
-        <td>{{ calculateDividends(capitalSeven, moneySaved, growth, 7, dividends) | number:'1.0-0' }} SEK</td>
-        <td>{{ calculateDividendsMonth(capitalSeven, moneySaved, growth, 7, dividends) | number:'1.0-0' }} SEK</td>
+        <td>{{ (compoundedCapitalSeven / capital - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ (compoundedCapitalSeven - compoundedCapitalSix) | number:'1.0-0' }}</td>
+        <td>{{ (compoundedCapitalSeven / compoundedCapitalSix - 1) * 100 | number:'1.0-0' }} %</td> 
+        <td>{{ calculateDividends(compoundedCapitalSeven, moneySaved, growthPercentage, 7, dividends) | number:'1.0-0' }} SEK</td>
+        <td>{{ calculateDividendsMonth(compoundedCapitalSeven, moneySaved, growthPercentage, 7, dividends) | number:'1.0-0' }} SEK</td>
     </tr>
     <!--År 8-->
     <tr>
         <td>8</td>
-        <td>{{ calculateGrowthPercentage(capitalEight, capital) | number:'1.0-0' }} %</td>
-        <td>{{ calculateDifference(capital, capitalEight) | number:'1.0-0' }}</td>
         <td>{{ compoundedCapitalEight | number:'1.0-0' }} SEK</td>
-        <td>{{ calculateDividends(capitalEight, moneySaved, growth, 8, dividends) | number:'1.0-0' }} SEK</td>
-        <td>{{ calculateDividendsMonth(capitalEight, moneySaved, growth, 8, dividends) | number:'1.0-0' }} SEK</td>
+        <td>{{ (compoundedCapitalEight / capital - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ (compoundedCapitalEight - compoundedCapitalSeven) | number:'1.0-0' }}</td>
+        <td>{{ (compoundedCapitalEight / compoundedCapitalSeven - 1) * 100 | number:'1.0-0' }} %</td> 
+        <td>{{ calculateDividends(compoundedCapitalEight, moneySaved, growthPercentage, 8, dividends) | number:'1.0-0' }} SEK</td>
+        <td>{{ calculateDividendsMonth(compoundedCapitalEight, moneySaved, growthPercentage, 8, dividends) | number:'1.0-0' }} SEK</td>
     </tr>
     <!--År 9-->
     <tr>
         <td>9</td>
-        <td>{{ calculateGrowthPercentage(capitalNine, capital) | number:'1.0-0' }} %</td>
-        <td>{{ calculateDifference(capital, capitalNine) | number:'1.0-0' }}</td>
         <td>{{ compoundedCapitalNine | number:'1.0-0' }} SEK</td>
-        <td>{{ calculateDividends(capitalNine, moneySaved, growth, 9, dividends) | number:'1.0-0' }} SEK</td>
-        <td>{{ calculateDividendsMonth(capitalNine, moneySaved, growth, 9, dividends) | number:'1.0-0' }} SEK</td>
+        <td>{{ (compoundedCapitalNine / capital - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ (compoundedCapitalNine - compoundedCapitalEight) | number:'1.0-0' }}</td>
+        <td>{{ (compoundedCapitalNine / compoundedCapitalEight - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ calculateDividends(compoundedCapitalNine, moneySaved, growthPercentage, 9, dividends) | number:'1.0-0' }} SEK</td>
+        <td>{{ calculateDividendsMonth(compoundedCapitalNine, moneySaved, growthPercentage, 9, dividends) | number:'1.0-0' }} SEK</td>
     </tr>
     <!--År 10-->
     <tr> 
         <td>10</td>
-        <td>{{ calculateGrowthPercentage(capitalTen, capital) | number:'1.0-0' }} %</td>
-        <td>{{ calculateDifference(capital, capitalTen) | number:'1.0-0' }}</td>
         <td>{{ compoundedCapitalTen | number:'1.0-0' }} SEK</td>
-        <td>{{ calculateDividends(capitalTen, moneySaved, growth, 10, dividends) | number:'1.0-0' }} SEK</td>
-        <td>{{ calculateDividendsMonth(capitalTen, moneySaved, growth, 10, dividends) | number:'1.0-0' }} SEK</td>
+        <td>{{ (compoundedCapitalTen / capital - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ (compoundedCapitalTen - compoundedCapitalNine) | number:'1.0-0' }}</td>
+        <td>{{ (compoundedCapitalTen / compoundedCapitalNine - 1) * 100 | number:'1.0-0' }} %</td>
+        <td>{{ calculateDividends(compoundedCapitalTen, moneySaved, growthPercentage, 10, dividends) | number:'1.0-0' }} SEK</td>
+        <td>{{ calculateDividendsMonth(compoundedCapitalTen, moneySaved, growthPercentage, 10, dividends) | number:'1.0-0' }} SEK</td>
     </tr>
 </table>
