@@ -23,7 +23,11 @@ export class StocksService {
                         stock.Bolagsnamn,
                         stock.ISIN,
                         stock.Ticker,
-                        stock.Aktiekurs)
+                        stock.Aktiekurs,
+                        stock.Lista,
+                        stock.Land,
+                        stock.Bransch,
+                        stock.Börsvärde)
                     );
                 }
                 this.stocks = transformedStocks;
