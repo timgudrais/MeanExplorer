@@ -1,44 +1,42 @@
 <h3>{{title}}</h3>
 
-<div *ngIf="false">
+<div>
     <table class="tableStandard">
         <thead>
             <tr>
                 <th>Lista</th>
                 <th>Namn</th>
+                <th>Ticker</th>
+                <th>Bransch</th>
+                <th>Land</th>
                 <th>Börsvärde</th>
-                <th>P/E</th>            
-                <th>JEK/Aktier</th>
-                <th>Dir.avk (%)</th>
-                <th>P/E-Rank</th>
-                <th>JEK-Rank</th>
-                <th>RBB-Rank</th>            
-                <th>DA-Rank</th>
-                <th>=></th>
-                <th>RBBHS-Rank</th>
+                <th>Beskrivning</th>
+                <th>Fact sheet</th>
+                <th>Betyg (Tim)</th>
+                <th>Betyg (Sebbe)</th>
+                <th>Kommentar</th>
             </tr>
         </thead>
         
         <tbody>
-            <tr *ngFor='let stock of rbbhsRankStocks; let i = index'>
+            <tr *ngFor='let stock of stocks; let i = index'>
                 <td class="columnMedium">{{stock.Lista}}</td>
-                <td class="columnLarge">{{stock.Namn}}</td>
-                <td class="columnMedium">{{stock.Borsvarde}}</td>
-                <td class="columnSmall">{{stock.Pe}}</td>
-                <td class="columnMedium">{{stock.JekAktie}}</td>
-                <td class="columnMedium">{{stock.DirektAvkastning}}</td>
-                <td class="columnSmall">{{stock.PeRanking}}</td>
-                <td class="columnMedium">{{stock.JekRanking}}</td>
-                <td class="columnMedium">{{stock.RbbRanking}}</td>            
-                <td class="columnSmall">{{stock.DaRanking}}</td>
-                <td></td>
-                <td class="columnMedium">{{stock.RbbhsRanking}}</td>
+                <td class="columnLarge">{{stock.Bolagsnamn}}</td>
+                <td class="columnMedium">{{stock.Ticker}}</td>
+                <td class="columnSmall">{{stock.Bransch}}</td>
+                <td class="columnMedium">{{stock.Land}}</td>
+                <td class="columnMedium"></td>
+                <td class="columnSmall"></td>
+                <td class="columnMedium"></td>
+                <td class="columnMedium"></td>            
+                <td class="columnSmall"></td>
+                <td class="columnMedium"></td>
             </tr>
         </tbody>
     </table>
 </div>
 
-<div>
+<!--<div *ngIf="false">
     <button (click)="loadData()">Load data</button>
     <p *ngIf="showErrorMessage" style="color:red">Wait for data to load! Approximately 3 seconds..</p>
     <div *ngIf="dataLoaded">
@@ -65,4 +63,4 @@
             </td>
         </tr>
     </table>    
-</div>
+</div>-->
