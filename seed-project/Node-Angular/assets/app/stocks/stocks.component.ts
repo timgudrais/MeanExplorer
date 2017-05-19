@@ -2,11 +2,12 @@ import { Component, Injectable, OnInit } from '@angular/core';
 
 import { Stock } from "./stock.model";
 import { StocksService } from "./stocks.service";
+import {StockValuePipe} from './stocksValue-filter.pipe';
 
 @Component({
   selector: 'stocks',
   templateUrl: './stocks.component.html',
-  styleUrls: ['./stocks.component.css'],
+  styleUrls: ['./stocks.component.css'],  
   providers: [ StocksService ]
 })
 
@@ -14,6 +15,7 @@ import { StocksService } from "./stocks.service";
 export class StocksComponent implements OnInit {
   title = 'stocks';
   stocks: Stock[];
+  sliderValue:number = 20;
 
   filter: Stock = new Stock();
 
