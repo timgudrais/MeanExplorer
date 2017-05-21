@@ -40,6 +40,7 @@ import { CsvJSONComponent } from './tools/csvJSON/csvJSON.component';
 import { StocksComponent } from './stocks/stocks.component';
 
 import { StockFilterPipe } from './stocks/stocks-filter.pipe';
+import { StockTypePipe } from './stocks/stockType.pipe';
 import { StockValuePipe } from './stocks/stocksValue-filter.pipe';
 import { ExponentialStrengthPipe } from './stocks/age/age.pipe';
 import { AgeComponent } from './stocks/age/age.component';
@@ -80,6 +81,7 @@ import { FlyingHeroesPipe } from './stocks/heroes/flying-heroes.pipe';
         StocksComponent,
         StockFilterPipe,
         StockValuePipe,
+        StockTypePipe,
         ExponentialStrengthPipe,
         AgeComponent,
         FlyingHeroesComponent,

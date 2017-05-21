@@ -3,6 +3,7 @@ import { Component, Injectable, OnInit } from '@angular/core';
 import { Stock } from "./stock.model";
 import { StocksService } from "./stocks.service";
 import {StockValuePipe} from './stocksValue-filter.pipe';
+import {StockTypePipe} from './stockType.pipe';
 
 @Component({
   selector: 'stocks',
