@@ -40,6 +40,12 @@ import { CsvJSONComponent } from './tools/csvJSON/csvJSON.component';
 import { StocksComponent } from './stocks/stocks.component';
 
 import { StockFilterPipe } from './stocks/stocks-filter.pipe';
+import { StockTypePipe } from './stocks/stockType.pipe';
+import { StockValuePipe } from './stocks/stocksValue-filter.pipe';
+import { ExponentialStrengthPipe } from './stocks/age/age.pipe';
+import { AgeComponent } from './stocks/age/age.component';
+import { FlyingHeroesComponent } from './stocks/heroes/flying-heroes.component';
+import { FlyingHeroesPipe } from './stocks/heroes/flying-heroes.pipe';
 
 @NgModule({
     declarations: [
@@ -73,7 +79,13 @@ import { StockFilterPipe } from './stocks/stocks-filter.pipe';
         RealEstateComponent,
         CsvJSONComponent,
         StocksComponent,
-        StockFilterPipe
+        StockFilterPipe,
+        StockValuePipe,
+        StockTypePipe,
+        ExponentialStrengthPipe,
+        AgeComponent,
+        FlyingHeroesComponent,
+        FlyingHeroesPipe
 	],
     imports: [
         BrowserModule,

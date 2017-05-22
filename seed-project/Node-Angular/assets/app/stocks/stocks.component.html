@@ -7,6 +7,9 @@
     </app-stock>
 </div>-->
 
+<age></age>
+<flying-heroes></flying-heroes>
+
 <table class="tableStandard">
     <thead>
         <tr>
@@ -14,6 +17,7 @@
             <th><input type="text" name="ISIN" [(ngModel)]="filter.ISIN" placeholder="ISIN"></th>
             <th><input type="text" name="Ticker" [(ngModel)]="filter.Ticker" placeholder="Ticker"></th>
             <th><input type="number" name="Aktiekurs" [(ngModel)]="filter.Aktiekurs" placeholder="Aktiekurs"></th>
+            <th><input type="text" name="Lista" [(ngModel)]="filter.Lista" placeholder="Lista"></th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +26,7 @@
             <td class="columnLarge">{{stock.ISIN}}</td>
             <td class="columnMedium">{{stock.Ticker}}</td>
             <td class="columnLarge">{{stock.Aktiekurs}}</td>
+            <td class="columnLarge">{{stock.Lista}}</td>
         </tr>
     </tbody>
 </table>
