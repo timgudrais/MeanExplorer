@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { Stock } from './stock.model';
+import { StockObject } from './stock.model';
 
 @Pipe({
     name: 'stockfilter',
@@ -8,12 +8,12 @@ import { Stock } from './stock.model';
 })
 
 export class StockFilterPipe implements PipeTransform {
-  transform(items: Stock[], filter: Stock): Stock[] {
+  transform(items: StockObject[], filter: StockObject): StockObject[] {
     if (!items || !filter) {
       return items;
     }
     // filter items array, items which match and return true will be kept, false will be filtered out
-    return items.filter((item: Stock) => this.applyFilter(item, filter));
+    return items.filter((item: StockObject) => this.applyFilter(item, filter));
   }
   
  /**
@@ -23,7 +23,7 @@ export class StockFilterPipe implements PipeTransform {
    * @param {Stock} filter The filter to apply.
    * @return {boolean} True if stock satisfies filters, false if not.
    */
-  applyFilter(stock: Stock, filter: Stock): boolean {
+  applyFilter(stock: StockObject, filter: StockObject): boolean {
     for (let field in filter) {
       if (filter[field]) {
         if (typeof filter[field] === 'string') {
