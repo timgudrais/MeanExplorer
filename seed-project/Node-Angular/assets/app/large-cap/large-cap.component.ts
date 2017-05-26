@@ -1,35 +1,52 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 
-// import { LargeCapService } from './large-cap.service';
-// import { UserService } from '../shared/user.service';
-
-import { Stock } from "../stocks/stock.model";
-import { StocksService } from "../stocks/stocks.service";
+import { StockObject } from "./large-cap-stock.model";
+import { LargeCapService } from "./large-cap.service";
 
 
 @Component({
   selector: 'app-large-cap',
   templateUrl: './large-cap.component.html',
   styleUrls: ['./large-cap.component.css'],
-  providers: [ StocksService ]
+  providers: [ LargeCapService ]
 })
 
 @Injectable()
 export class LargeCapComponent implements OnInit {
   title = 'Large Cap';
-  stocks: Stock[];
+  stocks: StockObject[];
+  sliderValue:number = 20;
 
-  constructor(private stockService: StocksService) { }
+  filter: StockObject = new StockObject();
+
+  constructor(private largeCapService: LargeCapService) { }
 
   ngOnInit() {
-      this.stockService.getStocks()
+      this.largeCapService.getStocks()
         .subscribe(
-          (stocks: Stock[]) => {
+          (stocks: StockObject[]) => {
             this.stocks = stocks;
           }
         )
   }
 }
+
+// @Injectable()
+// export class LargeCapComponent implements OnInit {
+//   title = 'Large Cap';
+//   stocks: Stock[];
+
+//   constructor(private stockService: StocksService) { }
+
+//   ngOnInit() {
+//       this.stockService.getStocks()
+//         .subscribe(
+//           (stocks: Stock[]) => {
+//             this.stocks = stocks;
+//           }
+//         )
+//   }
+// }
 
 // export class LargeCapComponent implements OnInit {
 //   title = "Large Cap";

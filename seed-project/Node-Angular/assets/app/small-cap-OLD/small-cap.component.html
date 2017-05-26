@@ -1,0 +1,29 @@
+<h3>{{title}}</h3>
+<div>
+    <button (click)="loadData()">Load data</button>
+    <p *ngIf="showErrorMessage" style="color:red">Wait for data to load! Approximately 3 seconds..</p>
+    <div *ngIf="dataLoaded">
+        <button (click)="loadSmallCap()">Load Small Cap</button>         
+    </div> 
+    
+    <table class="tableStandard" *ngIf="displayTable">
+        <thead>
+            <th>Namn</th>
+            <th>Symbol</th>
+            <th>Valuta</th>
+            <th>Sektor</th>
+            <th>Fakta</th>
+        </thead>
+        <tr *ngFor="let row of rowArray">
+            <td>
+                <a target="_blank" href="{{row[0].a.href}}">{{row[0].a.content}}</a>
+            </td>
+            <td>{{row[1].content}}</td>
+            <td>{{row[2].content}}</td>
+            <td>{{row[4].content}}</td>
+            <td>
+                <a target="_blank" href="{{row[6].a.href}}">Fakta</a>
+            </td>
+        </tr>
+    </table>    
+</div>

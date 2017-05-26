@@ -3,7 +3,7 @@ import { Injectable, EventEmitter } from "@angular/core";
 import 'rxjs/Rx';
 import { Observable } from "rxjs";
 
-import { StockObject, Info, ReportDate, Stock, Return } from "./stock.model";
+import { StockObject, Info, ReportDate, Stock, Return, Valuation, P_E, P_S, P_FCF, TA, Strat, Profitability } from "./stock.model";
 
 @Injectable()
 export class StocksService {
@@ -19,8 +19,9 @@ export class StocksService {
                 const stocks = response.json().obj;
                 let transformedStocks: StockObject[] = [];
                 for (let stock of stocks) {
-                    console.log(stock.Info.ReportDate)
-                    transformedStocks.push(new StockObject(
+                    console.log(stock)
+                    transformedStocks.push(
+                        new StockObject(
                             new Info(
                                 stock.Info.ISIN,
                                 stock.Info.CompanyName,
@@ -44,6 +45,35 @@ export class StocksService {
                                     stock.Stock.Return.Act_3y,
                                     stock.Stock.Return.Act_5y
                                 )
+                            ),
+                            new Valuation(
+                                stock.Valuation.MarketCap,
+                                new P_E (
+                                    stock.Valuation.P_E.Latest,
+                                    stock.Valuation.P_E.Avg_1y,
+                                    stock.Valuation.P_E.Avg_3y
+                                ),
+                                new P_S (
+                                    stock.Valuation.P_S.Latest,
+                                    stock.Valuation.P_S.Avg_1y,
+                                    stock.Valuation.P_S.Avg_3y
+                                ),
+                                new P_FCF (
+                                    stock.Valuation.P_FCF.Latest,
+                                    stock.Valuation.P_FCF.Avg_1y,
+                                    stock.Valuation.P_FCF.Avg_3y
+                                )
+                            ),
+                            new TA (
+                                stock.TA.MA5_MA20,
+                                stock.TA.MA20_MA70,
+                                stock.TA.MA50_MA200
+                            ),
+                            new Strat (
+                                stock.Strat.Graham
+                            ),
+                            new Profitability (
+                                stock.Profitability.ROC
                             )
                         )
                     );
@@ -55,16 +85,3 @@ export class StocksService {
     }
 
 }
-
-// var schema = new Schema({
-//     Info: {
-//         ISIN: {type: String, required: true},
-//         CompanyName: {type: String, required: true},
-//         Ticker: {type: String, required: true},
-//         Country: {type: String, required: true},
-//         List: {type: String, required: true},
-//         Industry: {type: String, required: true},
-//         ReportDate: {
-//             Next: {type: String, required: true}
-//         }
-//     }

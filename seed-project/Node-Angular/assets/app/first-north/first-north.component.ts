@@ -1,6 +1,8 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
-import { FirstNorthService } from './first-north.service';
-import { InlineEditComponent } from '../shared/inline-edit/inline-edit.component';
+import { Component, Injectable, OnInit } from '@angular/core';
+
+import { StockObject } from "./first-north-stock.model";
+import { FirstNorthService } from "./first-north.service";
+
 
 @Component({
   selector: 'app-first-north',
@@ -8,16 +10,23 @@ import { InlineEditComponent } from '../shared/inline-edit/inline-edit.component
   styleUrls: ['./first-north.component.css'],
   providers: [ FirstNorthService ]
 })
-export class FirstNorthComponent implements OnInit {
-  title = "First North";
 
-  // Get list of stocks 
-  stocks;
-  constructor(firstNorthService: FirstNorthService) { 
-    this.stocks = firstNorthService.getStocks();
-  }
+@Injectable()
+export class FirstNorthComponent implements OnInit {
+  title = 'First North';
+  stocks: StockObject[];
+  sliderValue:number = 20;
+
+  filter: StockObject = new StockObject();
+
+  constructor(private firstNorthService: FirstNorthService) { }
 
   ngOnInit() {
+      this.firstNorthService.getStocks()
+        .subscribe(
+          (stocks: StockObject[]) => {
+            this.stocks = stocks;
+          }
+        )
   }
-
 }

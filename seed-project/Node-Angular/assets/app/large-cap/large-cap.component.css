@@ -47,9 +47,14 @@
 }
 
 .tableStandard .columnBox {
-    width: 400px;
+    width: 600px;
 }
 
 .tableStandard .columnComment {
     width: 470px;
+}
+
+.score{
+    background: url(http://www.allakartor.se/graphics/star_16.gif) repeat-x;
+    height: 16px;
 }
