@@ -1,6 +1,6 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 
-import { StockObject } from "./small-cap-stock.model";
+import { StockObject } from "../shared/models/stock.model";
 import { SmallCapService } from "./small-cap.service";
 
 

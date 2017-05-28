@@ -3,7 +3,7 @@ import { Injectable, EventEmitter } from "@angular/core";
 import 'rxjs/Rx';
 import { Observable } from "rxjs";
 
-import { StockObject, Info, ReportDate, Stock, Return, Valuation, P_E, P_S, P_FCF, TA, Strat, Profitability } from "./large-cap-stock.model";
+import { StockObject, Info, ReportDate, Stock, Return, Valuation, P_E, P_S, P_FCF, TA, Strat, Profitability } from "../shared/models/stock.model";
 
 @Injectable()
 export class LargeCapService {

@@ -22,7 +22,7 @@
                 <td class="columnLarge">{{stock.Info.CompanyName}}</td>
                 <td class="columnMedium">{{stock.Info.Ticker}}</td>
                 <td class="columnLarge">{{stock.Info.Industry}}</td>
-                <td class="columnSmall">{{stock.Valuation.MarketCap}}</td>
+                <td class="columnMedium">{{stock.Valuation.MarketCap | number: '1.1-1'}}</td>
                 <td class="columnBox">{{stock.Info.CompanyDescription}}</td>
                 <td class="columnMedium"><img src="http://www.nasdaqomxnordic.com/static/img/pdf.gif" style="margin-left: 5px"></td>
                 <td class="columnMedium"><div class="score" style="width: 80px"></div></td>            

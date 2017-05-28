@@ -1,6 +1,6 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 
-import { StockObject } from "./first-north-stock.model";
+import { StockObject } from "../shared/models/stock.model";
 import { FirstNorthService } from "./first-north.service";
 
 

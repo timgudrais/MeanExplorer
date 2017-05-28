@@ -8,7 +8,7 @@
 .tableStandard th {
     border-top: 1px solid #c6c6c6;
     border-bottom: 1px solid #c6c6c6;
-    padding: 4px 10px;
+    padding: 5px 10px;
     background: #fff;
 }
 
@@ -27,7 +27,7 @@
 .tableStandard td {
     border-top: 1px solid #d9d9d9;
     border-bottom: 1px solid #d9d9d9;
-    padding: 10px 10px;
+    padding: 5px 10px;
 }
 
 .tableStandard td img {

@@ -3,7 +3,7 @@ import { Injectable, EventEmitter } from "@angular/core";
 import 'rxjs/Rx';
 import { Observable } from "rxjs";
 
-import { StockObject, Info, ReportDate, Stock, Return, Valuation, P_E, P_S, P_FCF, TA, Strat, Profitability } from "./first-north-stock.model";
+import { StockObject, Info, ReportDate, Stock, Return, Valuation, P_E, P_S, P_FCF, TA, Strat, Profitability } from "../shared/models/stock.model";
 
 @Injectable()
 export class FirstNorthService {
@@ -24,6 +24,7 @@ export class FirstNorthService {
                         new StockObject(
                             new Info(
                                 stock.Info.ISIN,
+                                stock.Info.CompanyDescription,
                                 stock.Info.CompanyName,
                                 stock.Info.Ticker,
                                 stock.Info.Country,
