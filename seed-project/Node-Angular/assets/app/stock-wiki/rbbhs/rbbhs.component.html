@@ -36,17 +36,17 @@
   
   <h4><a (click)="toggleShowBilligaBolagHogEp()">Billiga bolag - Hög E/P</a></h4>
   <ul *ngIf="showBilligaBolagHogEp">
-    <li><a (click)="toggleShowNyckeltal()">Nyckeltal E/P</a></li>
-    <ul>
-      <li><i>Vinsten / Priset = E/P</i></li>
-      <li>Ett inverterat P/E-tal utreder om bolaget är någorlunda billigt att köpa.</li>
-      <li>Ett högt E/P-tal betyder att aktien är relativt prisvärd.</li>
-    </ul>
     <li><a (click)="toggleShowNyckeltal()">Nyckeltal P/E</a></li>
     <ul>
       <li><i>Aktiepris / Vinsten = P/E</i></li>
       <li>Ett lågt P/E-tal är ett tecken på att aktien är relativt billig i förhållande till bolagets vinst.</li>
     </ul>
+    <li><a (click)="toggleShowNyckeltal()">Nyckeltal E/P</a></li>
+    <ul>
+      <li><i>Vinsten / Priset = E/P</i></li>
+      <li>Ett inverterat P/E-tal: Utreder om bolaget är någorlunda billigt att köpa.</li>
+      <li>Ett högt E/P-tal betyder att aktien är relativt prisvärd.</li>
+    </ul>    
   </ul>
   
   <h4><a (click)="toggleShowBraBolagHogtJEK()">Bra bolag - Högt JEK/Aktie</a></h4>
@@ -65,7 +65,7 @@
     <ul>
       <li><i>((Utdelning / Antalet aktier) / Aktiepris * 100) = Direktavkastning%</i></li>
       <li>Denna procentsats motsvarar det du skulle kunna betrakta som "din ränta".</li>
-      <li>Hög direktavkastning innebär att bolaget delar ut en del av sin vinst till aktieägarna i form av aktieutdelning vilken är relativt hög i förhålande till aktiekursen.</li>
+      <li>Hög direktavkastning innebär att bolaget delar ut en del av sin vinst till aktieägarna i form av aktieutdelning vilken är relativt hög i förhållande till aktiekursen.</li>
       <li>Bra bolag har relativt hög direktavkastning, kan även öka direkavkastningen från år till år.</li>
       <li>Hög direktavkastning = bra säkerhet eftersom du får utdelning av bolaget oavsett hur det går för aktiekursen.</li>
       <li>Investeringar i stora bolag med hög direktavkastning = Stor säkerhetsmarginal (Långsiktigt).</li>
@@ -292,50 +292,6 @@
 </div>
 
 <div *ngIf="tab === 13">
-  <h3>Investment Checklist</h3>
-  <p>In this document, which is part of the Value Investing Boot camp video course on Udemy, you find a
-  checklist which can help you to consistently apply a value investment strategy. In a best case
-  scenario, you will answer yes to every item on the list. This is extremely rare though.</p>
-  <h4>Initial Screening</h4>
-  <ol>
-    <li>1. Is the return on equity higher than 15%?</li>
-    <li>2. Is the current ratio higher than 2?</li>
-    <li>3. Is the debt-to-equity ratio lower than 0.5?</li>
-  </ol>
-  <h4>Fundamental Analysis</h4>
-  <ol>
-    <li>4. Are earnings per share stable or growing over time?</li>
-    <li>5. Are free cash flows approximately equal to- or higher than net income?</li>
-    <li>6. Are free cash flows stable or increasing over time?</li>
-    <li>7. Is free cash flow primarily generated from earnings rather than debt?</li>
-    <li>8. Is the company investing a part of its free cash flows in future growth?</li>
-    <li>9. Are cash & cash equivalents stable or increasing over time?</li>
-    <li>10. Is book value per share steadily growing over time?</li>
-    <li>11. Is the net margin stable or growing over time?</li>
-    <li>12. Has the return on equity been consistently high?</li>
-    <li>13. Has debt-to-equity been consistently low or decreasing?</li>
-    <li>14. Is the Altman Z-score 1.80 or higher?</li>
-    <li>15. Is the Beneish M-score lower than -2.22?</li>
-    <li>16. Are enterprising profits higher than 18%?</li>
-  </ol>
-  <h4>Qualitative Analysis</h4>
-  <ol>
-    <li>17. Is this company easy to understand for you? ("circle of competence")</li>
-    <li>18. Does the company possess a sustainable competitive advantage?</li>
-    <li>19. Are the possible risks this company faces manageable?</li>
-    <li>20. Is management compensation within reasonable bounds?</li>
-    <li>21. Do the key executives have a solid track record free of scandals?</li>
-    <li>22. Is management allocating the company's capital wisely?</li>
-  </ol>
-  <h4>Valuation</h4>
-  <ol>
-    <li>23. Is it possible to make a reasonable estimate of the intrinsic value of this company?</li>
-    <li>24. Did you make a conservative estimate using several valuation models?</li>
-    <li>25. Does the stock currently trade at a significant discount to intrinsic value? ("margin of safety")</li>
-  </ol>
-</div>
-
-<div *ngIf="tab === 14">
   <h3>Slå Börsproffsen (41-punkter)</h3>
   <ol>
     <li>Många bra investeringsstrategier har det gemensamt att de söker efter placeringar med en skillnad mellan värdet och priset på bolaget.</li>
@@ -382,7 +338,7 @@
   </ol>
 </div>
 
-<div *ngIf="tab === 15">
+<div *ngIf="tab === 14">
   <h3>Tio förebilder</h3>
   <ul>
     <li><a target="_blank" href="https://en.wikipedia.org/wiki/Walter_Lippmann">Walter Lippman, född 1889</a></li>
@@ -398,7 +354,7 @@
   </ul>
 </div>
 
-<div *ngIf="tab === 16">
+<div *ngIf="tab === 15">
   <h3>Tio boktips</h3>
   <ul>
     <li><i>Tradingguiden</i>, av Jonas Bernhardsson</li>
@@ -414,7 +370,7 @@
   </ul>
 </div>
 
-<div *ngIf="tab === 17">
+<div *ngIf="tab === 16">
   <h3>Tio länkar</h3>
   <ul>
     <li><a target="_blank" href="http://finance.google.com">Google Finance</a></li>
@@ -429,7 +385,7 @@
   </ul>
 </div>
 
-<div *ngIf="tab === 18">
+<div *ngIf="tab === 17">
   <h3>Tio dåliga investeringsmönster, du...</h3>
   <ol>
     <li>Köper de aktier som är extra populära just nu.</li>
@@ -445,7 +401,7 @@
   </ol>
 </div>
 
-<div *ngIf="tab === 19">
+<div *ngIf="tab === 18">
   <h3>Tio bra investeringsmönster, du...</h3>
   <ol>
     <li>Försöker inte förutse hur börsen kommer att gå.</li>

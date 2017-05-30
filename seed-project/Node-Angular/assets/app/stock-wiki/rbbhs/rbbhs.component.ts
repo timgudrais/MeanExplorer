@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RbbhsService } from './rbbhs.service';
 
 @Component({
-  selector: 'app-rbbhs',
+  selector: 'rbbhs',
   templateUrl: './rbbhs.component.html',
   styleUrls: ['./rbbhs.component.css'],
   providers: [

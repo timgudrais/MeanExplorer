@@ -1,6 +1,6 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 
-import { StockObject } from "./stock.model";
+import { StockObject, Info, ReportDate, Stock, Return } from "./stock.model";
 import { StocksService } from "./stocks.service";
 import { StockValuePipe } from './stocksValue-filter.pipe';
 import { StockTypePipe } from './stockType.pipe';
@@ -18,7 +18,32 @@ export class StocksComponent implements OnInit {
   stocks: StockObject[];
   sliderValue:number = 20;
 
-  filter: StockObject = new StockObject();
+  filter: StockObject = new StockObject(
+      new Info(
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          new ReportDate(
+              ""
+          )
+      ),
+      new Stock(
+          0,
+          new Return(
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+          )
+      )
+  );
 
   constructor(private stockService: StocksService) { }
 

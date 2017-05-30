@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RdpdService } from './rdpd.service';
 
 @Component({
-  selector: 'app-rdpd',
+  selector: 'rdpd',
   templateUrl: './rdpd.component.html',
   styleUrls: ['./rdpd.component.css'],
   providers: [
