@@ -22,6 +22,7 @@ import 'hammerjs';
 
 // Content Components
 import { ChangeLogComponent } from './change-log/change-log.component';
+import { CryptoCurrenciesComponent } from './crypto-currencies/crypto-currencies.component';
 import { FirstNorthComponent } from './stocks/first-north/first-north.component';
 import { LargeCapComponent } from './stocks/large-cap/large-cap.component';
 import { MakroIndikatorerComponent } from './makro-indikatorer/makro-indikatorer.component';
@@ -80,6 +81,7 @@ import { StockValuePipe } from './stocksTest/stocksValue-filter.pipe';
         SignupComponent,
         // Content Components
 		ChangeLogComponent,
+        CryptoCurrenciesComponent,
 		FirstNorthComponent,
 		LargeCapComponent,
 		MakroIndikatorerComponent,
@@ -167,6 +169,10 @@ import { StockValuePipe } from './stocksTest/stocksValue-filter.pipe';
         {
             path: 'tools',
             component: ToolsComponent
+        },
+        {
+            path: 'crypto-currencies',
+            component: CryptoCurrenciesComponent
         }       
     ])
     ],
