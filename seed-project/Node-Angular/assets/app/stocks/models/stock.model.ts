@@ -5,6 +5,7 @@ export class StockObject {
     TA: TA;
     Strat: Strat;
     Profitability: Profitability;
+    BalanceSheet: BalanceSheet;
 
     constructor(
         Info: Info, 
@@ -12,7 +13,8 @@ export class StockObject {
         Valuation: Valuation,
         TA: TA,
         Strat: Strat,
-        Profitability: Profitability
+        Profitability: Profitability,
+        BalanceSheet: BalanceSheet        
         ) {
             this.Info = Info;
             this.Stock = Stock;
@@ -20,6 +22,7 @@ export class StockObject {
             this.TA = TA;
             this.Strat = Strat;
             this.Profitability = Profitability;
+            this.BalanceSheet = BalanceSheet;
     }
 }
 
@@ -31,7 +34,7 @@ export class Info {
     Country: string;
     List: string;
     Industry: string;
-    ReportDate: ReportDate;
+    // ReportDate: ReportDate;
 
     constructor(
         ISIN: string, 
@@ -41,7 +44,7 @@ export class Info {
         Country: string, 
         List: string, 
         Industry: string, 
-        ReportDate: ReportDate
+        // ReportDate: ReportDate
         ) {
             this.ISIN = ISIN;
             this.CompanyDescription = CompanyDescription;
@@ -50,19 +53,19 @@ export class Info {
             this.Country = Country;
             this.List = List;
             this.Industry = Industry;
-            this.ReportDate = ReportDate;
+            // this.ReportDate = ReportDate;
     }
 }
 
-export class ReportDate {
-    Next: string;
+// export class ReportDate {
+//     Next: string;
 
-    constructor(
-        Next: string
-        ) {
-            this.Next = Next;
-    }
-}
+//     constructor(
+//         Next: string
+//         ) {
+//             this.Next = Next;
+//     }
+// }
 
 export class Stock {
     LatestPrice: number;
@@ -78,33 +81,33 @@ export class Stock {
 }
 
 export class Return {
-    Act_1d: number;
-    Act_1w: number;
-    Act_1m: number;
+    // Act_1d: number;
+    // Act_1w: number;
+    // Act_1m: number;
     Act_3m: number;
-    Act_6m: number;
-    Act_1y: number;
-    Act_3y: number;
-    Act_5y: number;
+    // Act_6m: number;
+    // Act_1y: number;
+    // Act_3y: number;
+    // Act_5y: number;
 
     constructor(
-        Act_1d: number, 
-        Act_1w: number, 
-        Act_1m: number, 
+        // Act_1d: number, 
+        // Act_1w: number, 
+        // Act_1m: number, 
         Act_3m: number, 
-        Act_6m: number, 
-        Act_1y: number,
-        Act_3y: number,
-        Act_5y: number
+        // Act_6m: number, 
+        // Act_1y: number,
+        // Act_3y: number,
+        // Act_5y: number
         ) {
-            this.Act_1d = Act_1d;
-            this.Act_1w = Act_1w;
-            this.Act_1m = Act_1m;
+            // this.Act_1d = Act_1d;
+            // this.Act_1w = Act_1w;
+            // this.Act_1m = Act_1m;
             this.Act_3m = Act_3m;
-            this.Act_6m = Act_6m;
-            this.Act_1y = Act_1y;
-            this.Act_3y = Act_3y;
-            this.Act_5y = Act_5y;
+            // this.Act_6m = Act_6m;
+            // this.Act_1y = Act_1y;
+            // this.Act_3y = Act_3y;
+            // this.Act_5y = Act_5y;
     }
 }
 
@@ -191,10 +194,41 @@ export class Strat {
 
 export class Profitability {
     ROC: number;
+    GrossMargin: number;
+    EBITMargin: number;
+    NetMargin: number;
+    ROE: number;
+    CurrentRatio: number;
+    DividendRatio: number;
 
     constructor(
-        ROC: number
+        ROC: number,
+        GrossMargin: number,
+        EBITMargin: number,
+        NetMargin: number,
+        ROE: number,
+        CurrentRatio: number,
+        DividendRatio: number
     ) {
         this.ROC = ROC;
+        this.GrossMargin = GrossMargin;
+        this.EBITMargin = EBITMargin;
+        this.NetMargin = NetMargin;
+        this.ROE = ROE;
+        this.CurrentRatio = CurrentRatio;
+        this.DividendRatio = DividendRatio;
+    }
+}
+
+export class BalanceSheet {
+    DebtPerShare: number;
+    EquityPerShare: number;
+
+    constructor(
+        DebtPerShare: number,
+        EquityPerShare: number
+    ) {
+        this.DebtPerShare = DebtPerShare;
+        this.EquityPerShare = EquityPerShare;
     }
 }

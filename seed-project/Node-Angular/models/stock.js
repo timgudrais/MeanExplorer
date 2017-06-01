@@ -10,21 +10,21 @@ var schema = new Schema({
         Country: {type: String, required: true},
         List: {type: String, required: true},
         Industry: {type: String, required: true},
-        ReportDate: {
-            Next: {type: String, required: true}
-        }
+        // ReportDate: {
+        //     Next: {type: String, required: true}
+        // }
     },
     Stock: {
         LatestPrice: {type: Number, required: true},
         Return: {
-            Act_1d: {type: Number, required: true},
-            Act_1w: {type: Number, required: true},
-            Act_1m: {type: Number, required: true},
+            // Act_1d: {type: Number, required: true},
+            // Act_1w: {type: Number, required: true},
+            // Act_1m: {type: Number, required: true},
             Act_3m: {type: Number, required: true},
-            Act_6m: {type: Number, required: true},
-            Act_1y: {type: Number, required: true},
-            Act_3y: {type: Number, required: true},
-            Act_5y: {type: Number, required: true}
+            // Act_6m: {type: Number, required: true},
+            // Act_1y: {type: Number, required: true},
+            // Act_3y: {type: Number, required: true},
+            // Act_5y: {type: Number, required: true}
         }
     },
     Valuation: {
@@ -54,7 +54,17 @@ var schema = new Schema({
         Graham: {type: Number, required: true}
     },
     Profitabilitiy: {
-        ROC: {type: Number, required: true}
+        ROC: {type: Number, required: true},
+        GrossMargin: {type: Number, required: true},
+        EBITMargin: {type: Number, required: true},
+        NetMargin: {type: Number, required: true},
+        ROE: {type: Number, required: true},
+        CurrentRatio: {type: Number, required: true},
+        DividendRatio: {type: Number, required: true}
+    },
+    BalanceSheet: {
+        DebtPerShare: {type: Number, required: true},
+        EquityPerShare: {type: Number, required: true}
     }
 });
 

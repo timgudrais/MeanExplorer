@@ -1,14 +1,14 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 
 import { StockObject } from "../models/stock.model";
-import { FirstNorthService } from "./first-north.service";
+import { StockService } from "../stock.service";
 
 
 @Component({
   selector: 'app-first-north',
   templateUrl: './first-north.component.html',
   styleUrls: ['./first-north.component.css'],
-  providers: [ FirstNorthService ]
+  providers: [ StockService ]
 })
 
 @Injectable()
@@ -19,10 +19,10 @@ export class FirstNorthComponent implements OnInit {
 
   filter: StockObject = new StockObject();
 
-  constructor(private firstNorthService: FirstNorthService) { }
+  constructor(private stockService: StockService) { }
 
   ngOnInit() {
-      this.firstNorthService.getStocks()
+      this.stockService.getStocks('http://localhost:3000/stocks_firstnorth')
         .subscribe(
           (stocks: StockObject[]) => {
             this.stocks = stocks;
