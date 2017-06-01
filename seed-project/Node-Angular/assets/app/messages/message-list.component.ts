@@ -15,6 +15,7 @@ import { MessageService } from "./message.service";
 })
 export class MessageListComponent implements OnInit {
     messages: Message[];
+    messagesOrdered: Message[];
 
     constructor(private messageService: MessageService) {}
 
@@ -23,6 +24,10 @@ export class MessageListComponent implements OnInit {
             .subscribe(
                 (messages: Message[]) => {
                     this.messages = messages;
+                    for(var i = 0; i > this.messages.length; i++)
+                    {
+                        this.messagesOrdered.push(this.messages[i]);
+                    }
                 }
             );
     }

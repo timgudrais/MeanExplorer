@@ -22,10 +22,10 @@ import 'hammerjs';
 
 // Content Components
 import { ToDoListComponent } from './to-do-list/to-do-list.component';
-import { FirstNorthComponent } from './first-north/first-north.component';
-import { SmallCapComponent } from './small-cap/small-cap.component';
-import { MidCapComponent } from './mid-cap/mid-cap.component';
-import { LargeCapComponent } from './large-cap/large-cap.component';
+import { FirstNorthComponent } from './stocks/first-north/first-north.component';
+import { SmallCapComponent } from './stocks/small-cap/small-cap.component';
+import { MidCapComponent } from './stocks/mid-cap/mid-cap.component';
+import { LargeCapComponent } from './stocks/large-cap/large-cap.component';
 import { MakroIndikatorerComponent } from './makro-indikatorer/makro-indikatorer.component';
 import { TekniskAnalysComponent } from './teknisk-analys/teknisk-analys.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -39,30 +39,32 @@ import { RdpdComponent } from './stock-wiki/rdpd/rdpd.component';
 import { MagicFormulaComponent } from './stock-wiki/magicFormula/magicFormula.component';
 import { FundamentalInvestingComponent } from './stock-wiki/fundamentalInvesting/fundamentalInvesting.component';
 
+// Tools and Materials
+import { ToolsComponent } from './tools/tools.component';
+import { RoiComponent } from './tools/roi/roi.component';
+import { FinancialTermsComponent } from './tools/financialTerms/financialTerms.component';
+
+
+// =======================================================================================
 // Calculator Components
 import { RealEstateComponent } from './tools/realEstate/realEstate.component';
 import { CsvJSONComponent } from './tools/csvJSON/csvJSON.component';
 
 // Not used Components
 import { ParserComponent } from './parser/parser.component';
-import { StocksComponent } from './stocks/stocks.component';
-import { FlyingHeroesComponent } from './stocks/heroes/flying-heroes.component';
-import { AgeComponent } from './stocks/age/age.component';
+import { StocksComponent } from './stocksTest/stocks.component';
+import { FlyingHeroesComponent } from './stocksTest/heroes/flying-heroes.component';
+import { AgeComponent } from './stocksTest/age/age.component';
 
-// Tools and Materials
-import { ToolsComponent } from './tools/tools.component';
-import { RoiComponent } from './tools/roi/roi.component';
-import { FinancialTermsComponent } from './tools/financialTerms/financialTerms.component';
-
-// Pipes & Services
-import { StockFilterPipe } from './stocks/stocks-filter.pipe';
-import { StockTypePipe } from './stocks/stockType.pipe';
-import { StockValuePipe } from './stocks/stocksValue-filter.pipe';
-
-// Not used Services
-import { ExponentialStrengthPipe } from './stocks/age/age.pipe';
-import { FlyingHeroesPipe } from './stocks/heroes/flying-heroes.pipe';
-
+// Not used Pipes & Services
+import { StockFilterPipe } from './stocksTest/stocks-filter.pipe';
+import { StockTypePipe } from './stocksTest/stockType.pipe';
+import { StockValuePipe } from './stocksTest/stocksValue-filter.pipe';
+import { ExponentialStrengthPipe } from './stocksTest/age/age.pipe';
+import { FlyingHeroesPipe } from './stocksTest/heroes/flying-heroes.pipe';
+import { Score } from './tools/score/score.component';
+import { Star } from './tools/score/star.component';
+// =======================================================================================
 
 @NgModule({
     declarations: [
@@ -104,7 +106,9 @@ import { FlyingHeroesPipe } from './stocks/heroes/flying-heroes.pipe';
         ExponentialStrengthPipe,
         AgeComponent,
         FlyingHeroesComponent,
-        FlyingHeroesPipe
+        FlyingHeroesPipe,
+        Score,
+        Star
 	],
     imports: [
         BrowserModule,
