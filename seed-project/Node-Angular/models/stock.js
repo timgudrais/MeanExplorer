@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 var schema = new Schema({
     Info: {
         ISIN: {type: String, required: true},
+        CompanyDescription: {type: String, required: true},
         CompanyName: {type: String, required: true},
         Ticker: {type: String, required: true},
         Country: {type: String, required: true},

@@ -1,117 +1,88 @@
-import { Injectable } from '@angular/core';
+import { Http, Response, Headers } from "@angular/http";
+import { Injectable, EventEmitter } from "@angular/core";
+import 'rxjs/Rx';
+import { Observable } from "rxjs";
+
+import { StockObject, Info, ReportDate, Stock, Return, Valuation, P_E, P_S, P_FCF, TA, Strat, Profitability } from "../shared/models/stock.model";
 
 @Injectable()
 export class FirstNorthService {
-  parseStocks() {
-      var url = 'https://en.wikipedia.org/wiki/List_of_countries_by_credit_rating';
-      
-      
-      return url;
-  }
-  
-  getStocks() {
-        return [
-            {
-                "Lista":"First North",
-                "Namn":"Super Eye Tech",
-                "Symbol":"BACTI B",
-                "Sektor":"Hälsovård",
-                "Valuta":"SEK",
-                "Borsvarde":"569.47 MSEK",
-                "Beskrivning":"Bactiguard är ett svenskt medicinteknikbolag som utvecklar och tillverkar infektionshämmande katetrar och endotrakealtuber. Bactiguards produktportfölj omfattar urinvägskatetrar, endotrakealtuber och centrala venkatetrar, där samtliga produkter är behandlade med bolagets infektionshämmande beläggning. Marknaden finns i Sverige, Schwiez, USA, Södra Afrika,Israel, Saudiarabien, Iran och Japan.",
-                "FactSheet":"<img src='http://www.nasdaqomxnordic.com/static/img/pdf.gif'>",
-                "Kommentar":"Lorem ipsum dolor sit amet (1)"
-            },
-            {
-                "Lista":"First North",
-                "Namn":"Super Eye Tech",
-                "Symbol":"BACTI B",
-                "Sektor":"Hälsovård",
-                "Valuta":"SEK",
-                "Borsvarde":"569.47 MSEK",
-                "Beskrivning":"Bactiguard är ett svenskt medicinteknikbolag som utvecklar och tillverkar infektionshämmande katetrar och endotrakealtuber. Bactiguards produktportfölj omfattar urinvägskatetrar, endotrakealtuber och centrala venkatetrar, där samtliga produkter är behandlade med bolagets infektionshämmande beläggning. Marknaden finns i Sverige, Schwiez, USA, Södra Afrika,Israel, Saudiarabien, Iran och Japan.",
-                "FactSheet":"<img src='http://www.nasdaqomxnordic.com/static/img/pdf.gif'>",
-                "Kommentar":"Lorem ipsum dolor sit amet (2)"
-            },
-            {
-                "Lista":"First North",
-                "Namn":"Super Eye Tech",
-                "Symbol":"BACTI B",
-                "Sektor":"Hälsovård",
-                "Valuta":"SEK",
-                "Borsvarde":"569.47 MSEK",
-                "Beskrivning":"Bactiguard är ett svenskt medicinteknikbolag som utvecklar och tillverkar infektionshämmande katetrar och endotrakealtuber. Bactiguards produktportfölj omfattar urinvägskatetrar, endotrakealtuber och centrala venkatetrar, där samtliga produkter är behandlade med bolagets infektionshämmande beläggning. Marknaden finns i Sverige, Schwiez, USA, Södra Afrika,Israel, Saudiarabien, Iran och Japan.",
-                "FactSheet":"<img src='http://www.nasdaqomxnordic.com/static/img/pdf.gif'>",
-                "Kommentar":"Lorem ipsum dolor sit amet (3)"
-            },
-            {
-                "Lista":"First North",
-                "Namn":"Super Eye Tech",
-                "Symbol":"BACTI B",
-                "Sektor":"Hälsovård",
-                "Valuta":"SEK",
-                "Borsvarde":"569.47 MSEK",
-                "Beskrivning":"Bactiguard är ett svenskt medicinteknikbolag som utvecklar och tillverkar infektionshämmande katetrar och endotrakealtuber. Bactiguards produktportfölj omfattar urinvägskatetrar, endotrakealtuber och centrala venkatetrar, där samtliga produkter är behandlade med bolagets infektionshämmande beläggning. Marknaden finns i Sverige, Schwiez, USA, Södra Afrika,Israel, Saudiarabien, Iran och Japan.",
-                "FactSheet":"<img src='http://www.nasdaqomxnordic.com/static/img/pdf.gif'>",
-                "Kommentar":"Lorem ipsum dolor sit amet (4)"
-            },
-            {
-                "Lista":"First North",
-                "Namn":"Super Eye Tech",
-                "Symbol":"BACTI B",
-                "Sektor":"Hälsovård",
-                "Valuta":"SEK",
-                "Borsvarde":"569.47 MSEK",
-                "Beskrivning":"Bactiguard är ett svenskt medicinteknikbolag som utvecklar och tillverkar infektionshämmande katetrar och endotrakealtuber. Bactiguards produktportfölj omfattar urinvägskatetrar, endotrakealtuber och centrala venkatetrar, där samtliga produkter är behandlade med bolagets infektionshämmande beläggning. Marknaden finns i Sverige, Schwiez, USA, Södra Afrika,Israel, Saudiarabien, Iran och Japan.",
-                "FactSheet":"<img src='http://www.nasdaqomxnordic.com/static/img/pdf.gif'>",
-                "Kommentar":"Lorem ipsum dolor sit amet (5)"
-            },
-            {
-                "Lista":"First North",
-                "Namn":"Super Eye Tech",
-                "Symbol":"BACTI B",
-                "Sektor":"Hälsovård",
-                "Valuta":"SEK",
-                "Borsvarde":"569.47 MSEK",
-                "Beskrivning":"Bactiguard är ett svenskt medicinteknikbolag som utvecklar och tillverkar infektionshämmande katetrar och endotrakealtuber. Bactiguards produktportfölj omfattar urinvägskatetrar, endotrakealtuber och centrala venkatetrar, där samtliga produkter är behandlade med bolagets infektionshämmande beläggning. Marknaden finns i Sverige, Schwiez, USA, Södra Afrika,Israel, Saudiarabien, Iran och Japan.",
-                "FactSheet":"<img src='http://www.nasdaqomxnordic.com/static/img/pdf.gif'>",
-                "Kommentar":"Lorem ipsum dolor sit amet (6)"
-            },
-            {
-                "Lista":"First North",
-                "Namn":"Super Eye Tech",
-                "Symbol":"BACTI B",
-                "Sektor":"Hälsovård",
-                "Valuta":"SEK",
-                "Borsvarde":"569.47 MSEK",
-                "Beskrivning":"Bactiguard är ett svenskt medicinteknikbolag som utvecklar och tillverkar infektionshämmande katetrar och endotrakealtuber. Bactiguards produktportfölj omfattar urinvägskatetrar, endotrakealtuber och centrala venkatetrar, där samtliga produkter är behandlade med bolagets infektionshämmande beläggning. Marknaden finns i Sverige, Schwiez, USA, Södra Afrika,Israel, Saudiarabien, Iran och Japan.",
-                "FactSheet":"<img src='http://www.nasdaqomxnordic.com/static/img/pdf.gif'>",
-                "Kommentar":"Lorem ipsum dolor sit amet (7)"
-            },
-            {
-                "Lista":"First North",
-                "Namn":"Super Eye Tech",
-                "Symbol":"BACTI B",
-                "Sektor":"Hälsovård",
-                "Valuta":"SEK",
-                "Borsvarde":"569.47 MSEK",
-                "Beskrivning":"Bactiguard är ett svenskt medicinteknikbolag som utvecklar och tillverkar infektionshämmande katetrar och endotrakealtuber. Bactiguards produktportfölj omfattar urinvägskatetrar, endotrakealtuber och centrala venkatetrar, där samtliga produkter är behandlade med bolagets infektionshämmande beläggning. Marknaden finns i Sverige, Schwiez, USA, Södra Afrika,Israel, Saudiarabien, Iran och Japan.",
-                "FactSheet":"<img src='http://www.nasdaqomxnordic.com/static/img/pdf.gif'>",
-                "Kommentar":"Lorem ipsum dolor sit amet (8)"
-            },
-            {
-                "Lista":"First North",
-                "Namn":"Super Eye Tech",
-                "Symbol":"BACTI B",
-                "Sektor":"Hälsovård",
-                "Valuta":"SEK",
-                "Borsvarde":"569.47 MSEK",
-                "Beskrivning":"Bactiguard är ett svenskt medicinteknikbolag som utvecklar och tillverkar infektionshämmande katetrar och endotrakealtuber. Bactiguards produktportfölj omfattar urinvägskatetrar, endotrakealtuber och centrala venkatetrar, där samtliga produkter är behandlade med bolagets infektionshämmande beläggning. Marknaden finns i Sverige, Schwiez, USA, Södra Afrika,Israel, Saudiarabien, Iran och Japan.",
-                "FactSheet":"<img src='http://www.nasdaqomxnordic.com/static/img/pdf.gif'>",
-                "Kommentar":"Lorem ipsum dolor sit amet (9)"
-            }
-        ]
+    private stocks: StockObject[] = [];
+    stocksIsEdit = new EventEmitter<StockObject>();
+
+    constructor(private http: Http) {
     }
-  constructor() { }
+
+    getStocks() {
+        return this.http.get('http://localhost:3000/stocks_firstnorth')
+            .map((response: Response) => {
+                const stocks = response.json().obj;
+                let transformedStocks: StockObject[] = [];
+                for (let stock of stocks) {
+                    console.log(stock)
+                    transformedStocks.push(
+                        new StockObject(
+                            new Info(
+                                stock.Info.ISIN,
+                                stock.Info.CompanyDescription,
+                                stock.Info.CompanyName,
+                                stock.Info.Ticker,
+                                stock.Info.Country,
+                                stock.Info.List,
+                                stock.Info.Industry,
+                                new ReportDate(
+                                    stock.Info.ReportDate.Next
+                                )
+                            ),
+                            new Stock(
+                                stock.Stock.LatestPrice,
+                                new Return(
+                                    stock.Stock.Return.Act_1d,
+                                    stock.Stock.Return.Act_1w,
+                                    stock.Stock.Return.Act_1m,
+                                    stock.Stock.Return.Act_3m,
+                                    stock.Stock.Return.Act_6m,
+                                    stock.Stock.Return.Act_1y,
+                                    stock.Stock.Return.Act_3y,
+                                    stock.Stock.Return.Act_5y
+                                )
+                            ),
+                            new Valuation(
+                                stock.Valuation.MarketCap,
+                                new P_E (
+                                    stock.Valuation.P_E.Latest,
+                                    stock.Valuation.P_E.Avg_1y,
+                                    stock.Valuation.P_E.Avg_3y
+                                ),
+                                new P_S (
+                                    stock.Valuation.P_S.Latest,
+                                    stock.Valuation.P_S.Avg_1y,
+                                    stock.Valuation.P_S.Avg_3y
+                                ),
+                                new P_FCF (
+                                    stock.Valuation.P_FCF.Latest,
+                                    stock.Valuation.P_FCF.Avg_1y,
+                                    stock.Valuation.P_FCF.Avg_3y
+                                )
+                            ),
+                            new TA (
+                                stock.TA.MA5_MA20,
+                                stock.TA.MA20_MA70,
+                                stock.TA.MA50_MA200
+                            ),
+                            new Strat (
+                                stock.Strat.Graham
+                            ),
+                            new Profitability (
+                                stock.Profitability.ROC
+                            )
+                        )
+                    );
+                }
+                this.stocks = transformedStocks;
+                return transformedStocks;
+            })
+            .catch((error: Response) => Observable.throw(error.json()));
+    }
 
 }

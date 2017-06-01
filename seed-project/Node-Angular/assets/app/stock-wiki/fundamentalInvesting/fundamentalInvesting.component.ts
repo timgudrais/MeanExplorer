@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FundamentalInvestingService } from './fundamentalInvesting.service';
 
 @Component({
-  selector: 'fundamentalInvesting',
+  selector: 'fundamental-investing',
   templateUrl: './fundamentalInvesting.component.html',
   styleUrls: ['./fundamentalInvesting.component.css'],
   providers: [
@@ -10,7 +10,7 @@ import { FundamentalInvestingService } from './fundamentalInvesting.service';
   ]
 
 })
-export class MagicFormulaComponent implements OnInit {
+export class FundamentalInvestingComponent implements OnInit {
 
   formulas;
   constructor(fundamentalInvestingService: FundamentalInvestingService) { 

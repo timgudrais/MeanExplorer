@@ -13,14 +13,39 @@
             <th>Industry</th>       
             <th>Next Report</th>  
             <th>LatestPrice</th>
-            <th>1d %</th>
-            <th>1w %</th>
-            <th>1m %</th>
-            <th>3m %</th>
-            <th>6m %</th>
-            <th>1y %</th>
-            <th>3y %</th>
-            <th>5y %</th>                      
+<!-- <<<<<<< HEAD -->
+            <!-- <th>1d %</th> -->
+            <!-- <th>1w %</th> -->
+            <!-- <th>1m %</th> -->
+            <!-- <th>3m %</th> -->
+            <!-- <th>6m %</th> -->
+            <!-- <th>1y %</th> -->
+            <!-- <th>3y %</th> -->
+            <!-- <th>5y %</th>                       -->
+<!-- ======= -->
+            <!--<th>1d%</th>
+            <th>1w%</th>
+            <th>1m%</th>
+            <th>3m%</th>
+            <th>6m%</th>
+            <th>1y%</th>
+            <th>3y%</th>
+            <th>5y%</th>
+            <th>MarketCap</th>
+            <th>PE_Lat</th>
+            <th>PE_1y</th>
+            <th>PE_3y</th>
+            <th>PS_Lat</th>
+            <th>PS_1y</th>
+            <th>PS_3y</th>
+            <th>PFCF_Lat</th>
+            <th>PFCF_1y</th>
+            <th>PFCF_3y</th>
+            <th>MA5_MA20</th>
+            <th>MA20_MA70</th>
+            <th>MA50_MA200</th>-->
+            <th>Graham</th>                 
+            <th>ROC</th>              
         </tr>
     </thead>
     <tbody>
@@ -32,15 +57,41 @@
             <td class="columnLarge">{{stock.Info.List}}</td>
             <td class="columnLarge">{{stock.Info.Industry}}</td>
             <td class="columnLarge">{{stock.Info.ReportDate.Next}}</td>
-            <td class="columnLarge">{{stock.Stock.LatestPrice | number : '1.2-2' }}</td>
-            <td class="columnLarge">{{stock.Stock.Return.Act_1d | number : '1.2-2' }}</td>
-            <td class="columnLarge">{{stock.Stock.Return.Act_1w | number : '1.2-2' }}</td>
-            <td class="columnLarge">{{stock.Stock.Return.Act_1m | number : '1.2-2' }}</td>
-            <td class="columnLarge">{{stock.Stock.Return.Act_3m | number : '1.2-2' }}</td>
-            <td class="columnLarge">{{stock.Stock.Return.Act_6m | number : '1.2-2' }}</td>
-            <td class="columnLarge">{{stock.Stock.Return.Act_1y | number : '1.2-2' }}</td>
-            <td class="columnLarge">{{stock.Stock.Return.Act_3y | number : '1.2-2' }}</td>
-            <td class="columnLarge">{{stock.Stock.Return.Act_5y | number : '1.2-2' }}</td>
+<!-- <<<<<<< HEAD -->
+            <!-- <td class="columnLarge">{{stock.Stock.LatestPrice | number : '1.2-2' }}</td> -->
+            <!-- <td class="columnLarge">{{stock.Stock.Return.Act_1d | number : '1.2-2' }}</td> -->
+            <!-- <td class="columnLarge">{{stock.Stock.Return.Act_1w | number : '1.2-2' }}</td> -->
+            <!-- <td class="columnLarge">{{stock.Stock.Return.Act_1m | number : '1.2-2' }}</td> -->
+            <!-- <td class="columnLarge">{{stock.Stock.Return.Act_3m | number : '1.2-2' }}</td> -->
+            <!-- <td class="columnLarge">{{stock.Stock.Return.Act_6m | number : '1.2-2' }}</td> -->
+            <!-- <td class="columnLarge">{{stock.Stock.Return.Act_1y | number : '1.2-2' }}</td> -->
+            <!-- <td class="columnLarge">{{stock.Stock.Return.Act_3y | number : '1.2-2' }}</td> -->
+            <!-- <td class="columnLarge">{{stock.Stock.Return.Act_5y | number : '1.2-2' }}</td> -->
+<!-- ======= -->
+            <td class="columnLarge">{{stock.Stock.LatestPrice}}</td>
+            <!--<td class="columnLarge">{{stock.Stock.Return.Act_1d}}</td>
+            <td class="columnLarge">{{stock.Stock.Return.Act_1w}}</td>
+            <td class="columnLarge">{{stock.Stock.Return.Act_1m}}</td>
+            <td class="columnLarge">{{stock.Stock.Return.Act_3m}}</td>
+            <td class="columnLarge">{{stock.Stock.Return.Act_6m}}</td>
+            <td class="columnLarge">{{stock.Stock.Return.Act_1y}}</td>
+            <td class="columnLarge">{{stock.Stock.Return.Act_3y}}</td>
+            <td class="columnLarge">{{stock.Stock.Return.Act_5y}}</td>
+            <td class="columnLarge">{{stock.Valuation.MarketCap}}</td>
+            <td class="columnLarge">{{stock.Valuation.P_E.Latest}}</td>
+            <td class="columnLarge">{{stock.Valuation.P_E.Avg_1y}}</td>
+            <td class="columnLarge">{{stock.Valuation.P_E.Avg_3y}}</td>
+            <td class="columnLarge">{{stock.Valuation.P_S.Latest}}</td>
+            <td class="columnLarge">{{stock.Valuation.P_S.Avg_1y}}</td>
+            <td class="columnLarge">{{stock.Valuation.P_S.Avg_3y}}</td>
+            <td class="columnLarge">{{stock.Valuation.P_FCF.Latest}}</td>
+            <td class="columnLarge">{{stock.Valuation.P_FCF.Avg_1y}}</td>
+            <td class="columnLarge">{{stock.Valuation.P_FCF.Avg_3y}}</td>
+            <td class="columnLarge">{{stock.TA.MA5_MA20}}</td>
+            <td class="columnLarge">{{stock.TA.MA20_MA70}}</td>
+            <td class="columnLarge">{{stock.TA.MA50_MA200}}</td>-->
+            <td class="columnLarge">{{stock.Strat.Graham}}</td>
+            <td class="columnLarge">{{stock.Profitability.ROC}}</td>
         </tr>
     </tbody>
 </table>

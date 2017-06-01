@@ -10,6 +10,10 @@ var appRoutes = require('./routes/app');
 var messageRoutes = require('./routes/messages');
 var userRoutes = require('./routes/user');
 var stockRoutes = require('./routes/stocks');
+var stocksLargeCapRoutes = require('./routes/stocks_largecap');
+var stocksMidCapRoutes = require('./routes/stocks_midcap');
+var stocksSmallCapRoutes = require('./routes/stocks_smallcap');
+var stocksFirstNorthRoutes = require('./routes/stocks_firstnorth');
 
 var app = express();
 
@@ -43,6 +47,10 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.use('/stocks_firstnorth', stocksFirstNorthRoutes);
+app.use('/stocks_smallcap', stocksSmallCapRoutes);
+app.use('/stocks_midcap', stocksMidCapRoutes);
+app.use('/stocks_largecap', stocksLargeCapRoutes);
 app.use('/stocks', stockRoutes);
 app.use('/message', messageRoutes);
 app.use('/user', userRoutes);

@@ -1,10 +1,11 @@
-<button class="btn btn-default" (click)="changeTab(0)">Default</button>
+<button class="btn btn-default" (click)="changeTab(0)">Fundamental Investing</button>
 <button class="btn btn-default" (click)="changeTab(1)">Rbbhs</button>
 <button class="btn btn-default" (click)="changeTab(2)">Rdpd</button>
 <button class="btn btn-default" (click)="changeTab(3)">The Magic Formula</button>
+
 <br />
 <div *ngIf="tab === 0">
-    <h1>Default</h1>
+    <fundamental-investing></fundamental-investing>
 </div>
 <div *ngIf="tab === 1">
     <rbbhs></rbbhs>
@@ -13,7 +14,7 @@
     <rdpd></rdpd>
 </div>
 <div *ngIf="tab === 3">
-    <magicFormula></magicFormula>
+    <magic-formula></magic-formula>
 </div>
 <hr />
 <!-- <app-parser></app-parser> -->

@@ -1,0 +1,39 @@
+<h3>{{title}}</h3>
+<div>
+    <button (click)="loadData()">Load data</button>
+    <p *ngIf="showErrorMessage" style="color:red">Wait for data to load! Approximately 3 seconds..</p>
+    <div *ngIf="dataLoaded">
+        <button (click)="loadMidCap()">Load Mid Cap</button>         
+    </div> 
+    
+    <table class="tableStandard" *ngIf="displayTable">
+        <thead>
+            <th>Namn</th>
+            <th>Symbol</th>
+            <th>Sektor</th>
+            <th>Valuta</th>
+            <th>Börsvärde</th>
+            <th>Beskrivning</th>
+            <th>Fact sheet</th>
+            <th>Betyg (Tim)</th>
+            <th>Betyg (Sebbe)</th>
+            <th>Kommentar</th>
+        </thead>
+        <tr *ngFor="let row of rowArray">
+            <td column="columnLarge">
+                <a target="_blank" href="{{row[0].a.href}}">{{row[0].a.content}}</a>
+            </td>
+            <td class="columnMedium">{{row[1].content}}</td>
+            <td class="columnLarge">{{row[4].content}}</td>
+            <td class="columnSmall">{{row[2].content}}</td>
+            <td class="columnLarge"></td>
+            <td class="columnBox"></td>           
+            <td class="columnSmall">
+                <a target="_blank" href="{{row[6].a.href}}"><img src="http://www.nasdaqomxnordic.com/static/img/pdf.gif"></a>
+            </td>
+            <td class="columnMedium"><div class="score" style="width: 80px"></div></td>
+            <td class="columnMedium"><div class="score" style="width: 57px"></div></td>
+            <td class="columnComment"></td>
+        </tr>
+    </table>    
+</div>

@@ -1,29 +1,33 @@
 <h3>{{title}}</h3>
+
 <div>
-    <button (click)="loadData()">Load data</button>
-    <p *ngIf="showErrorMessage" style="color:red">Wait for data to load! Approximately 3 seconds..</p>
-    <div *ngIf="dataLoaded">
-        <button (click)="loadSmallCap()">Load Small Cap</button>         
-    </div> 
-    
-    <table class="tableStandard" *ngIf="displayTable">
+    <table class="tableStandard">
         <thead>
-            <th>Namn</th>
-            <th>Symbol</th>
-            <th>Valuta</th>
-            <th>Sektor</th>
-            <th>Fakta</th>
+            <tr>
+                <th>Lista</th>
+                <th>Namn</th>
+                <th>Ticker</th>
+                <th>Bransch</th>
+                <th>Börsvärde</th>
+                <th>Beskrivning</th>
+                <th>Fact sheet</th>
+                <th>Betyg (Tim)</th>
+                <th>Betyg (Seb)</th>
+            </tr>
         </thead>
-        <tr *ngFor="let row of rowArray">
-            <td>
-                <a target="_blank" href="{{row[0].a.href}}">{{row[0].a.content}}</a>
-            </td>
-            <td>{{row[1].content}}</td>
-            <td>{{row[2].content}}</td>
-            <td>{{row[4].content}}</td>
-            <td>
-                <a target="_blank" href="{{row[6].a.href}}">Fakta</a>
-            </td>
-        </tr>
-    </table>    
+        
+        <tbody>
+            <tr *ngFor='let stock of stocks; let i = index'>
+                <td class="columnLarge">{{stock.Info.List}}</td>
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>
+                <td class="columnLarge">{{stock.Info.Industry}}</td>
+                <td class="columnMedium">{{stock.Valuation.MarketCap | number: '1.1-1'}}</td>
+                <td class="columnLarge">N/A</td>
+                <td class="columnMedium"><img src="http://www.nasdaqomxnordic.com/static/img/pdf.gif" style="margin-left: 5px"></td>
+                <td class="columnMedium"><div class="score" style="width: 80px"></div></td>            
+                <td class="columnMedium"><div class="score" style="width: 57px"></div></td>
+            </tr>
+        </tbody>
+    </table>
 </div>

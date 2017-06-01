@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MagicFormulaService } from './magicFormula.service';
 
 @Component({
-  selector: 'magicFormula',
+  selector: 'magic-formula',
   templateUrl: './magicFormula.component.html',
   styleUrls: ['./magicFormula.component.css'],
   providers: [
