@@ -1,14 +1,14 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 
 import { StockObject } from "../models/stock.model";
-import { LargeCapService } from "./large-cap.service";
+import { StockService } from "../stock.service";
 
 
 @Component({
   selector: 'app-large-cap',
   templateUrl: './large-cap.component.html',
   styleUrls: ['./large-cap.component.css'],
-  providers: [ LargeCapService ]
+  providers: [ StockService ]
 })
 
 @Injectable()
@@ -19,10 +19,10 @@ export class LargeCapComponent implements OnInit {
 
   filter: StockObject = new StockObject();
 
-  constructor(private largeCapService: LargeCapService) { }
+  constructor(private stockService: StockService) { }
 
   ngOnInit() {
-      this.largeCapService.getStocks()
+      this.stockService.getStocks('http://localhost:3000/stocks_largecap')
         .subscribe(
           (stocks: StockObject[]) => {
             this.stocks = stocks;

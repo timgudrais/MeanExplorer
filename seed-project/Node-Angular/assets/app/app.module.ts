@@ -28,6 +28,7 @@ import { LargeCapComponent } from './stocks/large-cap/large-cap.component';
 import { MakroIndikatorerComponent } from './makro-indikatorer/makro-indikatorer.component';
 import { MidCapComponent } from './stocks/mid-cap/mid-cap.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ScoringComponent } from './scoring/scoring.component';
 import { SmallCapComponent } from './stocks/small-cap/small-cap.component';
 import { TekniskAnalysComponent } from './teknisk-analys/teknisk-analys.component';
 import { ToDoListComponent } from './to-do-list/to-do-list.component';
@@ -87,6 +88,7 @@ import { StockValuePipe } from './stocksTest/stocksValue-filter.pipe';
 		MakroIndikatorerComponent,
 		MidCapComponent,
 		NavbarComponent,
+        ScoringComponent,
 		SmallCapComponent,
 		TekniskAnalysComponent,
 		ToDoListComponent,
@@ -169,11 +171,15 @@ import { StockValuePipe } from './stocksTest/stocksValue-filter.pipe';
         {
             path: 'tools',
             component: ToolsComponent
-        },
+        },     
         {
             path: 'crypto-currencies',
             component: CryptoCurrenciesComponent
-        }       
+        },
+        {
+            path: 'scoring-models',
+            component: ScoringComponent
+        }              
     ])
     ],
     providers: [AuthService],

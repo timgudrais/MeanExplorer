@@ -1,0 +1,51 @@
+.tableStandard {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.tableStandard th {
+    border-top: 1px solid #c6c6c6;
+    border-bottom: 1px solid #c6c6c6;
+    padding: 4px 10px;
+    background: #fff;
+}
+
+.tableStandard tr {
+    padding: 4px 10px;
+}
+
+.tableStandard tr:nth-child(even) {
+    background: #ffffff;
+}
+
+.tableStandard{
+    background: #f9f9f9;
+}
+
+.tableStandard td {
+    border-top: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
+    padding: 10px 10px;
+}
+
+.tableStandard td img {
+    margin-left: 15px;
+}
+
+.tableStandard .columnSmall {
+    width: 70px;
+}
+
+.tableStandard .columnMedium {
+    width: 100px;
+}
+
+.tableStandard .columnLarge {
+    width: 150px;
+}
+
+.tableStandard .columnBox {
+    width: 400px;
+}
