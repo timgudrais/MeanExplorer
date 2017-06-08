@@ -11,7 +11,7 @@ export class CryptoCurrenciesComponent implements OnInit {
   title = 'Crypto-currencies';
 
   toDos;
-  constructor(toDoListService: CryptoCurrenciesService) {
+  constructor(cryptoCurrenciesService: CryptoCurrenciesService) {
      
   }
 

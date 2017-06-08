@@ -5,7 +5,7 @@ export class StockObject {
     TA: TA;
     Strat: Strat;
     Profitability: Profitability;
-    BalanceSheet: BalanceSheet;
+    BalanceSheet: BalanceSheet;    
 
     constructor(
         Info: Info, 
@@ -14,7 +14,7 @@ export class StockObject {
         TA: TA,
         Strat: Strat,
         Profitability: Profitability,
-        BalanceSheet: BalanceSheet        
+        BalanceSheet: BalanceSheet,        
         ) {
             this.Info = Info;
             this.Stock = Stock;
@@ -22,8 +22,8 @@ export class StockObject {
             this.TA = TA;
             this.Strat = Strat;
             this.Profitability = Profitability;
-            this.BalanceSheet = BalanceSheet;
-    }
+            this.BalanceSheet = BalanceSheet;            
+        }
 }
 
 export class Info {
@@ -184,12 +184,24 @@ export class TA {
 
 export class Strat {
     Graham: number;
+    DividendScore: number;  
+    PEScore: number;
+    CurrentRatioScore: number;
+    DebtEquityScore: number;
+    ROCScore: number;  
+    InvestingScore: number;  
 
     constructor(
-        Graham: number
+        Graham: number        
         ) {
             this.Graham = Graham;
-    }
+            this.DividendScore = 0;
+            this.PEScore = 0;
+            this.CurrentRatioScore = 0;
+            this.DebtEquityScore = 0;
+            this.ROCScore = 0;
+            this.InvestingScore = 0;
+        }
 }
 
 export class Profitability {
@@ -200,6 +212,7 @@ export class Profitability {
     ROE: number;
     CurrentRatio: number;
     DividendRatio: number;
+    DebtEquity: number;
 
     constructor(
         ROC: number,
@@ -208,7 +221,7 @@ export class Profitability {
         NetMargin: number,
         ROE: number,
         CurrentRatio: number,
-        DividendRatio: number
+        DividendRatio: number     
     ) {
         this.ROC = ROC;
         this.GrossMargin = GrossMargin;
@@ -217,6 +230,7 @@ export class Profitability {
         this.ROE = ROE;
         this.CurrentRatio = CurrentRatio;
         this.DividendRatio = DividendRatio;
+        this.DebtEquity = 0;        
     }
 }
 

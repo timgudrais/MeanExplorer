@@ -4,41 +4,56 @@
     <table class="tableStandard">
         <thead>
             <tr>
-                <th>Lista</th>
-                <th>Namn</th>
-                <th>Ticker</th>
-                <th>Bransch</th>
-                <th>Börsvärde</th>
-                <th>ROE</th>
-                <th>ROC</th>
-                <th>Current ratio</th>
-                <th>DebtPerShare</th>
-                <th>EquityPerShare</th>
-                <th>Dividend%</th>
-                <th>Net margin</th>
-                <th>P/E</th>
-                <th>P/S</th>
-                <th>P/FCF</th>
+                <th>Lista</th>              <!-- 1 -->
+                <th>Namn</th>               <!-- 2 -->
+                <th>Ticker</th>             <!-- 3 -->
+                <th>Bransch</th>            <!-- 4 -->
+                <th>Börsvärde (MSEK)</th>   <!-- 5 -->
+                <th>Investing Score</th>    <!-- 6 -->
+                <th>Dividend Score</th>     <!-- 7 -->
+                <th>Debt to Equiy Score</th><!-- 8 -->
+                <th>P/E Score</th>          <!-- 9 -->                
+                <th>Current ratio Score</th><!-- 10 -->
+                <th>ROC Score</th>          <!-- 11 -->  
+                <th>ROE</th>                <!-- 12 -->  
+                <th>ROC</th>                <!-- 13 -->  
+                <th>Current ratio</th>      <!-- 14 -->  
+                <th>Dividend</th>           <!-- 15 -->  
+                <th>Debt To Equity</th>     <!-- 16 -->  
+                <th>Debt Per Share</th>     <!-- 17 -->  
+                <th>Equity Per Share</th>   <!-- 18 -->                   
+                <th>Net margin</th>         <!-- 19 -->
+                <th>P/E</th>                <!-- 20 -->
+                <th>P/S</th>                <!-- 21 -->
+                <th>P/FCF</th>              <!-- 22 -->
             </tr>
         </thead>
         
         <tbody>
-            <tr *ngFor='let stock of stocks; let i = index'>
-                <td class="columnLarge">{{stock.Info.List}}</td>
-                <td class="columnLarge">{{stock.Info.CompanyName}}</td>
-                <td class="columnMedium">{{stock.Info.Ticker}}</td>
-                <td class="columnLarge">{{stock.Info.Industry}}</td>
-                <td class="columnMedium">{{stock.Valuation.MarketCap | number: '1.1-1'}}</td>
-                <td class="columnMedium">{{stock.Profitability.ROE}}</td>
-                <td class="columnMedium">{{stock.Profitability.ROC}}</td>
-                <td class="columnMedium">{{stock.Profitability.CurrentRatio}}</td>
-                <td class="columnMedium">{{stock.BalanceSheet.DebtPerShare}}</td>
-                <td class="columnMedium">{{stock.BalanceSheet.EquityPerShare}}</td>
-                <td class="columnMedium">{{stock.Profitability.DividendRatio}}</td>
-                <td class="columnMedium">{{stock.Profitability.NetMargin}}</td>
-                <td class="columnMedium">{{stock.Valuation.P_E.Latest}}</td>
-                <td class="columnMedium">{{stock.Valuation.P_S.Latest}}</td>
-                <td class="columnMedium">{{stock.Valuation.P_FCF.Latest}}</td>
+            <tr *ngFor='let stock of sortedPSStocks; let i = index'>
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                            <!-- 1 -->
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                     <!-- 2 -->
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                         <!-- 3 -->
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                        <!-- 4 -->
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                                                <!-- 5 -->
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                             <!-- 6 -->
+                <td class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                               <!-- 7 -->
+                <td class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                           <!-- 8 -->
+                <td class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                                           <!-- 9 -->
+                <td class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                                 <!-- 10 -->
+                <td class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                         <!-- 11 -->
+                <td class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                           <!-- 12 -->
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                           <!-- 13 -->
+                <td class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                 <!-- 14 -->
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.2-2') : "N/A"}} %</td>     <!-- 15 -->             
+                <td class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? ((stock.Profitability.DebtEquity) | number: '1.2-2') : "N/A"}}</td>                   <!-- 16 -->  
+                <!--<td class="columnMedium">{{ ((stock.BalanceSheet.DebtPerShare !== '') && (stock.BalanceSheet.EquityPerShare !== '')) ? ((stock.BalanceSheet.DebtPerShare/stock.BalanceSheet.EquityPerShare) | number: '1.2-2') : "N/A"}}</td>-->
+                <td class="columnMedium">{{ (stock.BalanceSheet.DebtPerShare !== '') ? (stock.BalanceSheet.DebtPerShare | number: '1.2-2') : "N/A"}}</td>                   <!-- 17 -->
+                <td class="columnMedium">{{ (stock.BalanceSheet.EquityPerShare !== '') ? (stock.BalanceSheet.EquityPerShare | number: '1.2-2') : "N/A"}}</td>               <!-- 18 -->                                   
+                <td class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? (stock.Profitability.NetMargin | number: '1.2-2') : "N/A"}}</td>                       <!-- 19 -->
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                             <!-- 20 -->   
+                <td class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                             <!-- 21 -->   
+                <td class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                         <!-- 22 -->                       
             </tr>
         </tbody>
     </table>
