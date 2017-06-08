@@ -184,10 +184,20 @@ export class TA {
 
 export class Strat {
     Graham: number;
+
+    DividendRank: number;  
+    PERank: number;
+    CurrentRatioRank: number;
+    DebtEquityRank: number;
+    NetMarginRank: number;
+    ROCRank: number;  
+    InvestingRank: number;  
+
     DividendScore: number;  
     PEScore: number;
     CurrentRatioScore: number;
     DebtEquityScore: number;
+    NetMarginScore: number;
     ROCScore: number;  
     InvestingScore: number;  
 
@@ -195,10 +205,20 @@ export class Strat {
         Graham: number        
         ) {
             this.Graham = Graham;
+            
+            this.DividendRank = 0;
+            this.PERank = 0;
+            this.CurrentRatioRank = 0;
+            this.DebtEquityRank = 0;
+            this.NetMarginRank = 0;
+            this.ROCRank = 0;
+            this.InvestingRank = 0;
+
             this.DividendScore = 0;
             this.PEScore = 0;
             this.CurrentRatioScore = 0;
             this.DebtEquityScore = 0;
+            this.NetMarginScore = 0;
             this.ROCScore = 0;
             this.InvestingScore = 0;
         }

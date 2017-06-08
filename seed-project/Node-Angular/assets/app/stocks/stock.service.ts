@@ -19,7 +19,7 @@ export class StockService {
                 const stocks = response.json().obj;
                 let transformedStocks: StockObject[] = [];
                 for (let stock of stocks) {
-                    console.log(stock)
+                    // console.log(stock)
                     transformedStocks.push(
                         new StockObject(
                             new Info(
