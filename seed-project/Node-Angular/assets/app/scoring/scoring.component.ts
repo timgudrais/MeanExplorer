@@ -26,6 +26,42 @@ export class ScoringComponent implements OnInit {
 
   filter: StockObject = new StockObject();
 
+  expandedActuals = false;
+  expandedScore = false;
+  expandedRank = false;
+  choosenIndustry = 'All';
+
+  toggleActuals() {
+    if (this.expandedActuals) {
+      this.expandedActuals = false;
+    }
+    else {
+      this.expandedActuals = true;
+    }
+  }
+
+  toggleScore() {
+    if (this.expandedScore) {
+      this.expandedScore = false;
+    }
+    else {
+      this.expandedScore = true;
+    }
+  }
+
+  toggleRank() {
+    if (this.expandedRank) {
+      this.expandedRank = false;
+    }
+    else {
+      this.expandedRank = true;
+    }
+  }
+
+  chooseIndustry(industry) {
+    this.choosenIndustry = industry;
+  }
+
   constructor(private stockService: StockService) { }
 
   ngOnInit() {
@@ -69,13 +105,13 @@ export class ScoringComponent implements OnInit {
           this.sortedCurrentRatioStocks[i].Strat.CurrentRatioRank = i + 1;
           this.sortedCurrentRatioStocks[i].Profitability.DebtEquity = this.sortedCurrentRatioStocks[i].BalanceSheet.DebtPerShare / this.sortedCurrentRatioStocks[i].BalanceSheet.EquityPerShare;
 
-          if (this.sortedCurrentRatioStocks[i].Profitability.CurrentRatio <= 1 ) {
+          if (this.sortedCurrentRatioStocks[i].Profitability.CurrentRatio <= 1) {
             this.sortedCurrentRatioStocks[i].Strat.CurrentRatioScore = 0;
           }
-          if (this.sortedCurrentRatioStocks[i].Profitability.CurrentRatio > 1 && this.sortedCurrentRatioStocks[i].Profitability.CurrentRatio <= 2 ) {
+          if (this.sortedCurrentRatioStocks[i].Profitability.CurrentRatio > 1 && this.sortedCurrentRatioStocks[i].Profitability.CurrentRatio <= 2) {
             this.sortedCurrentRatioStocks[i].Strat.CurrentRatioScore = 1;
           }
-          if (this.sortedCurrentRatioStocks[i].Profitability.CurrentRatio > 2 ) {
+          if (this.sortedCurrentRatioStocks[i].Profitability.CurrentRatio > 2) {
             this.sortedCurrentRatioStocks[i].Strat.CurrentRatioScore = 2;
           }
         }
@@ -86,13 +122,13 @@ export class ScoringComponent implements OnInit {
         for (var i = 0; i < this.sortedDebtEquityRatioStocks.length; i++) {
           this.sortedDebtEquityRatioStocks[i].Strat.DebtEquityRank = i + 1;
 
-          if (this.sortedDebtEquityRatioStocks[i].Profitability.DebtEquity <= 0.0000001 || this.sortedDebtEquityRatioStocks[i].Profitability.DebtEquity > 1.5 ) {
+          if (this.sortedDebtEquityRatioStocks[i].Profitability.DebtEquity <= 0.0000001 || this.sortedDebtEquityRatioStocks[i].Profitability.DebtEquity > 1.5) {
             this.sortedDebtEquityRatioStocks[i].Strat.DebtEquityScore = 0;
           }
-          if (this.sortedDebtEquityRatioStocks[i].Profitability.DebtEquity > 0.0000001 && this.sortedDebtEquityRatioStocks[i].Profitability.DebtEquity <= 0.8 ) {
+          if (this.sortedDebtEquityRatioStocks[i].Profitability.DebtEquity > 0.0000001 && this.sortedDebtEquityRatioStocks[i].Profitability.DebtEquity <= 0.8) {
             this.sortedDebtEquityRatioStocks[i].Strat.DebtEquityScore = 2;
           }
-          if (this.sortedDebtEquityRatioStocks[i].Profitability.DebtEquity > 0.8 && this.sortedDebtEquityRatioStocks[i].Profitability.DebtEquity <= 1.5 ) {
+          if (this.sortedDebtEquityRatioStocks[i].Profitability.DebtEquity > 0.8 && this.sortedDebtEquityRatioStocks[i].Profitability.DebtEquity <= 1.5) {
             this.sortedDebtEquityRatioStocks[i].Strat.DebtEquityScore = 1;
           }
         }
@@ -104,10 +140,10 @@ export class ScoringComponent implements OnInit {
           if (this.sortedNetMarginStocks[i].Profitability.NetMargin <= 0.05) {
             this.sortedNetMarginStocks[i].Strat.NetMarginScore = 0;
           }
-          if (this.sortedNetMarginStocks[i].Profitability.NetMargin > 0.05 && this.sortedNetMarginStocks[i].Profitability.NetMargin <= 0.2 ) {
+          if (this.sortedNetMarginStocks[i].Profitability.NetMargin > 0.05 && this.sortedNetMarginStocks[i].Profitability.NetMargin <= 0.2) {
             this.sortedNetMarginStocks[i].Strat.NetMarginScore = 1;
           }
-          if (this.sortedNetMarginStocks[i].Profitability.NetMargin > 0.2 ) {
+          if (this.sortedNetMarginStocks[i].Profitability.NetMargin > 0.2) {
             this.sortedNetMarginStocks[i].Strat.NetMarginScore = 2;
           }
         }
@@ -126,10 +162,10 @@ export class ScoringComponent implements OnInit {
           if (this.sortedROCStocks[i].Profitability.ROC <= 0.1) {
             this.sortedROCStocks[i].Strat.ROCScore = 0;
           }
-          if (this.sortedROCStocks[i].Profitability.ROC > 0.1 && this.sortedROCStocks[i].Profitability.ROC <= 0.2 ) {
+          if (this.sortedROCStocks[i].Profitability.ROC > 0.1 && this.sortedROCStocks[i].Profitability.ROC <= 0.2) {
             this.sortedROCStocks[i].Strat.ROCScore = 1;
           }
-          if (this.sortedROCStocks[i].Profitability.ROC > 0.2 ) {
+          if (this.sortedROCStocks[i].Profitability.ROC > 0.2) {
             this.sortedROCStocks[i].Strat.ROCScore = 2;
           }
 

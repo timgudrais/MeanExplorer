@@ -49,3 +49,35 @@
 .tableStandard .columnBox {
     width: 400px;
 }
+
+.tableButtonLeft {
+    background-color: #f6f6f6 !important;
+    cursor:pointer;
+}
+.tableButtonLeft:hover {
+    background-color: #b9b9b9 !important;
+    cursor:pointer;
+}
+
+.tableButtonCenter {
+    background-color: #e6e6e6 !important;
+    cursor:pointer;
+}
+.tableButtonCenter:hover {
+    background-color: #b9b9b9 !important;
+    cursor:pointer;
+}
+
+.tableButtonRight {
+    background-color: #d6d6d6 !important;
+    cursor:pointer;
+}
+.tableButtonRight:hover {
+    background-color: #b9b9b9 !important;
+    cursor:pointer;
+}
+
+
+.tableBorderLeft {
+    border-left: 1px solid #c6c6c6 !important;
+}

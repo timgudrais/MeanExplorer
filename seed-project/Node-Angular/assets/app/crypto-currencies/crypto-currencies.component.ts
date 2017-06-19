@@ -8,7 +8,7 @@ import { CryptoCurrenciesService } from './crypto-currencies.service';
   providers: [ CryptoCurrenciesService ]
 })
 export class CryptoCurrenciesComponent implements OnInit {
-  title = 'Crypto-currencies';
+  title = 'Kryptovalutor';
 
   toDos;
   constructor(cryptoCurrenciesService: CryptoCurrenciesService) {
