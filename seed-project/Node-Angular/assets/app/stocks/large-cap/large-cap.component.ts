@@ -2,13 +2,14 @@ import { Component, Injectable, OnInit } from '@angular/core';
 
 import { StockObject } from "../models/stock.model";
 import { StockService } from "../stock.service";
+import { UserService } from "../../shared/user.service"
 
 
 @Component({
   selector: 'app-large-cap',
   templateUrl: './large-cap.component.html',
   styleUrls: ['./large-cap.component.css'],
-  providers: [ StockService ]
+  providers: [ StockService, UserService ]
 })
 
 @Injectable()
@@ -16,12 +17,22 @@ export class LargeCapComponent implements OnInit {
   title = 'Large Cap';
   stocks: StockObject[];
   sliderValue:number = 20;
+  largeCapData = 'Hej';
+  
 
   filter: StockObject = new StockObject();
 
-  constructor(private stockService: StockService) { }
+  constructor(private stockService: StockService, private userService: UserService) { }
+
+
 
   ngOnInit() {
+      this.userService.getLargeCapData()
+        .subscribe(
+          (largeCapData: string) => {
+            this.largeCapData = largeCapData;
+          }
+        );
       this.stockService.getStocks('http://localhost:3000/stocks_largecap')
         .subscribe(
           (stocks: StockObject[]) => {
