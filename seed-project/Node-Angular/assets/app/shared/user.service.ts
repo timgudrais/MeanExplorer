@@ -24,7 +24,7 @@ export class UserService {
   }
 
   getLargeCapData() {
-    return this.http.get(`https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Fwww.nasdaqomxnordic.com%2Faktier%2Flisted-companies%2Fnordic-large-cap%22%20and%20xpath%3D'%2F%2Fsection%2Fdiv%2Fdiv%2Fdiv%2Fsection%2Farticle%2Fdiv%2Fdiv%2Ftable'&format=json&callback=`)
+    return this.http.get(`https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20htmlstring%20where%20url%3D'http%3A%2F%2Fwww.nasdaqomxnordic.com%2Faktier%2Flisted-companies%2Fnordic-large-cap'%20and%20xpath%3D'%2F%2Ftable'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=`)
     .map((res:Response) => res.json());
   }
 
