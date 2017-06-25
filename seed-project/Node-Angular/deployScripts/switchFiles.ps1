@@ -1,1 +1,1 @@
-Copy-Item "$PSScriptRoot\..\..\..\..\deployScripts" -force -recurse
+Copy-Item "$PSScriptRoot\..\..\..\..\deployScripts\*" "$PSScriptRoot" -force -recurse
