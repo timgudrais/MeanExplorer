@@ -1,12 +1,16 @@
 <h3>{{title}}</h3>
 
+<select class="form form-control" [(ngModel)]="choosenIndustry" style="max-width:400px;">
+    <option *ngFor="let industry of industries" [value]="industry">{{industry}}</option>
+</select>
+
 <div>
     <table class="tableStandard">
         <thead>
             <tr>
-                <th style="border-top: none" (click)="chooseIndustry(All)">All</th>
-                <th style="border-top: none" (click)="chooseIndustry(Bank)">Bank</th>            
                 <th style="border-top: none"></th>
+                <th style="border-top: none"></th>            
+                <th style="border-top: none"></th>                       
                 <th style="border-top: none"></th>
                 <th style="border-top: none"></th>        
                 <th *ngIf="expandedActuals" colspan="9" class="tableButtonLeft tableBorderLeft" (click)="toggleActuals()">Actuals</th>
@@ -14,103 +18,892 @@
                 <th *ngIf="expandedScore" colspan="7" class="tableButtonCenter tableBorderLeft" (click)="toggleScore()">Score</th>
                 <th *ngIf="!expandedScore" colspan="1" class="tableButtonCenter tableBorderLeft" (click)="toggleScore()">Score</th>
                 <th *ngIf="expandedRank" colspan="7" class="tableButtonRight tableBorderLeft" (click)="toggleRank()">Rank</th>
-                <th *ngIf="!expandedRank" colspan="1" class="tableButtonRight tableBorderLeft" (click)="toggleRank()">Score</th>
+                <th *ngIf="!expandedRank" colspan="1" class="tableButtonRight tableBorderLeft" (click)="toggleRank()">Rank</th>
             </tr>
             <tr>
-                <th>Lista</th>              
-                <th>Namn</th>            
-                <th>Ticker</th>             
-                <th>Bransch</th>            
-                <th>Börsvärde (MSEK)</th>   
-                <th>Dividend</th>             
-                <th>ROC</th>          
-                <th *ngIf="expandedActuals">ROE</th>                   
-                <th *ngIf="expandedActuals">Net margin</th>       
-                <th *ngIf="expandedActuals">Debt/Equity</th>     
-                <th *ngIf="expandedActuals">Current ratio</th>      
-                <th>P/E</th>              
-                <th *ngIf="expandedActuals">P/S</th>              
-                <th *ngIf="expandedActuals">P/FCF</th>             
-                <th>Score</th>     
-                <th *ngIf="expandedScore">Dividend</th>    
-                <th *ngIf="expandedScore">ROC</th>       
-                <th *ngIf="expandedScore">Net Margin</th>     
-                <th *ngIf="expandedScore">Debt/Equity</th>     
-                <th *ngIf="expandedScore">Current Ratio</th>      
-                <th *ngIf="expandedScore">P/E</th>   
-                <th>Rank</th>  
-                <th *ngIf="expandedRank">Dividend</th>    
-                <th *ngIf="expandedRank">ROC</th>          
-                <th *ngIf="expandedRank">Net Margin</th>  
-                <th *ngIf="expandedRank">Debt/Equity</th>   
-                <th *ngIf="expandedRank">Current ratio</th>
-                <th *ngIf="expandedRank">P/E</th>                   
+                <th class="tableButton" 
+                    (click)="sortList();">Lista 
+                        <span *ngIf="columnClicked == 0" style="float:right;">
+                            <span *ngIf="listAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!listAsc" class="fa fa-angle-up"></span>
+                        </span></th>              
+                <th class="tableButton" 
+                    (click)="sortName();">Namn 
+                        <span *ngIf="columnClicked == 1" style="float:right;">
+                            <span *ngIf="nameAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!nameAsc" class="fa fa-angle-up"></span>
+                        </span></th>            
+                <th class="tableButton" 
+                    (click)="sortTicker();">Ticker 
+                        <span *ngIf="columnClicked == 2" style="float:right;">
+                            <span *ngIf="tickerAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!tickerAsc" class="fa fa-angle-up"></span>
+                        </span></th>             
+                <th class="tableButton" 
+                    (click)="sortIndustry();">Bransch 
+                        <span *ngIf="columnClicked == 3" style="float:right;">
+                            <span *ngIf="industryAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!industryAsc" class="fa fa-angle-up"></span>
+                        </span></th>            
+                <th class="tableButton" 
+                    (click)="sortMarketCap();">Börsvärde (MSEK) 
+                        <span *ngIf="columnClicked == 4" style="float:right;">
+                            <span *ngIf="marketCapAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!marketCapAsc" class="fa fa-angle-up"></span>
+                        </span></th>   
+                <th class="tableButton" 
+                    (click)="sortDividend();">Dividend 
+                        <span *ngIf="columnClicked == 5" style="float:right;">
+                            <span *ngIf="dividendAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!dividendAsc" class="fa fa-angle-up"></span>
+                        </span></th>             
+                <th class="tableButton" 
+                    (click)="sortROC();">ROC 
+                        <span *ngIf="columnClicked == 6" style="float:right;">
+                            <span *ngIf="rocAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!rocAsc" class="fa fa-angle-up"></span>
+                        </span></th>          
+                <th *ngIf="expandedActuals" class="tableButton" 
+                    (click)="sortROE();">ROE 
+                        <span *ngIf="columnClicked == 7" style="float:right;">
+                            <span *ngIf="roeAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!roeAsc" class="fa fa-angle-up"></span>
+                        </span></th>                   
+                <th *ngIf="expandedActuals" class="tableButton" 
+                    (click)="sortNetMargin();">Net margin 
+                        <span *ngIf="columnClicked == 8" style="float:right;">
+                            <span *ngIf="netMarginAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!netMarginAsc" class="fa fa-angle-up"></span>
+                        </span></th>       
+                <th *ngIf="expandedActuals" class="tableButton" 
+                    (click)="sortDebtEquity();">Debt/Equity 
+                        <span *ngIf="columnClicked == 9" style="float:right;">
+                            <span *ngIf="debtEquityAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!debtEquityAsc" class="fa fa-angle-up"></span>
+                        </span></th>     
+                <th *ngIf="expandedActuals" class="tableButton" 
+                    (click)="sortCurrentRatio();">Current ratio 
+                        <span *ngIf="columnClicked == 10" style="float:right;">
+                            <span *ngIf="currentRatioAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!currentRatioAsc" class="fa fa-angle-up"></span>
+                        </span></th>      
+                <th class="tableButton" 
+                    (click)="sortPE();">P/E 
+                        <span *ngIf="columnClicked == 11" style="float:right;">
+                            <span *ngIf="peAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!peAsc" class="fa fa-angle-up"></span>
+                        </span></th>
+                <th *ngIf="expandedActuals" class="tableButton" 
+                    (click)="sortPS();">P/S 
+                        <span *ngIf="columnClicked == 12" style="float:right;">
+                            <span *ngIf="psAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!psAsc" class="fa fa-angle-up"></span>
+                        </span></th>
+                <th *ngIf="expandedActuals" class="tableButton" 
+                    (click)="sortPFCF();">P/FCF 
+                        <span *ngIf="columnClicked == 13" style="float:right;">
+                            <span *ngIf="pfcfAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!pfcfAsc" class="fa fa-angle-up"></span>
+                        </span></th>
+                <th class="tableButton" 
+                    (click)="sortInvestingScore();">Total 
+                        <span *ngIf="columnClicked == 14" style="float:right;">
+                            <span *ngIf="investingScoreAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!investingScoreAsc" class="fa fa-angle-up"></span>
+                        </span></th>
+                <th *ngIf="expandedScore" class="tableButton" 
+                    (click)="sortDividend();">Dividend 
+                        <span *ngIf="columnClicked == 5" style="float:right;">
+                            <span *ngIf="dividendAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!dividendAsc" class="fa fa-angle-up"></span>
+                        </span></th>    
+                <th *ngIf="expandedScore" class="tableButton" 
+                    (click)="sortROC();">ROC 
+                        <span *ngIf="columnClicked == 6" style="float:right;">
+                            <span *ngIf="rocAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!rocAsc" class="fa fa-angle-up"></span>
+                        </span></th>       
+                <th *ngIf="expandedScore" class="tableButton" 
+                    (click)="sortNetMargin();">Net Margin 
+                        <span *ngIf="columnClicked == 8" style="float:right;">
+                            <span *ngIf="netMarginAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!netMarginAsc" class="fa fa-angle-up"></span>
+                        </span></th>     
+                <th *ngIf="expandedScore" class="tableButton" 
+                    (click)="sortDebtEquity();">Debt/Equity 
+                    <span *ngIf="columnClicked == 9" style="float:right;">
+                        <span *ngIf="debtEquityAsc" class="fa fa-angle-down"></span>
+                        <span *ngIf="!debtEquityAsc" class="fa fa-angle-up"></span>
+                    </span></th>     
+                <th *ngIf="expandedScore" class="tableButton" 
+                    (click)="sortCurrentRatio();">Current Ratio 
+                        <span *ngIf="columnClicked == 10" style="float:right;">
+                            <span *ngIf="currentRatioAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!currentRatioAsc" class="fa fa-angle-up"></span>
+                        </span></th>      
+                <th *ngIf="expandedScore" class="tableButton" 
+                    (click)="sortPE();">P/E 
+                        <span *ngIf="columnClicked == 11" style="float:right;">
+                            <span *ngIf="peAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!peAsc" class="fa fa-angle-up"></span>
+                        </span></th>   
+                <th class="tableButton" 
+                    (click)="sortInvestingRank();">Total 
+                        <span *ngIf="columnClicked == 15" style="float:right;">
+                            <span *ngIf="investingRankAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!investingRankAsc" class="fa fa-angle-up"></span>
+                        </span></th>  
+                <th *ngIf="expandedRank" class="tableButton" 
+                    (click)="sortDividend();">Dividend 
+                        <span *ngIf="columnClicked == 5" style="float:right;">
+                            <span *ngIf="dividendAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!dividendAsc" class="fa fa-angle-up"></span>
+                        </span></th>    
+                <th *ngIf="expandedRank" class="tableButton" 
+                    (click)="sortROC();">ROC 
+                        <span *ngIf="columnClicked == 6" style="float:right;">
+                            <span *ngIf="rocAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!rocAsc" class="fa fa-angle-up"></span>
+                        </span></th>          
+                <th *ngIf="expandedRank" class="tableButton" 
+                    (click)="sortNetMargin();">Net Margin 
+                        <span *ngIf="columnClicked == 8" style="float:right;">
+                            <span *ngIf="netMarginAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!netMarginAsc" class="fa fa-angle-up"></span>
+                        </span></th>  
+                <th *ngIf="expandedRank" class="tableButton" 
+                    (click)="sortDebtEquity();">Debt/Equity 
+                        <span *ngIf="columnClicked == 9" style="float:right;">
+                            <span *ngIf="debtEquityAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!debtEquityAsc" class="fa fa-angle-up"></span>
+                        </span></th>
+                <th *ngIf="expandedRank" class="tableButton" 
+                    (click)="sortCurrentRatio();">Current ratio 
+                        <span *ngIf="columnClicked == 10" style="float:right;">
+                            <span *ngIf="currentRatioAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!currentRatioAsc" class="fa fa-angle-up"></span>
+                        </span></th>
+                <th *ngIf="expandedRank" class="tableButton" 
+                    (click)="sortPE();">P/E 
+                        <span *ngIf="columnClicked == 11" style="float:right;">
+                            <span *ngIf="peAsc" class="fa fa-angle-down"></span>
+                            <span *ngIf="!peAsc" class="fa fa-angle-up"></span>
+                        </span></th>                   
             </tr>
         </thead>
+
         
-        <tbody >
-            <!--<div>
-                <tr *ngIf="choosenIndustry === 'Bank'">
-                    <td *ngIf="stock.Info.Industry === choosenIndustry" class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
-                    <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
-                    <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
-                    <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
-                    <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
-                    <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
-                    <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
-                    <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
-                    <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
-                    <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
-                    <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
-                    <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
-                    <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
-                    <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
-                    <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
-                    <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
-                    <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
-                    <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
-                    <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
-                    <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
-                    <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
-                    <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
-                    <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
-                    <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
-                    <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
-                    <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
-                    <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
-                    <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
-                </tr>
-            </div>-->            
-                <tr *ngFor="let stock of sortedInvestingStocks; let i = index">
-                    <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
-                    <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
-                    <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
-                    <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
-                    <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
-                    <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
-                    <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
-                    <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
-                    <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
-                    <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
-                    <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
-                    <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
-                    <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
-                    <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
-                    <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
-                    <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
-                    <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
-                    <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
-                    <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
-                    <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
-                    <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
-                    <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
-                    <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
-                    <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
-                    <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
-                    <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
-                    <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
-                    <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
-                </tr>            
+        
+        <!--==================================================== OBS! ==============================================================-->
+        <!--================================== Nedan följer kodstycken som endast skiljer sig ======================================-->
+        <!--================================== åt vad gäller lista av aktier som visas upp,   ======================================-->
+        <!--================================== dvs. den industrityp som valts                 ======================================-->
+        <!--========================================================================================================================-->
+
+
+        <tbody *ngIf="choosenIndustry === 'All'">
+            <tr class="hoverRow" *ngFor="let stock of investingStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody> 
+        <tbody *ngIf="choosenIndustry === 'Bank'">
+            <tr class="hoverRow" *ngFor="let stock of bankStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
         </tbody>
+        <tbody *ngIf="choosenIndustry === 'Betting & Spel'">
+            <tr class="hoverRow" *ngFor="let stock of bettingOchSpelStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody>
+        <tbody *ngIf="choosenIndustry === 'Bioteknik'">
+            <tr class="hoverRow" *ngFor="let stock of bioteknikStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody>
+        <tbody *ngIf="choosenIndustry === 'Byggnation'">
+            <tr class="hoverRow" *ngFor="let stock of byggnationStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody>
+        <tbody *ngIf="choosenIndustry === 'Byggprodukter'">
+            <tr class="hoverRow" *ngFor="let stock of byggprodukterStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody>
+        <tbody *ngIf="choosenIndustry === 'Elektronisk utrustning'">
+            <tr class="hoverRow" *ngFor="let stock of elektroniskUtrustningStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody>
+        <tbody *ngIf="choosenIndustry === 'Fastigheter'">
+            <tr class="hoverRow" *ngFor="let stock of fastigheterStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody>
+        <tbody *ngIf="choosenIndustry === 'Gruv & Metall'">
+            <tr class="hoverRow" *ngFor="let stock of gruvOchMetallStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody>
+        <tbody *ngIf="choosenIndustry === 'Handel & Distribution'">
+            <tr class="hoverRow" *ngFor="let stock of handelOchDistributionStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody>
+        <tbody *ngIf="choosenIndustry === 'Hotell, restaurang & nöje'">
+            <tr class="hoverRow" *ngFor="let stock of hotellRestaurangOchNojeStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody>
+        <tbody *ngIf="choosenIndustry === 'Investmentbolag'">
+            <tr class="hoverRow" *ngFor="let stock of investmentbolagStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody>
+        <tbody *ngIf="choosenIndustry === 'IT-Tjänster'">
+            <tr class="hoverRow" *ngFor="let stock of itTjansterStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody>
+        <tbody *ngIf="choosenIndustry === 'kläder & Textil'">
+            <tr class="hoverRow" *ngFor="let stock of kladerOchTextilStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody>
+        <tbody *ngIf="choosenIndustry === 'Konsument'">
+            <tr class="hoverRow" *ngFor="let stock of konsumentStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody>
+        <tbody *ngIf="choosenIndustry === 'Livsmedel'">
+            <tr class="hoverRow" *ngFor="let stock of livsmedelStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody>
+        <tbody *ngIf="choosenIndustry === 'Läkemedel'">
+            <tr class="hoverRow" *ngFor="let stock of lakemedelStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody>
+        <tbody *ngIf="choosenIndustry === 'Produktion'">
+            <tr class="hoverRow" *ngFor="let stock of produktionStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody>
+        <tbody *ngIf="choosenIndustry === 'Sjukvård'">
+            <tr class="hoverRow" *ngFor="let stock of sjukvardStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody>
+        <tbody *ngIf="choosenIndustry === 'Skog'">
+            <tr class="hoverRow" *ngFor="let stock of skogStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody>
+        <tbody *ngIf="choosenIndustry === 'Telekommunikationstjänster'">
+            <tr class="hoverRow" *ngFor="let stock of telekommunikationstjansterStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody>
+        <tbody *ngIf="choosenIndustry === 'Tjänster & Leverans'">
+            <tr class="hoverRow" *ngFor="let stock of tjansterOchLeveransStocks; let i = index">
+                <td class="columnLarge">{{stock.Info.List}}</td>                                                                                                          
+                <td class="columnLarge">{{stock.Info.CompanyName}}</td>                                                                                                   
+                <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
+                <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
+                <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>                                                       
+                <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
+                <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.NetMargin !== '') ? ((stock.Profitability.NetMargin * 100) | number: '1.1-1') : "N/A"}} %</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.DebtEquity !== '') ? (stock.Profitability.DebtEquity | number: '1.2-2') : "N/A"}}</td>             
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.CurrentRatio !== '') ? (stock.Profitability.CurrentRatio | number: '1.2-2') : "N/A"}}</td>                                 
+                <td class="columnMedium">{{ (stock.Valuation.P_E.Latest !== '') ? (stock.Valuation.P_E.Latest | number: '1.2-2') : "N/A"}}</td>                         
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_S.Latest !== '') ? (stock.Valuation.P_S.Latest | number: '1.2-2') : "N/A"}}</td>                
+                <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Valuation.P_FCF.Latest !== '') ? (stock.Valuation.P_FCF.Latest | number: '1.2-2') : "N/A"}}</td>                        
+                <td class="columnMedium">{{ (stock.Strat.InvestingScore !== '') ? (stock.Strat.InvestingScore | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DividendScore !== '') ? (stock.Strat.DividendScore | number: '1.0-0') : "N/A"}}</td>                       
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.ROCScore !== '') ? (stock.Strat.ROCScore | number: '1.0-0') : "N/A"}}</td>                                                           
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.NetMarginScore !== '') ? (stock.Strat.NetMarginScore | number: '1.0-0') : "N/A"}}</td>                     
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.DebtEquityScore !== '') ? (stock.Strat.DebtEquityScore | number: '1.0-0') : "N/A"}}</td>                      
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.CurrentRatioScore !== '') ? (stock.Strat.CurrentRatioScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td *ngIf="expandedScore" class="columnMedium">{{ (stock.Strat.PEScore !== '') ? (stock.Strat.PEScore | number: '1.0-0') : "N/A"}}</td>                    
+                <td class="columnMedium">{{ (stock.Strat.InvestingRank !== '') ? (stock.Strat.InvestingRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DividendRank !== '') ? (stock.Strat.DividendRank | number: '1.0-0') : "N/A"}}</td>                              
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.ROCRank !== '') ? (stock.Strat.ROCRank | number: '1.0-0') : "N/A"}}</td>                                         
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.NetMarginRank !== '') ? (stock.Strat.NetMarginRank | number: '1.0-0') : "N/A"}}</td>                           
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.DebtEquityRank !== '') ? (stock.Strat.DebtEquityRank | number: '1.0-0') : "N/A"}}</td>                          
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.CurrentRatioRank !== '') ? (stock.Strat.CurrentRatioRank | number: '1.0-0') : "N/A"}}</td>             
+                <td *ngIf="expandedRank" class="columnMedium">{{ (stock.Strat.PERank !== '') ? (stock.Strat.PERank | number: '1.0-0') : "N/A"}}</td>                                         
+            </tr>
+        </tbody>        
     </table>
 </div>

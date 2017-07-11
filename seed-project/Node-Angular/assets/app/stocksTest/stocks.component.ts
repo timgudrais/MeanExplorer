@@ -18,32 +18,32 @@ export class StocksComponent implements OnInit {
   stocks: StockObject[];
   sliderValue:number = 20;
 
-  filter: StockObject = new StockObject(
-      new Info(
-          "",
-          "",
-          "",
-          "",
-          "",
-          "",
-          new ReportDate(
-              ""
-          )
-      ),
-      new Stock(
-          0,
-          new Return(
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0
-          )
-      )
-  );
+//   filter: StockObject = new StockObject(
+//       new Info(
+//           "",
+//           "",
+//           "",
+//           "",
+//           "",
+//           "",
+//           new ReportDate(
+//               ""
+//           )
+//       ),
+//       new Stock(
+//           0,
+//           new Return(
+//               0,
+//               0,
+//               0,
+//               0,
+//               0,
+//               0,
+//               0,
+//               0
+//           )
+//       )
+//   );
 
   constructor(private stockService: StocksService) { }
 

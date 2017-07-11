@@ -1,0 +1,143 @@
+.top-outer-container {    
+    border-radius: 25px;
+    margin: 0 auto;
+}
+
+.top-main-container {    
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-left: 10px;
+    border-radius: 25px;
+    background: #F9F9F9;
+    position: relative;
+    z-index:5
+}
+
+.top-tab {
+    font-size: 18px;
+    padding: 12px;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    position: relative;
+    z-index:1
+}
+
+.top-first-tab {
+    margin-left: 40px;
+}
+
+.top-not-choosen {
+    background: #E9E9E9;
+}
+
+.top-choosen {
+    background: #F9F9F9;
+}
+
+.top-not-choosen:hover {
+    background: #F1F1F1;
+    cursor:pointer;
+}
+
+
+.outer-subcontainer {    
+    border-radius: 25px;
+    margin: 0 auto;
+}
+
+.main-subcontainer {    
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 25px;
+    background: #E9E9E9;
+    position: relative;
+    z-index:10;
+}
+
+.tab {
+    font-size: 14px;
+    padding: 12px;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    position: relative;
+    z-index:7
+}
+
+.first-tab {
+    margin-left: 40px;
+}
+
+.not-choosen {
+    background: #C9C9C9;
+}
+
+.choosen {
+    background: #E9E9E9;
+}
+
+.not-choosen:hover {
+    background: #D7D7D7;
+    cursor:pointer;
+}
+
+.tableStandard {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.tableStandard th {
+    border-top: 1px solid #c6c6c6;
+    border-bottom: 1px solid #c6c6c6;
+    padding: 4px 10px;
+    background: #fff;
+}
+
+.tableStandard tr {
+    padding: 4px 10px;
+}
+
+.tableStandard tr:nth-child(even) {
+    background: #ffffff;
+}
+
+.tableStandard{
+    background: #f9f9f9;
+}
+
+.tableStandard td {
+    border-top: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
+    padding: 10px 10px;
+}
+
+.tableStandard td img {
+    margin-left: 15px;
+}
+
+.tableStandard .columnSmall {
+    width: 70px;
+}
+
+.tableStandard .columnMedium {
+    width: 100px;
+}
+
+.tableStandard .columnLarge {
+    width: 150px;
+}
+
+.tableStandard .columnBox {
+    width: 400px;
+}
+
+.tableStandard .columnComment {
+    width: 470px;
+}
+
+a {
+    cursor:pointer;    
+}

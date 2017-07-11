@@ -4,7 +4,7 @@ import { FundamentalInvestingService } from './fundamentalInvesting.service';
 @Component({
   selector: 'fundamental-investing',
   templateUrl: './fundamentalInvesting.component.html',
-  styleUrls: ['./fundamentalInvesting.component.css'],
+  styleUrls: ['./fundamentalInvesting.component.css', '../stock-wiki.component.css'],
   providers: [
     FundamentalInvestingService
   ]

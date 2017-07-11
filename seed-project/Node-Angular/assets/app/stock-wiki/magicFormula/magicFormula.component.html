@@ -1,15 +1,18 @@
-<div>
-  <button class="btn btn-default" (click)="changeTab(0)">The Magic Formula</button>
-  <button class="btn btn-default" (click)="changeTab(1)">Links</button>
+<div class="outer-subcontainer">
+  <span class="tab not-choosen first-tab" *ngIf="tab !== 0" (click)="changeTab(0)">The Magic Formula</span>
+  <span class="tab choosen first-tab" *ngIf="tab === 0">The Magic Formula</span>
+  <span class="tab not-choosen" *ngIf="tab !== 1" (click)="changeTab(1)">Links</span>
+  <span class="tab choosen" *ngIf="tab === 1">Links</span>
 </div>
+<div class="main-subcontainer"> 
+  <div *ngIf="tab === 0">
+    <h3>The Magic Formula</h3>
+  </div>  
 
-<div *ngIf="tab === 0">
-  <h3>The Magic Formula</h3>
-</div>  
-
-<div *ngIf="tab === 1">
-  <h3>Links</h3>
-  <ul>
-    <li><a href="https://www.magicformulainvesting.com">Magic Formula Investing</a></li>
-  </ul>
-</div>  
+  <div *ngIf="tab === 1">
+    <h3>Links</h3>
+    <ul>
+      <li><a href="https://www.magicformulainvesting.com">Magic Formula Investing</a></li>
+    </ul>
+  </div>  
+</div>

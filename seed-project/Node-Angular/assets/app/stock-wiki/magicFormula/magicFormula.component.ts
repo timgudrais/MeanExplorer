@@ -4,7 +4,7 @@ import { MagicFormulaService } from './magicFormula.service';
 @Component({
   selector: 'magic-formula',
   templateUrl: './magicFormula.component.html',
-  styleUrls: ['./magicFormula.component.css'],
+  styleUrls: ['./magicFormula.component.css', '../stock-wiki.component.css'],
   providers: [
     MagicFormulaService
   ]

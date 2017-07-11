@@ -4,7 +4,7 @@ import { RbbhsService } from './rbbhs.service';
 @Component({
   selector: 'rbbhs',
   templateUrl: './rbbhs.component.html',
-  styleUrls: ['./rbbhs.component.css'],
+  styleUrls: ['./rbbhs.component.css', '../stock-wiki.component.css'],
   providers: [
     RbbhsService
   ]

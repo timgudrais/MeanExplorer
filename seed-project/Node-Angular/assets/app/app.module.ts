@@ -29,6 +29,7 @@ import { MakroIndikatorerComponent } from './makro-indikatorer/makro-indikatorer
 import { MidCapComponent } from './stocks/mid-cap/mid-cap.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ScoringComponent } from './scoring/scoring.component';
+import { StockListComponent } from './scoring/stock-list/stock-list.component';
 import { SmallCapComponent } from './stocks/small-cap/small-cap.component';
 import { TekniskAnalysComponent } from './teknisk-analys/teknisk-analys.component';
 import { ToDoListComponent } from './to-do-list/to-do-list.component';
@@ -65,6 +66,7 @@ import { FlyingHeroesPipe } from './stocksTest/heroes/flying-heroes.pipe';
 import { StockFilterPipe } from './stocksTest/stocks-filter.pipe';
 import { StockTypePipe } from './stocksTest/stockType.pipe';
 import { StockValuePipe } from './stocksTest/stocksValue-filter.pipe';
+import { SearchPipe } from './scoring/search-pipe';
 // =======================================================================================
 
 @NgModule({
@@ -89,6 +91,7 @@ import { StockValuePipe } from './stocksTest/stocksValue-filter.pipe';
 		MidCapComponent,
 		NavbarComponent,
         ScoringComponent,
+        StockListComponent,
 		SmallCapComponent,
 		TekniskAnalysComponent,
 		ToDoListComponent,
@@ -115,6 +118,7 @@ import { StockValuePipe } from './stocksTest/stocksValue-filter.pipe';
 		ParserComponent,
         StocksComponent,
         // Not Used Pipes & Services
+        SearchPipe,
         StockFilterPipe,
         StockValuePipe,
         StockTypePipe,

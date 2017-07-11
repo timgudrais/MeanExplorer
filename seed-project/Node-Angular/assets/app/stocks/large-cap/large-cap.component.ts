@@ -20,7 +20,7 @@ export class LargeCapComponent implements OnInit {
   largeCapData = 'Hej';
   
 
-  filter: StockObject = new StockObject();
+  // filter: StockObject = new StockObject();
 
   constructor(private stockService: StockService, private userService: UserService) { }
 

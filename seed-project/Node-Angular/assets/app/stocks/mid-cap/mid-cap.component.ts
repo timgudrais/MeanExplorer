@@ -17,7 +17,7 @@ export class MidCapComponent implements OnInit {
   stocks: StockObject[];
   sliderValue:number = 20;
 
-  filter: StockObject = new StockObject();
+  // filter: StockObject = new StockObject();
 
   constructor(private stockService: StockService) { }
 

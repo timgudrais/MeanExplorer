@@ -4,7 +4,7 @@ import { RdpdService } from './rdpd.service';
 @Component({
   selector: 'rdpd',
   templateUrl: './rdpd.component.html',
-  styleUrls: ['./rdpd.component.css'],
+  styleUrls: ['./rdpd.component.css', '../stock-wiki.component.css'],
   providers: [
     RdpdService
   ]

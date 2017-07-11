@@ -1,55 +1,59 @@
-<div>
-  <button class="btn btn-default" (click)="changeTab(0)">Investment Checklist</button>
-  <button class="btn btn-default" (click)="changeTab(1)">Links</button>
+<div class="outer-subcontainer">
+  <span class="tab not-choosen first-tab" *ngIf="tab !== 0" (click)="changeTab(0)">Investment Checklist</span>
+  <span class="tab choosen first-tab" *ngIf="tab === 0">Investment Checklist</span>
+  <span class="tab not-choosen" *ngIf="tab !== 1" (click)="changeTab(1)">Links</span>
+  <span class="tab choosen" *ngIf="tab === 1">Links</span>
+</div>
+<div class="main-subcontainer">  
+  <div *ngIf="tab === 0">
+    <h3>Investment Checklist</h3>
+    <p>In this document, which is part of the Value Investing Boot camp video course on Udemy, you find a
+    checklist which can help you to consistently apply a value investment strategy. In a best case
+    scenario, you will answer yes to every item on the list. This is extremely rare though.</p>
+    <h4>Initial Screening</h4>
+    <ol>
+      <li>Is the return on equity higher than 15%?</li>
+      <li>Is the current ratio higher than 2?</li>
+      <li>Is the debt-to-equity ratio lower than 0.5?</li>
+    </ol>
+    <h4>Fundamental Analysis</h4>
+    <ol>
+      <li>Are earnings per share stable or growing over time?</li>
+      <li>Are free cash flows approximately equal to- or higher than net income?</li>
+      <li>Are free cash flows stable or increasing over time?</li>
+      <li>Is free cash flow primarily generated from earnings rather than debt?</li>
+      <li>Is the company investing a part of its free cash flows in future growth?</li>
+      <li>Are cash & cash equivalents stable or increasing over time?</li>
+      <li>Is book value per share steadily growing over time?</li>
+      <li>Is the net margin stable or growing over time?</li>
+      <li>Has the return on equity been consistently high?</li>
+      <li>Has debt-to-equity been consistently low or decreasing?</li>
+      <li>Is the Altman Z-score 1.80 or higher?</li>
+      <li>Is the Beneish M-score lower than -2.22?</li>
+      <li>Are enterprising profits higher than 18%?</li>
+    </ol>
+    <h4>Qualitative Analysis</h4>
+    <ol>
+      <li>Is this company easy to understand for you? ("circle of competence")</li>
+      <li>Does the company possess a sustainable competitive advantage?</li>
+      <li>Are the possible risks this company faces manageable?</li>
+      <li>Is management compensation within reasonable bounds?</li>
+      <li>Do the key executives have a solid track record free of scandals?</li>
+      <li>Is management allocating the company's capital wisely?</li>
+    </ol>
+    <h4>Valuation</h4>
+    <ol>
+      <li>Is it possible to make a reasonable estimate of the intrinsic value of this company?</li>
+      <li>Did you make a conservative estimate using several valuation models?</li>
+      <li>Does the stock currently trade at a significant discount to intrinsic value? ("margin of safety")</li>
+    </ol>
+  </div>
+
+  <div *ngIf="tab === 1">
+    <h3>Links</h3>
+    <ul>
+      <li><a href="https://www.udemy.com">Udemy</a></li>
+    </ul>
+  </div>  
 </div>
 
-<div *ngIf="tab === 0">
-  <h3>Investment Checklist</h3>
-  <p>In this document, which is part of the Value Investing Boot camp video course on Udemy, you find a
-  checklist which can help you to consistently apply a value investment strategy. In a best case
-  scenario, you will answer yes to every item on the list. This is extremely rare though.</p>
-  <h4>Initial Screening</h4>
-  <ol>
-    <li>Is the return on equity higher than 15%?</li>
-    <li>Is the current ratio higher than 2?</li>
-    <li>Is the debt-to-equity ratio lower than 0.5?</li>
-  </ol>
-  <h4>Fundamental Analysis</h4>
-  <ol>
-    <li>Are earnings per share stable or growing over time?</li>
-    <li>Are free cash flows approximately equal to- or higher than net income?</li>
-    <li>Are free cash flows stable or increasing over time?</li>
-    <li>Is free cash flow primarily generated from earnings rather than debt?</li>
-    <li>Is the company investing a part of its free cash flows in future growth?</li>
-    <li>Are cash & cash equivalents stable or increasing over time?</li>
-    <li>Is book value per share steadily growing over time?</li>
-    <li>Is the net margin stable or growing over time?</li>
-    <li>Has the return on equity been consistently high?</li>
-    <li>Has debt-to-equity been consistently low or decreasing?</li>
-    <li>Is the Altman Z-score 1.80 or higher?</li>
-    <li>Is the Beneish M-score lower than -2.22?</li>
-    <li>Are enterprising profits higher than 18%?</li>
-  </ol>
-  <h4>Qualitative Analysis</h4>
-  <ol>
-    <li>Is this company easy to understand for you? ("circle of competence")</li>
-    <li>Does the company possess a sustainable competitive advantage?</li>
-    <li>Are the possible risks this company faces manageable?</li>
-    <li>Is management compensation within reasonable bounds?</li>
-    <li>Do the key executives have a solid track record free of scandals?</li>
-    <li>Is management allocating the company's capital wisely?</li>
-  </ol>
-  <h4>Valuation</h4>
-  <ol>
-    <li>Is it possible to make a reasonable estimate of the intrinsic value of this company?</li>
-    <li>Did you make a conservative estimate using several valuation models?</li>
-    <li>Does the stock currently trade at a significant discount to intrinsic value? ("margin of safety")</li>
-  </ol>
-</div>
-
-<div *ngIf="tab === 1">
-  <h3>Links</h3>
-  <ul>
-    <li><a href="https://www.udemy.com">Udemy</a></li>
-  </ul>
-</div>  

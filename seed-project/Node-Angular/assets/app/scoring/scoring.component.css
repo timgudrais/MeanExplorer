@@ -77,7 +77,23 @@
     cursor:pointer;
 }
 
-
 .tableBorderLeft {
     border-left: 1px solid #c6c6c6 !important;
+}
+
+.tableButton:hover {
+    background-color: #b9b9b9 !important;
+    cursor:pointer;
+}
+
+.hoverRow:hover {
+    background-color: #b9b9b9 !important; 
+    /*background-color: #ee804C !important;*/
+    cursor:pointer;
+}
+
+.choosenTab {
+    border-top: 1px solid #d9d9d9 !important;
+    border-left: 1px solid #c6c6c6 !important;
+    border-right: 1px solid #c6c6c6 !important;
 }

@@ -1,20 +1,27 @@
-<button class="btn btn-default" (click)="changeTab(0)">Fundamental Investing</button>
-<button class="btn btn-default" (click)="changeTab(1)">Rbbhs</button>
-<button class="btn btn-default" (click)="changeTab(2)">Rdpd</button>
-<button class="btn btn-default" (click)="changeTab(3)">The Magic Formula</button>
-
-<br />
-<div *ngIf="tab === 0">
-    <fundamental-investing></fundamental-investing>
+<div class="top-outer-container">
+    <span class="top-tab top-not-choosen top-first-tab" *ngIf="tab !== 0" (click)="changeTab(0)">Fundamental Investing</span>
+    <span class="top-tab top-choosen top-first-tab" *ngIf="tab === 0">Fundamental Investing</span>
+    <span class="top-tab top-not-choosen" *ngIf="tab !== 1" (click)="changeTab(1)">Rbbhs</span>
+    <span class="top-tab top-choosen" *ngIf="tab === 1">Rbbhs</span>
+    <span class="top-tab top-not-choosen" *ngIf="tab !== 2" (click)="changeTab(2)">Rdpd</span>
+    <span class="top-tab top-choosen" *ngIf="tab === 2">Rdpd</span>
+    <span class="top-tab top-not-choosen" *ngIf="tab !== 3" (click)="changeTab(3)">The Magic Formula</span>
+    <span class="top-tab top-choosen" *ngIf="tab === 3">The Magic Formula</span>
+    
+    <div class="top-main-container">
+        <br />
+        <div *ngIf="tab === 0">
+            <fundamental-investing></fundamental-investing>
+        </div>
+        <div *ngIf="tab === 1">
+            <rbbhs></rbbhs>
+        </div>
+        <div *ngIf="tab === 2">
+            <rdpd></rdpd>
+        </div>
+        <div *ngIf="tab === 3">
+            <magic-formula></magic-formula>
+        </div>        
+    </div>
 </div>
-<div *ngIf="tab === 1">
-    <rbbhs></rbbhs>
-</div>
-<div *ngIf="tab === 2">
-    <rdpd></rdpd>
-</div>
-<div *ngIf="tab === 3">
-    <magic-formula></magic-formula>
-</div>
-<hr />
 <!-- <app-parser></app-parser> -->
