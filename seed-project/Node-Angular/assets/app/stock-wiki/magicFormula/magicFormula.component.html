@@ -4,15 +4,24 @@
   <span class="tab not-choosen" *ngIf="tab !== 1" (click)="changeTab(1)">Links</span>
   <span class="tab choosen" *ngIf="tab === 1">Links</span>
 </div>
-<div class="main-subcontainer"> 
-  <div *ngIf="tab === 0">
-    <h3>The Magic Formula</h3>
-  </div>  
+<div class="main-subcontainer row"> 
+  <div class="inner-left-container col-sm-6">
+    <div *ngIf="tab === 0">
+      <h3 on-mouseover="displayInfo(1)">The Magic Formula</h3>
+    </div>  
 
-  <div *ngIf="tab === 1">
-    <h3>Links</h3>
-    <ul>
-      <li><a href="https://www.magicformulainvesting.com">Magic Formula Investing</a></li>
-    </ul>
-  </div>  
+    <div *ngIf="tab === 1">
+      <h3 on-mouseover="displayInfo(2)">Links</h3>
+      <ul>
+        <li on-mouseover="displayInfo(3)"><a href="https://www.magicformulainvesting.com">Magic Formula Investing</a></li>
+      </ul>
+    </div>  
+  </div>
+
+  <div class="inner-right-container col-sm-6">
+    <p *ngIf="info == 0">This box shows in-depth information about items on the left when hovering the mouse over them.</p>
+    <p *ngIf="info == 1">The Magic Formula</p>
+    <p *ngIf="info == 2">Links</p>
+    <p *ngIf="info == 3">Magic Formula Investing</p>
+  </div>
 </div>

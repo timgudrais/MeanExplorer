@@ -41,6 +41,14 @@ export class RoiComponent implements OnInit {
     return (capital + (moneySaved * 12) * year) * this.calculateGrowthDecimal(growthPercentage, year) * (dividendsPercentage / 100);
   }
 
+  public calculateActualDividends = function (capital, moneySaved, growthPercentage, dividendsPercentage) {
+    return (capital + (moneySaved * 12)) * (dividendsPercentage / 100);
+  }
+
+  public calculateActualDividendsMonth = function (capital, moneySaved, growthPercentage, dividendsPercentage) {
+    return this.calculateActualDividends(capital, moneySaved, growthPercentage, dividendsPercentage) / 12;
+  }
+
   public calculateDividendsMonth = function (capital, moneySaved, growthPercentage, years, dividendsPercentage) {
     return this.calculateDividends(capital, moneySaved, growthPercentage, years, dividendsPercentage) / 12;
   }

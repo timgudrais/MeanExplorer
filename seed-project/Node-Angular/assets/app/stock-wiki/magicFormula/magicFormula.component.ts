@@ -22,6 +22,11 @@ export class MagicFormulaComponent implements OnInit {
   changeTab(number) {
     this.tab = number;
   }
+
+  info = 0;
+  displayInfo(number) {
+    this.info = number;
+  }
   // End Tabs
 
   ngOnInit() {

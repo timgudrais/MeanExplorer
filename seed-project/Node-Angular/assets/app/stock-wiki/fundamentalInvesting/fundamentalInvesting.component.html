@@ -4,56 +4,92 @@
   <span class="tab not-choosen" *ngIf="tab !== 1" (click)="changeTab(1)">Links</span>
   <span class="tab choosen" *ngIf="tab === 1">Links</span>
 </div>
-<div class="main-subcontainer">  
-  <div *ngIf="tab === 0">
-    <h3>Investment Checklist</h3>
-    <p>In this document, which is part of the Value Investing Boot camp video course on Udemy, you find a
-    checklist which can help you to consistently apply a value investment strategy. In a best case
-    scenario, you will answer yes to every item on the list. This is extremely rare though.</p>
-    <h4>Initial Screening</h4>
-    <ol>
-      <li>Is the return on equity higher than 15%?</li>
-      <li>Is the current ratio higher than 2?</li>
-      <li>Is the debt-to-equity ratio lower than 0.5?</li>
-    </ol>
-    <h4>Fundamental Analysis</h4>
-    <ol>
-      <li>Are earnings per share stable or growing over time?</li>
-      <li>Are free cash flows approximately equal to- or higher than net income?</li>
-      <li>Are free cash flows stable or increasing over time?</li>
-      <li>Is free cash flow primarily generated from earnings rather than debt?</li>
-      <li>Is the company investing a part of its free cash flows in future growth?</li>
-      <li>Are cash & cash equivalents stable or increasing over time?</li>
-      <li>Is book value per share steadily growing over time?</li>
-      <li>Is the net margin stable or growing over time?</li>
-      <li>Has the return on equity been consistently high?</li>
-      <li>Has debt-to-equity been consistently low or decreasing?</li>
-      <li>Is the Altman Z-score 1.80 or higher?</li>
-      <li>Is the Beneish M-score lower than -2.22?</li>
-      <li>Are enterprising profits higher than 18%?</li>
-    </ol>
-    <h4>Qualitative Analysis</h4>
-    <ol>
-      <li>Is this company easy to understand for you? ("circle of competence")</li>
-      <li>Does the company possess a sustainable competitive advantage?</li>
-      <li>Are the possible risks this company faces manageable?</li>
-      <li>Is management compensation within reasonable bounds?</li>
-      <li>Do the key executives have a solid track record free of scandals?</li>
-      <li>Is management allocating the company's capital wisely?</li>
-    </ol>
-    <h4>Valuation</h4>
-    <ol>
-      <li>Is it possible to make a reasonable estimate of the intrinsic value of this company?</li>
-      <li>Did you make a conservative estimate using several valuation models?</li>
-      <li>Does the stock currently trade at a significant discount to intrinsic value? ("margin of safety")</li>
-    </ol>
+<div class="main-subcontainer row">  
+  <div class="inner-left-container col-sm-6">
+    <div *ngIf="tab === 0">
+      <h3 on-mouseover="displayInfo(1)">Investment Checklist</h3>
+      <h4 on-mouseover="displayInfo(2)">Initial Screening</h4>
+      <ol>
+        <li on-mouseover="displayInfo(3)">Is the return on equity higher than 15%?</li>
+        <li on-mouseover="displayInfo(4)">Is the current ratio higher than 2?</li>
+        <li on-mouseover="displayInfo(5)">Is the debt-to-equity ratio lower than 0.5?</li>
+      </ol>
+      <h4 on-mouseover="displayInfo(6)">Fundamental Analysis</h4>
+      <ol>
+        <li on-mouseover="displayInfo(7)">Are earnings per share stable or growing over time?</li>
+        <li on-mouseover="displayInfo(8)">Are free cash flows approximately equal to- or higher than net income?</li>
+        <li on-mouseover="displayInfo(9)">Are free cash flows stable or increasing over time?</li>
+        <li on-mouseover="displayInfo(10)">Is free cash flow primarily generated from earnings rather than debt?</li>
+        <li on-mouseover="displayInfo(11)">Is the company investing a part of its free cash flows in future growth?</li>
+        <li on-mouseover="displayInfo(12)">Are cash & cash equivalents stable or increasing over time?</li>
+        <li on-mouseover="displayInfo(13)">Is book value per share steadily growing over time?</li>
+        <li on-mouseover="displayInfo(14)">Is the net margin stable or growing over time?</li>
+        <li on-mouseover="displayInfo(15)">Has the return on equity been consistently high?</li>
+        <li on-mouseover="displayInfo(16)">Has debt-to-equity been consistently low or decreasing?</li>
+        <li on-mouseover="displayInfo(17)">Is the Altman Z-score 1.80 or higher?</li>
+        <li on-mouseover="displayInfo(18)">Is the Beneish M-score lower than -2.22?</li>
+        <li on-mouseover="displayInfo(19)">Are enterprising profits higher than 18%?</li>
+      </ol>
+      <h4 on-mouseover="displayInfo(20)">Qualitative Analysis</h4>
+      <ol>
+        <li on-mouseover="displayInfo(21)">Is this company easy to understand for you? ("circle of competence")</li>
+        <li on-mouseover="displayInfo(22)">Does the company possess a sustainable competitive advantage?</li>
+        <li on-mouseover="displayInfo(23)">Are the possible risks this company faces manageable?</li>
+        <li on-mouseover="displayInfo(24)">Is management compensation within reasonable bounds?</li>
+        <li on-mouseover="displayInfo(25)">Do the key executives have a solid track record free of scandals?</li>
+        <li on-mouseover="displayInfo(26)">Is management allocating the company's capital wisely?</li>
+      </ol>
+      <h4 on-mouseover="displayInfo(27)">Valuation</h4>
+      <ol>
+        <li on-mouseover="displayInfo(28)">Is it possible to make a reasonable estimate of the intrinsic value of this company?</li>
+        <li on-mouseover="displayInfo(29)">Did you make a conservative estimate using several valuation models?</li>
+        <li on-mouseover="displayInfo(30)">Does the stock currently trade at a significant discount to intrinsic value? ("margin of safety")</li>
+      </ol>
+    </div>
+
+    <div *ngIf="tab === 1">
+      <h3 on-mouseover="displayInfo(31)">Links</h3>
+      <ul>
+        <li on-mouseover="displayInfo(32)"><a target="_blank" href="https://www.udemy.com">Udemy</a></li>
+      </ul>
+    </div>  
   </div>
 
-  <div *ngIf="tab === 1">
-    <h3>Links</h3>
-    <ul>
-      <li><a href="https://www.udemy.com">Udemy</a></li>
-    </ul>
-  </div>  
+  <div class="inner-right-container col-sm-6">
+    <p *ngIf="info == 0">This box shows in-depth information about items on the left when hovering the mouse over them.</p>
+    <p *ngIf="info == 1">This checklist can help you to consistently apply a value investment strategy. In a best case
+      scenario, you will answer yes to every item on the list. This is extremely rare though.</p>
+    <p *ngIf="info == 2">Initial screening</p>
+    <p *ngIf="info == 3">Return on equity = ROE</p>
+    <p *ngIf="info == 4">Current ratio = CR</p>
+    <p *ngIf="info == 5">Debt-to-equity = D/E</p>
+    <p *ngIf="info == 6">Fundamental analysis</p>
+    <p *ngIf="info == 7">Earnings per share = EPS</p>
+    <p *ngIf="info == 8">Free cash flow equal to or higher than net income</p>
+    <p *ngIf="info == 9">free cash flow stable or increasing over time</p>
+    <p *ngIf="info == 10">free cash flow from earnings rather than debt</p>
+    <p *ngIf="info == 11">Investing free cash flow in future growth</p>
+    <p *ngIf="info == 12">Cash and cash equivalents stable or increasing over time</p>
+    <p *ngIf="info == 13">Book value growing</p>
+    <p *ngIf="info == 14">Net margin stable</p>
+    <p *ngIf="info == 15">Return on Equity = ROE</p>
+    <p *ngIf="info == 16">Debt to equity consistently low</p>
+    <p *ngIf="info == 17">Altman Z-score</p>
+    <p *ngIf="info == 18">Beneish M-score</p>
+    <p *ngIf="info == 19">Enterprising profits higher than 18%</p>
+    <p *ngIf="info == 20">Qualitative Analysis</p>
+    <p *ngIf="info == 21">Is this company easy to understand for you? ("circle of competence")</p>
+    <p *ngIf="info == 22">Does the company possess a sustainable competitive advantage?</p>
+    <p *ngIf="info == 23">Are the possible risks this company faces manageable?</p>
+    <p *ngIf="info == 24">Is management compensation within reasonable bounds?</p>
+    <p *ngIf="info == 25">Do the key executives have a solid track record free of scandals?</p>
+    <p *ngIf="info == 26">Is management allocating the company's capital wisely?</p>
+    <p *ngIf="info == 27">Valuation</p>
+    <p *ngIf="info == 28">Is it possible to make a reasonable estimate of the intrinsic value of this company?</p>
+    <p *ngIf="info == 29">Did you make a conservative estimate using several valuation models?</p>
+    <p *ngIf="info == 30">Does the stock currently trade at a significant discount to intrinsic value? ("margin of safety")</p>
+    <p *ngIf="info == 31">Links to sites covering topics in depth.</p>
+    <p *ngIf="info == 32">Udemy is a prominent online education platform. It focuses mainly on video material coupled with quizing and supplemental material. This is curated by individual instructors, who are graded by students to keep eduactional quality high.</p>
+  </div>
 </div>
 
