@@ -1,3 +1,7 @@
+<!-- <hr>
+<p *ngIf="stockPrices">{{ stockPrices.stocks }}</p>
+<hr> -->
+
 <h3>{{title}}</h3>
 
 <select class="form form-control" [(ngModel)]="choosenIndustry" style="max-width:400px;">
@@ -210,7 +214,7 @@
                 <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
                 <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
                 <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>    
-                <td class="columnMedium">0.111</td>                                          
+                <td class="columnMedium"><span *ngIf="stock.Stock.LatestPrice">{{ stock.Stock.LatestPrice }}</span></td>                                          
                 <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
                 <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
                 <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
@@ -243,7 +247,7 @@
                 <td class="columnMedium">{{stock.Info.Ticker}}</td>                                                                                                       
                 <td class="columnLarge">{{stock.Info.Industry}}</td>                                                                                                      
                 <td class="columnLarge">{{stock.Valuation.MarketCap | number: '1.0-0'}}</td>
-                <td class="columnMedium">0.111</td>                                                    
+                <td class="columnMedium"><span *ngIf="stock.Stock.LatestPrice">{{ stock.Stock.LatestPrice }}</span></td>                                                    
                 <td class="columnMedium">{{ (stock.Profitability.DividendRatio !== '') ? ((stock.Profitability.DividendRatio * 100) | number: '1.1-1') : "N/A"}} %</td>                   
                 <td class="columnMedium">{{ (stock.Profitability.ROC !== '') ? ((stock.Profitability.ROC * 100) | number: '1.2-2') : "N/A"}}</td>                             
                 <td *ngIf="expandedActuals" class="columnMedium">{{ (stock.Profitability.ROE !== '') ? ((stock.Profitability.ROE * 100) | number: '1.2-2') : "N/A"}}</td>                                   
