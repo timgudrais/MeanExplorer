@@ -14,6 +14,7 @@ var stocksLargeCapRoutes = require('./routes/stocks_largecap');
 var stocksMidCapRoutes = require('./routes/stocks_midcap');
 var stocksSmallCapRoutes = require('./routes/stocks_smallcap');
 var stocksFirstNorthRoutes = require('./routes/stocks_firstnorth');
+var stockPricingRoutes = require('./routes/stock_pricing');
 
 var app = express();
 
@@ -47,6 +48,7 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.use('/stock_pricing', stockPricingRoutes);
 app.use('/stocks_firstnorth', stocksFirstNorthRoutes);
 app.use('/stocks_smallcap', stocksSmallCapRoutes);
 app.use('/stocks_midcap', stocksMidCapRoutes);

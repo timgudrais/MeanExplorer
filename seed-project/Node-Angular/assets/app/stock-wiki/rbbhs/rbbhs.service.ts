@@ -37,9 +37,9 @@ export class RbbhsService {
             {
               "ShortKey":"D/E",
               "KeyFigure":"Debt to Equity",
-              "KeyFigureSvenska":"Avkastning på Eget Kapital",
-              "Formula":"Net Income / Equity",
-              "FormulaSvenska":"Resultat / Eget Kapital"
+              "KeyFigureSvenska":"Skuldsättning på Eget Kapital",
+              "Formula":"Long term Debt / Equity",
+              "FormulaSvenska":"Långfristiga Skulder / Eget Kapital"
             },
             {
               "ShortKey":"ROE",

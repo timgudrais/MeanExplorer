@@ -1,20 +1,29 @@
 import { Component, Injectable, OnInit } from '@angular/core';
+import { Http, Response } from '@angular/http';
 
-import { StockObject } from "../stocks/models/stock.model";
+import { StockObject, StockPriceObject } from "../stocks/models/stock.model";
 import { StockService } from '../stocks/stock.service';
+import { GetStocksService } from '../get-stocks/get-stocks.service';
 import { SearchPipe } from './search-pipe';
+
+import 'rxjs/Rx';
+
 
 @Component({
   selector: 'scoring',
   templateUrl: './scoring.component.html',
   styleUrls: ['./scoring.component.css'],
-  providers: [StockService]
+  providers: [StockService, GetStocksService],
 })
 
 @Injectable()
 export class ScoringComponent implements OnInit {
+
   title = 'Scoring modeller';
   stocks: StockObject[];
+  stockPrices: StockPriceObject;
+  // TODO Fix this
+  // stockPrices: StockPriceObject;
   stocksFilteredPE: StockObject[];
   stocksFilteredDebtEquity: StockObject[];
   sortedDividendsStocks: StockObject[];
@@ -137,6 +146,13 @@ export class ScoringComponent implements OnInit {
   }
 
   sortName() {
+    // TODO FIX this    
+    // alert(this.stockPrices);    
+    // console.log(this.stockPrices);    
+    // alert(this.stockPrices.stocks);    
+    // console.log(this.stockPrices.stocks);
+    // alert(this.stockPrices.stocks[0]);    
+    // console.log(this.stockPrices.stocks[0]);    
     this.sortByName(this.investingStocks);
     this.sortByName(this.bankStocks);
     this.sortByName(this.bettingOchSpelStocks);
@@ -654,14 +670,41 @@ export class ScoringComponent implements OnInit {
     list.sort((s1, s2) => s1.Strat.InvestingRank - s2.Strat.InvestingRank);
     if(this.investingRankAsc) { list.reverse(); }    
   } 
+    
+  constructor(private stockService: StockService) {}
+  
+  ngOnInit() {      
+    this.stockService.getLocalStocks('http://localhost:3000/stock_pricing')
+      .subscribe((stockPrices: StockPriceObject) => {
+        this.stockPrices = stockPrices;
+        console.log(this.stockPrices);
+      });
 
-  constructor(private stockService: StockService) { }
-
-  ngOnInit() {
     this.stockService.getStocks('http://localhost:3000/stocks_largecap')
       .subscribe((stocks: StockObject[]) => {
         this.stocks = stocks;
         this.stocksFilteredPE = this.stocks.filter(x => x.Valuation.P_E.Latest > 0);
+                
+        if(this.stockPrices !== undefined) {
+          if(this.stockPrices.stocks !== undefined) {
+            for(var x = 0; x < this.stocksFilteredPE.length; x++) {
+              if(this.stockPrices.stocks[x] !== undefined){
+                for(var y = 0; y < this.stockPrices.stocks.length; y++) {
+                  if(this.stocksFilteredPE[x].Info.Ticker == this.stockPrices.stocks[y][0] || this.stocksFilteredPE[x].Info.CompanyName == this.stockPrices.stocks[y][0]) {
+                    this.stocksFilteredPE[x].Stock.LatestPrice = Number(this.stockPrices.stocks[y][1]);  
+                    console.log(this.stocksFilteredPE[x].Info.Ticker + ": " + this.stockPrices.stocks[y][1] + " SEK");     
+                  }
+                  else {
+                    console.log("Not the same: " + this.stocksFilteredPE[x].Info.Ticker + " != " + this.stockPrices.stocks[y][0]);
+                  }
+                }                
+              }
+              else {
+                console.log(this.stockPrices.stocks[x] + " is undefined");
+              }                  
+            }
+          }          
+        }        
 
         this.sortedDividendsStocks = this.stocksFilteredPE.sort((s1, s2) => s2.Profitability.DividendRatio - s1.Profitability.DividendRatio);
         for (var i = 0; i < this.sortedDividendsStocks.length; i++) {

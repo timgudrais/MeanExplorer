@@ -12,7 +12,14 @@ export class StockService {
 
     constructor(private http: Http) {
     }
-
+	getLocalStocks(url: string) {
+		return this.http.get(url)
+			.map((response: Response) => {                
+				return response.json().obj;				 
+			})
+			.catch((error: Response) => Observable.throw(error.json()));
+	}
+	
     getStocks(url: string) {
         return this.http.get(url)
             .map((response: Response) => {
@@ -94,5 +101,4 @@ export class StockService {
             })
             .catch((error: Response) => Observable.throw(error.json()));
     }
-
 }

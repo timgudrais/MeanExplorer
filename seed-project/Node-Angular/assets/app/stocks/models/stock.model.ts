@@ -1,3 +1,7 @@
+export class StockPriceObject {
+    stocks: Array<Array<string>>
+}
+
 export class StockObject {
     Info: Info;
     Stock: Stock;
