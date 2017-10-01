@@ -3,7 +3,7 @@ import { Injectable, EventEmitter } from "@angular/core";
 import 'rxjs/Rx';
 import { Observable } from "rxjs";
 
-import { StockObject, Info, Stock, Return, Valuation, P_E, P_S, P_FCF, TA, Strategy, Profitability, BalanceSheet, IncomeStatement, Price, NrShares, Growth, AssetTurnover, CurrentRatio, DebtPerShare, Equity, EquityPerShare, NetDebt, Net, NetProfit, NetProfitMargin, TotalAssets, Revenue, Dividend, DividendRatio, CashFlowOperations, ROC, EBITMargin, Efficiency, ROE, Insider, Average, GrossMargin, ROAG, GrowthPlusQ} from "./models/stock.model";
+import { StockObject, Info, Stock, Return, Valuation, P_E, P_S, P_FCF, TA, Strategy, Profitability, BalanceSheet, IncomeStatement, Price, NrShares, Growth, AssetTurnover, CurrentRatio, DebtPerShare, Equity, EquityPerShare, NetDebt, Net, NetProfit, NetProfitMargin, TotalAssets, Revenue, Dividend, DividendRatio, CashFlowOperations, ROC, EBITMargin, Efficiency, ROE, Insider, Average, GrossMargin, ROAG, GrowthPlusQ } from "./models/stock.model";
 
 @Injectable()
 export class StockService {
@@ -26,7 +26,7 @@ export class StockService {
                 const stocks = response.json().obj;
                 let transformedStocks: StockObject[] = [];
                 for (let stock of stocks) {
-                    // console.log(stock)
+                    console.log(stock)
                     transformedStocks.push(
                         new StockObject(
                             new Info(

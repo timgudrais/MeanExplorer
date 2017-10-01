@@ -623,15 +623,15 @@ export class ScoringComponent implements OnInit {
     if(this.industryAsc) { list.reverse(); }    
   } 
   sortByMarketCap(list){
-    list.sort((s1, s2) => s2.Valuation.MarketCap - s1.Valuation.MarketCap);
+    list.sort((s1, s2) => s2.Stock.MarketCap - s1.Stock.MarketCap);
     if(this.marketCapAsc) { list.reverse(); }    
   }
   sortByDividend(list){
-    list.sort((s1, s2) => s1.Strat.DividendRank - s2.Strat.DividendRank);
+    list.sort((s1, s2) => s1.Strategy.DividendRank - s2.Strategy.DividendRank);
     if(this.dividendAsc) { list.reverse(); }
   }
   sortByROC(list){
-    list.sort((s1, s2) => s1.Strat.ROCRank - s2.Strat.ROCRank);
+    list.sort((s1, s2) => s1.Strategy.ROCRank - s2.Strategy.ROCRank);
     if(this.rocAsc) { list.reverse(); }    
   }
   sortByROE(list){
@@ -639,19 +639,19 @@ export class ScoringComponent implements OnInit {
     if(this.roeAsc) { list.reverse(); }    
   }
   sortByNetMargin(list){
-    list.sort((s1, s2) => s1.Strat.NetMarginRank - s2.Strat.NetMarginRank);
+    list.sort((s1, s2) => s1.Strategy.NetMarginRank - s2.Strategy.NetMarginRank);
     if(this.netMarginAsc) { list.reverse(); }    
   }
   sortByDebtEquity(list){
-    list.sort((s1, s2) => s1.Strat.DebtEquityRank - s2.Strat.DebtEquityRank);
+    list.sort((s1, s2) => s1.Strategy.DebtEquityRank - s2.Strategy.DebtEquityRank);
     if(this.debtEquityAsc) { list.reverse(); }    
   }
   sortByCurrentRatio(list){
-    list.sort((s1, s2) => s1.Strat.CurrentRatioRank - s2.Strat.CurrentRatioRank);
+    list.sort((s1, s2) => s1.Strategy.CurrentRatioRank - s2.Strategy.CurrentRatioRank);
     if(this.currentRatioAsc) { list.reverse(); }    
   }
     sortByPE(list){
-    list.sort((s1, s2) => s1.Strat.PERank - s2.Strat.PERank);    
+    list.sort((s1, s2) => s1.Strategy.PERank - s2.Strategy.PERank);    
     if(this.peAsc) { list.reverse(); }    
   }
   sortByPS(list){
@@ -663,11 +663,11 @@ export class ScoringComponent implements OnInit {
     if(this.pfcfAsc) { list.reverse(); }    
   }
   sortByInvestingScore(list){
-    list.sort((s1, s2) => s2.Strat.InvestingScore - s1.Strat.InvestingScore);
+    list.sort((s1, s2) => s2.Strategy.InvestingScore - s1.Strategy.InvestingScore);
     if(this.investingScoreAsc) { list.reverse(); }    
   }
   sortByInvestingRank(list){
-    list.sort((s1, s2) => s1.Strat.InvestingRank - s2.Strat.InvestingRank);
+    list.sort((s1, s2) => s1.Strategy.InvestingRank - s2.Strategy.InvestingRank);
     if(this.investingRankAsc) { list.reverse(); }    
   } 
     
@@ -691,7 +691,7 @@ export class ScoringComponent implements OnInit {
               if(this.stockPrices.stocks[x] !== undefined){
                 for(var y = 0; y < this.stockPrices.stocks.length; y++) {
                   if(this.stocksFilteredPE[x].Info.Ticker == this.stockPrices.stocks[y][0] || this.stocksFilteredPE[x].Info.CompanyName == this.stockPrices.stocks[y][0]) {
-                    this.stocksFilteredPE[x].Stock.LatestPrice = Number(this.stockPrices.stocks[y][1]);  
+                    this.stocksFilteredPE[x].Stock.Price.Latest = Number(this.stockPrices.stocks[y][1]);  
                     console.log(this.stocksFilteredPE[x].Info.Ticker + ": " + this.stockPrices.stocks[y][1] + " SEK");     
                   }
                   else {
@@ -706,115 +706,115 @@ export class ScoringComponent implements OnInit {
           }          
         }        
 
-        this.sortedDividendsStocks = this.stocksFilteredPE.sort((s1, s2) => s2.Profitability.DividendRatio - s1.Profitability.DividendRatio);
+        this.sortedDividendsStocks = this.stocksFilteredPE.sort((s1, s2) => s2.Profitability.DividendRatio.Latest - s1.Profitability.DividendRatio.Latest);
         for (var i = 0; i < this.sortedDividendsStocks.length; i++) {
-          this.sortedDividendsStocks[i].Strat.DividendRank = i + 1;
+          this.sortedDividendsStocks[i].Strategy.DividendRank = i + 1;
 
-          if (this.sortedDividendsStocks[i].Profitability.DividendRatio <= 0.0000001) {
-            this.sortedDividendsStocks[i].Strat.DividendScore = 0;
+          if (this.sortedDividendsStocks[i].Profitability.DividendRatio.Latest <= 0.0000001) {
+            this.sortedDividendsStocks[i].Strategy.DividendScore = 0;
           }
-          if (this.sortedDividendsStocks[i].Profitability.DividendRatio > 0.0000001 && this.sortedDividendsStocks[i].Profitability.DividendRatio <= 0.04) {
-            this.sortedDividendsStocks[i].Strat.DividendScore = 1;
+          if (this.sortedDividendsStocks[i].Profitability.DividendRatio.Latest > 0.0000001 && this.sortedDividendsStocks[i].Profitability.DividendRatio.Latest <= 0.04) {
+            this.sortedDividendsStocks[i].Strategy.DividendScore = 1;
           }
-          if (this.sortedDividendsStocks[i].Profitability.DividendRatio > 0.04) {
-            this.sortedDividendsStocks[i].Strat.DividendScore = 2;
+          if (this.sortedDividendsStocks[i].Profitability.DividendRatio.Latest > 0.04) {
+            this.sortedDividendsStocks[i].Strategy.DividendScore = 2;
           }
         }
 
         this.sortedPEStocks = this.sortedDividendsStocks.sort((s1, s2) => s1.Valuation.P_E.Latest - s2.Valuation.P_E.Latest);
         for (var i = 0; i < this.sortedPEStocks.length; i++) {
-          this.sortedPEStocks[i].Strat.PERank = i + 1;
+          this.sortedPEStocks[i].Strategy.PERank = i + 1;
 
           if (this.sortedPEStocks[i].Valuation.P_E.Latest <= 0.0000001 || this.sortedPEStocks[i].Valuation.P_E.Latest > 24) {
-            this.sortedPEStocks[i].Strat.PEScore = 0;
+            this.sortedPEStocks[i].Strategy.PEScore = 0;
           }
           if (this.sortedPEStocks[i].Valuation.P_E.Latest > 0.0000001 && this.sortedPEStocks[i].Valuation.P_E.Latest <= 18) {
-            this.sortedPEStocks[i].Strat.PEScore = 2;
+            this.sortedPEStocks[i].Strategy.PEScore = 2;
           }
           if (this.sortedPEStocks[i].Valuation.P_E.Latest > 18 && this.sortedPEStocks[i].Valuation.P_E.Latest <= 24) {
-            this.sortedPEStocks[i].Strat.PEScore = 1;
+            this.sortedPEStocks[i].Strategy.PEScore = 1;
           }
         }
 
-        this.sortedCurrentRatioStocks = this.sortedPEStocks.sort((s1, s2) => s2.Profitability.CurrentRatio - s1.Profitability.CurrentRatio);
+        this.sortedCurrentRatioStocks = this.sortedPEStocks.sort((s1, s2) => s2.BalanceSheet.CurrentRatio.Latest - s1.BalanceSheet.CurrentRatio.Latest);
         for (var i = 0; i < this.sortedCurrentRatioStocks.length; i++) {
-          this.sortedCurrentRatioStocks[i].Strat.CurrentRatioRank = i + 1;
-          this.sortedCurrentRatioStocks[i].Profitability.DebtEquity = this.sortedCurrentRatioStocks[i].BalanceSheet.DebtPerShare / this.sortedCurrentRatioStocks[i].BalanceSheet.EquityPerShare;
+          this.sortedCurrentRatioStocks[i].Strategy.CurrentRatioRank = i + 1;
+          this.sortedCurrentRatioStocks[i].BalanceSheet.DebtEquity = this.sortedCurrentRatioStocks[i].BalanceSheet.DebtPerShare.Latest / this.sortedCurrentRatioStocks[i].BalanceSheet.EquityPerShare.Latest;
 
-          if (this.sortedCurrentRatioStocks[i].Profitability.CurrentRatio <= 1) {
-            this.sortedCurrentRatioStocks[i].Strat.CurrentRatioScore = 0;
+          if (this.sortedCurrentRatioStocks[i].BalanceSheet.CurrentRatio.Latest <= 1) {
+            this.sortedCurrentRatioStocks[i].Strategy.CurrentRatioScore = 0;
           }
-          if (this.sortedCurrentRatioStocks[i].Profitability.CurrentRatio > 1 && this.sortedCurrentRatioStocks[i].Profitability.CurrentRatio <= 2) {
-            this.sortedCurrentRatioStocks[i].Strat.CurrentRatioScore = 1;
+          if (this.sortedCurrentRatioStocks[i].BalanceSheet.CurrentRatio.Latest > 1 && this.sortedCurrentRatioStocks[i].BalanceSheet.CurrentRatio.Latest <= 2) {
+            this.sortedCurrentRatioStocks[i].Strategy.CurrentRatioScore = 1;
           }
-          if (this.sortedCurrentRatioStocks[i].Profitability.CurrentRatio > 2) {
-            this.sortedCurrentRatioStocks[i].Strat.CurrentRatioScore = 2;
+          if (this.sortedCurrentRatioStocks[i].BalanceSheet.CurrentRatio.Latest > 2) {
+            this.sortedCurrentRatioStocks[i].Strategy.CurrentRatioScore = 2;
           }
         }
 
-        this.stocksFilteredDebtEquity = this.sortedCurrentRatioStocks.filter(x => x.Profitability.DebtEquity > 0);
+        this.stocksFilteredDebtEquity = this.sortedCurrentRatioStocks.filter(x => x.BalanceSheet.DebtEquity > 0);
 
-        this.sortedDebtEquityRatioStocks = this.stocksFilteredDebtEquity.sort((s1, s2) => s1.Profitability.DebtEquity - s2.Profitability.DebtEquity);
+        this.sortedDebtEquityRatioStocks = this.stocksFilteredDebtEquity.sort((s1, s2) => s1.BalanceSheet.DebtEquity - s2.BalanceSheet.DebtEquity);
         for (var i = 0; i < this.sortedDebtEquityRatioStocks.length; i++) {
-          this.sortedDebtEquityRatioStocks[i].Strat.DebtEquityRank = i + 1;
+          this.sortedDebtEquityRatioStocks[i].Strategy.DebtEquityRank = i + 1;
 
-          if (this.sortedDebtEquityRatioStocks[i].Profitability.DebtEquity <= 0.0000001 || this.sortedDebtEquityRatioStocks[i].Profitability.DebtEquity > 1.5) {
-            this.sortedDebtEquityRatioStocks[i].Strat.DebtEquityScore = 0;
+          if (this.sortedDebtEquityRatioStocks[i].BalanceSheet.DebtEquity <= 0.0000001 || this.sortedDebtEquityRatioStocks[i].BalanceSheet.DebtEquity > 1.5) {
+            this.sortedDebtEquityRatioStocks[i].Strategy.DebtEquityScore = 0;
           }
-          if (this.sortedDebtEquityRatioStocks[i].Profitability.DebtEquity > 0.0000001 && this.sortedDebtEquityRatioStocks[i].Profitability.DebtEquity <= 0.8) {
-            this.sortedDebtEquityRatioStocks[i].Strat.DebtEquityScore = 2;
+          if (this.sortedDebtEquityRatioStocks[i].BalanceSheet.DebtEquity > 0.0000001 && this.sortedDebtEquityRatioStocks[i].BalanceSheet.DebtEquity <= 0.8) {
+            this.sortedDebtEquityRatioStocks[i].Strategy.DebtEquityScore = 2;
           }
-          if (this.sortedDebtEquityRatioStocks[i].Profitability.DebtEquity > 0.8 && this.sortedDebtEquityRatioStocks[i].Profitability.DebtEquity <= 1.5) {
-            this.sortedDebtEquityRatioStocks[i].Strat.DebtEquityScore = 1;
+          if (this.sortedDebtEquityRatioStocks[i].BalanceSheet.DebtEquity > 0.8 && this.sortedDebtEquityRatioStocks[i].BalanceSheet.DebtEquity <= 1.5) {
+            this.sortedDebtEquityRatioStocks[i].Strategy.DebtEquityScore = 1;
           }
         }
 
-        this.sortedNetMarginStocks = this.sortedDebtEquityRatioStocks.sort((s1, s2) => s2.Profitability.NetMargin - s1.Profitability.NetMargin);
+        this.sortedNetMarginStocks = this.sortedDebtEquityRatioStocks.sort((s1, s2) => s2.Efficiency.NetProfitMargin.Latest - s1.Efficiency.NetProfitMargin.Latest);
         for (var i = 0; i < this.sortedNetMarginStocks.length; i++) {
-          this.sortedNetMarginStocks[i].Strat.NetMarginRank = i + 1;
+          this.sortedNetMarginStocks[i].Strategy.NetMarginRank = i + 1;
 
-          if (this.sortedNetMarginStocks[i].Profitability.NetMargin <= 0.05) {
-            this.sortedNetMarginStocks[i].Strat.NetMarginScore = 0;
+          if (this.sortedNetMarginStocks[i].Efficiency.NetProfitMargin.Latest <= 0.05) {
+            this.sortedNetMarginStocks[i].Strategy.NetMarginScore = 0;
           }
-          if (this.sortedNetMarginStocks[i].Profitability.NetMargin > 0.05 && this.sortedNetMarginStocks[i].Profitability.NetMargin <= 0.2) {
-            this.sortedNetMarginStocks[i].Strat.NetMarginScore = 1;
+          if (this.sortedNetMarginStocks[i].Efficiency.NetProfitMargin.Latest > 0.05 && this.sortedNetMarginStocks[i].Efficiency.NetProfitMargin.Latest <= 0.2) {
+            this.sortedNetMarginStocks[i].Strategy.NetMarginScore = 1;
           }
-          if (this.sortedNetMarginStocks[i].Profitability.NetMargin > 0.2) {
-            this.sortedNetMarginStocks[i].Strat.NetMarginScore = 2;
+          if (this.sortedNetMarginStocks[i].Efficiency.NetProfitMargin.Latest > 0.2) {
+            this.sortedNetMarginStocks[i].Strategy.NetMarginScore = 2;
           }
         }
 
-        this.sortedROCStocks = this.sortedNetMarginStocks.sort((s1, s2) => s2.Profitability.ROC - s1.Profitability.ROC);
+        this.sortedROCStocks = this.sortedNetMarginStocks.sort((s1, s2) => s2.Profitability.ROC.Latest - s1.Profitability.ROC.Latest);
         for (var i = 0; i < this.sortedROCStocks.length; i++) {
-          this.sortedROCStocks[i].Strat.ROCRank = i + 1;
-          this.sortedROCStocks[i].Strat.InvestingRank =
-            this.sortedROCStocks[i].Strat.DividendRank
-            + this.sortedROCStocks[i].Strat.PERank
-            + this.sortedROCStocks[i].Strat.CurrentRatioRank
-            + this.sortedROCStocks[i].Strat.DebtEquityRank
-            + this.sortedROCStocks[i].Strat.NetMarginRank
-            + this.sortedROCStocks[i].Strat.ROCRank;
+          this.sortedROCStocks[i].Strategy.ROCRank = i + 1;
+          this.sortedROCStocks[i].Strategy.InvestingRank =
+            this.sortedROCStocks[i].Strategy.DividendRank
+            + this.sortedROCStocks[i].Strategy.PERank
+            + this.sortedROCStocks[i].Strategy.CurrentRatioRank
+            + this.sortedROCStocks[i].Strategy.DebtEquityRank
+            + this.sortedROCStocks[i].Strategy.NetMarginRank
+            + this.sortedROCStocks[i].Strategy.ROCRank;
 
-          if (this.sortedROCStocks[i].Profitability.ROC <= 0.1) {
-            this.sortedROCStocks[i].Strat.ROCScore = 0;
+          if (this.sortedROCStocks[i].Profitability.ROC.Latest <= 0.1) {
+            this.sortedROCStocks[i].Strategy.ROCScore = 0;
           }
-          if (this.sortedROCStocks[i].Profitability.ROC > 0.1 && this.sortedROCStocks[i].Profitability.ROC <= 0.2) {
-            this.sortedROCStocks[i].Strat.ROCScore = 1;
+          if (this.sortedROCStocks[i].Profitability.ROC.Latest > 0.1 && this.sortedROCStocks[i].Profitability.ROC.Latest <= 0.2) {
+            this.sortedROCStocks[i].Strategy.ROCScore = 1;
           }
-          if (this.sortedROCStocks[i].Profitability.ROC > 0.2) {
-            this.sortedROCStocks[i].Strat.ROCScore = 2;
+          if (this.sortedROCStocks[i].Profitability.ROC.Latest > 0.2) {
+            this.sortedROCStocks[i].Strategy.ROCScore = 2;
           }
 
-          this.sortedROCStocks[i].Strat.InvestingScore =
-            this.sortedROCStocks[i].Strat.DividendScore
-            + this.sortedROCStocks[i].Strat.PEScore
-            + this.sortedROCStocks[i].Strat.CurrentRatioScore
-            + this.sortedROCStocks[i].Strat.DebtEquityScore
-            + this.sortedROCStocks[i].Strat.NetMarginScore
-            + this.sortedROCStocks[i].Strat.ROCScore;
+          this.sortedROCStocks[i].Strategy.InvestingScore =
+            this.sortedROCStocks[i].Strategy.DividendScore
+            + this.sortedROCStocks[i].Strategy.PEScore
+            + this.sortedROCStocks[i].Strategy.CurrentRatioScore
+            + this.sortedROCStocks[i].Strategy.DebtEquityScore
+            + this.sortedROCStocks[i].Strategy.NetMarginScore
+            + this.sortedROCStocks[i].Strategy.ROCScore;
         }
 
-        this.investingStocks = this.sortedROCStocks.sort((s1, s2) => s2.Strat.InvestingScore - s1.Strat.InvestingScore);
+        this.investingStocks = this.sortedROCStocks.sort((s1, s2) => s2.Strategy.InvestingScore - s1.Strategy.InvestingScore);
         this.bankStocks = this.investingStocks.filter(x => x.Info.Industry === 'Bank');
         this.bettingOchSpelStocks = this.investingStocks.filter(x => x.Info.Industry === 'Betting & Spel');
         this.bioteknikStocks = this.investingStocks.filter(x => x.Info.Industry === 'Bioteknik');

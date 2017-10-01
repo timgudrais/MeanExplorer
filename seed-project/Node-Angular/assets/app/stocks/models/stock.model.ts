@@ -49,7 +49,7 @@ export class Average {
         Actual_3y: number
     ) {
         this.Actual_1y = Actual_1y;
-        this.Actual_3y = Actual_3y
+        this.Actual_3y = Actual_3y;
     }
 
 }
@@ -153,13 +153,14 @@ export class NrShares {
         Growth: Growth
     ) {
         this.Latest = Latest;
-        this.Growth = Growth
+        this.Growth = Growth;
     }
 }
 
 export class BalanceSheet {
     AssetTurnover: AssetTurnover;
-    CurrentRatio: CurrentRatio;    
+    CurrentRatio: CurrentRatio;
+    DebtEquity: number;    
     DebtPerShare: DebtPerShare;
     Equity: Equity;
     EquityPerShare: EquityPerShare;
@@ -177,6 +178,7 @@ export class BalanceSheet {
     ) {
         this.AssetTurnover = AssetTurnover;
         this.CurrentRatio = CurrentRatio;
+        this.DebtEquity = 0;
         this.DebtPerShare = DebtPerShare;
         this.Equity = Equity;
         this.EquityPerShare = EquityPerShare;
@@ -191,7 +193,7 @@ export class AssetTurnover {
     constructor(
         Latest: number,
     ) {
-        this.Latest = Latest
+        this.Latest = Latest;
     }
 }
 
@@ -204,7 +206,7 @@ export class CurrentRatio {
         Growth: Growth
     ) {
         this.Latest = Latest;
-        this.Growth = Growth
+        this.Growth = Growth;
     }
 }
 
@@ -214,7 +216,7 @@ export class DebtPerShare {
     constructor(
         Latest: number,
     ) {
-        this.Latest = Latest
+        this.Latest = Latest;
     }
 }
 
@@ -227,7 +229,7 @@ export class Equity {
         Growth: Growth
     ) {
         this.Latest = Latest;
-        this.Growth = Growth
+        this.Growth = Growth;
     }
 }
 
@@ -237,7 +239,7 @@ export class EquityPerShare {
     constructor(
         Latest: number,
     ) {
-        this.Latest = Latest
+        this.Latest = Latest;
     }
 }
 
@@ -250,7 +252,7 @@ export class NetDebt {
         Growth: Growth
     ) {
         this.Latest = Latest;
-        this.Growth = Growth
+        this.Growth = Growth;
     }
 }
 
@@ -263,7 +265,7 @@ export class TotalAssets {
         Growth: Growth
     ) {
         this.Latest = Latest;
-        this.Growth = Growth
+        this.Growth = Growth;
     }
 }
 
@@ -276,7 +278,7 @@ export class IncomeStatement {
         Revenue: Revenue
     ) {
         this.NetProfit = NetProfit;
-        this.Revenue = Revenue
+        this.Revenue = Revenue;
     }
 }
 
@@ -286,7 +288,7 @@ export class NetProfit {
     constructor(
         Growth: Growth,
     ) {
-        this.Growth = Growth
+        this.Growth = Growth;
     }
 }
 
@@ -296,7 +298,7 @@ export class Revenue {
     constructor(
         Growth: Growth,
     ) {
-        this.Growth = Growth
+        this.Growth = Growth;
     }
 }
 
@@ -321,7 +323,7 @@ export class Profitability {
         this.DividendRatio = DividendRatio;
         this.ROAG = ROAG;
         this.ROC = ROC;
-        this.ROE = ROE
+        this.ROE = ROE;
     }
 }
 
@@ -334,7 +336,7 @@ export class CashFlowOperations {
         Growth: Growth
     ) {
         this.Latest = Latest;
-        this.Growth = Growth
+        this.Growth = Growth;
     }
 }
 
@@ -347,7 +349,7 @@ export class Dividend {
         Growth: Growth
     ) {
         this.Latest = Latest;
-        this.Growth = Growth
+        this.Growth = Growth;
     }
 }
 
@@ -357,7 +359,7 @@ export class DividendRatio {
     constructor(
         Latest: number,
     ) {
-        this.Latest = Latest
+        this.Latest = Latest;
     }
 }
 
@@ -370,7 +372,7 @@ export class ROAG {
         Growth: Growth
     ) {
         this.Latest = Latest;
-        this.Growth = Growth
+        this.Growth = Growth;
     }
 }
 
@@ -383,7 +385,7 @@ export class ROC {
         Growth: Growth
     ) {
         this.Latest = Latest;
-        this.Growth = Growth
+        this.Growth = Growth;
     }
 }
 
@@ -393,7 +395,7 @@ export class ROE {
     constructor(
         Latest: number,
     ) {
-        this.Latest = Latest
+        this.Latest = Latest;
     }
 }
 
@@ -409,7 +411,7 @@ export class Efficiency {
     ) {
         this.EBITMargin = EBITMargin;
         this.GrossMargin = GrossMargin;
-        this.NetProfitMargin = NetProfitMargin
+        this.NetProfitMargin = NetProfitMargin;
     }
 }
 
@@ -422,7 +424,7 @@ export class EBITMargin {
         Growth: Growth
     ) {
         this.Latest = Latest;
-        this.Growth = Growth
+        this.Growth = Growth;
     }
 }
 
@@ -435,7 +437,7 @@ export class GrossMargin {
         Growth: Growth
     ) {
         this.Latest = Latest;
-        this.Growth = Growth
+        this.Growth = Growth;
     }
 }
 
@@ -448,7 +450,7 @@ export class NetProfitMargin {
         Growth: Growth
     ) {
         this.Latest = Latest;
-        this.Growth = Growth
+        this.Growth = Growth;
     }
 }
 
@@ -458,7 +460,7 @@ export class Insider {
     constructor (
         Net: Net
     ) {
-        this.Net = Net
+        this.Net = Net;
     }
 }
 
@@ -477,7 +479,7 @@ export class Net {
         this.Actual_1w = Actual_1w;
         this.Actual_1m = Actual_1m;
         this.Actual_3m = Actual_3m;
-        this.Actual_1y = Actual_1y
+        this.Actual_1y = Actual_1y;
     }
 }
 
